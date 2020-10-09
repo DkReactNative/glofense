@@ -1,0 +1,188 @@
+.owl-carousel button.owl-dot {
+  width: 0.71rem !important;
+  height: 0.71rem !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: #f2f2f2 !important;
+  margin: 0rem 0.2rem !important;
+}
+
+.owl-dots .owl-dot.active {
+  background-color: #ff5f00 !important;
+}
+
+.loading-component {
+  overflow: hidden;
+  position: absolute !important;
+  top: 50vh;
+  left: 50%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.loading-component-modal {
+  overflow: hidden;
+  position: absolute !important;
+  top: 30%;
+  left: 40%;
+  overflow: hidden;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.disabled-event {
+  pointer-events: none;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.card {
+  min-width: 360px;
+  background: white;
+  border-width: 0px !important;
+  margin-bottom: 5px;
+}
+.card > form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card > form > p {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.margin-top--small {
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn {
+  background-color: #3273dc;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 1rem;
+}
+
+.margin-top--large {
+  margin-top: 4rem;
+}
+.card input {
+  width: 4.5rem !important;
+  margin-left: 5px;
+  height: 4.5rem;
+}
+
+.cms-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 50px;
+  align-items: center;
+}
+
+#cms-content > h2 {
+  margin-bottom: 15px;
+}
+
+.modal-body {
+  padding: 0 !important;
+}
+
+.input-component {
+  display: flex;
+  flex-direction: column;
+}
+.error-line {
+  align-self: flex-end;
+  margin-right: 10px;
+}
+.otp-form-input {
+  min-height: 56px;
+  /* border-radius: 50px; */
+  border: 1px solid #f4f3f3;
+  color: #999999;
+  font-size: 16px;
+  /* padding-left: 29px; */
+  box-shadow: none !important;
+}
+
+.carousel_img_outer > img {
+  max-height: 186px;
+  object-fit: cover;
+}
+.sliderbanner {
+  max-height: 190px;
+}
+
+.quizouterbox h4 {
+  font-weight: bold;
+}
+
+.choosequizouter ul li a {
+  font-weight: bold;
+}
+.choosequizouter {
+  overflow-y: auto !important;
+  max-height: 300px !important;
+}
+
+#headtohead {
+  max-height: 80vh;
+  padding-bottom: 80px;
+  overflow-y: auto;
+}
+
+#contest {
+  max-height: 80vh;
+  padding-bottom: 80px;
+  overflow-y: auto;
+}
+
+.inactivebtn {
+  background: red;
+  border: 1px solid red;
+}
+.quiztab {
+  height: 100vh;
+}
+
+.aw-user .profile-btn {
+  border-radius: 50px;
+  background-color: #ff5f00;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.aw-user .profile-btn img {
+  object-fit: contain;
+  height: 40px;
+  width: 40px;
+}
+.drop-link {
+  font-size: 1.07rem;
+  color: #666666;
+  font-weight: 500;
+}
+.drop-link :hover {
+  color: #ff5f00 !important;
+  background-color: #ff5f00 !important;
+}
+.quizboxouter {
+  cursor: pointer;
+}
+.rules h4 {
+  font-weight: bold;
+}

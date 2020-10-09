@@ -1,0 +1,107 @@
+@media (max-width: 1919.98px){
+    .full_container{ max-width: 100%;}    
+}
+
+@media (max-width: 1439.98px){}
+
+@media (max-width: 1199.98px){
+    html { font-size: 12px;}
+    .banner_block{ min-height: 40rem;}
+    .banner_title{ font-size: 3.8rem;}
+    .about_img_sec { width: 25rem; right: calc(-25rem - 1.07rem);}
+    .download_app_block { height: 35rem;}
+    .download_app_screen { width: 55rem; left: -50rem;}  
+}
+@media (max-width: 991.98px){
+    .logo{ padding: .8rem 0rem;}
+    .collapse:not(.show){ display: none !important;}
+    .navbar-expand-md .navbar-toggler{ display: block !important;}
+    .navbar-expand-md .navbar-collapse{ width: 100%; -ms-flex-wrap: wrap; flex-wrap: wrap;}
+    .navbar-expand-md .navbar-nav{ width: 100%; -webkit-box-orient: vertical; -webkit-box-direction: normal; -ms-flex-direction: column; flex-direction: column; margin-bottom: 1.5rem;}
+    
+    .banner_block::before{ width: 100%; height: 100%; background-color: rgba(255,255,255,.8); position: absolute; top: 0%; left: 0%; content: '';}
+    .about_img_sec{ right: 0%;}
+    .download_app_screen{ display: none;}
+    
+    .client_says_box{ width: 80%; min-height: 23rem;}
+    
+    .download_app_block{
+        background-image: -moz-linear-gradient( 18deg, rgb(255,90,0) 1%, rgb(255,240,0) 100%) !important;
+        background-image: -webkit-linear-gradient( 18deg, rgb(255,90,0) 1%, rgb(255,240,0) 100%) !important;
+        background-image: -ms-linear-gradient( 18deg, rgb(255,90,0) 1%, rgb(255,240,0) 100%) !important;
+    }
+    section.client_says_block{padding: 40px 0px;}
+    .download_app_heading{ font-size: 3.8rem;}
+    .download_app_btns li img{ max-width: 13.5rem;}
+    
+    .download_app_block { height: auto; margin: 0rem 0rem;}
+    .download_app_block .container{ position: static; -webkit-transform: translate(0, 0); transform: translate(0, 0);}
+    .footersocila{ margin-top: 1rem;}
+    .banner_title{ font-size: 2.8rem; }
+    .banner_block {
+        min-height: 35rem;
+    }
+    .match-proses{width:100%;}
+    .wein-content p{width: 100%; font-size: 14px;}
+    .win-img{height: 180px;}
+    .win-img img {
+        width: 80px;
+    }
+    .headingbox h2{font-size: 30px;}
+}
+
+@media (max-width: 767.98px){
+    .loginmodal h5.modal-title{font-size: 24px;}
+    .banner_block .container, .download_app_block .container{
+        position: initial;
+        -webkit-transform: initial;
+        transform: inherit;
+        top: initial;
+        left: inherit;
+    }
+    section.banner_block {
+        padding: 50px 0px;
+    }
+    .banner_data_img img {
+        max-width: 270px;
+        margin-top: 50px;
+    }
+    .banner_title{font-size: 27px;}
+    .client_says_box{ min-height: 25rem;}
+    .social_login a {padding: 10px 12px; }
+    .download_app_heading {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 575.98px){
+    .client_says_box{width: 90%;}
+    .navigation .navbar{ padding-left: 15px; padding-right: 15px;}
+    .banner_block { min-height: 30rem;}
+    .book_now_btns a{ padding: .8rem 2.5rem;}
+    .client_says_slider .item { padding: 2.5rem;}
+    .client_says_box p{ padding: 0rem 2rem 0rem;}
+    .client_says_box { min-height: inherit; -webkit-box-shadow: 0rem 0rem 0rem transparent; box-shadow: 0rem 0rem 0rem transparent; border: 1px solid rgba(0,0,0,0.05);}
+    .client_img{ position: relative;}
+    .section_title { font-size: 2.8rem;}
+    .download_app_heading { font-size: 3.5rem;}
+    .social_login a {
+        padding: 10px 5px;
+        font-size: 14px;
+    }    
+}
+
+@media (max-width: 479.98px){
+    .download_app_heading{ font-size: 2.5rem;}
+    .download_app_btns li{ margin: .5rem 0.3rem;}
+    .download_app_btns li img { max-width: 10rem;}
+    .social_login{
+        display: block;
+    }
+    .social_login a {
+        padding: 10px 15px;
+        text-align: center;
+    }
+    
+    
+}
