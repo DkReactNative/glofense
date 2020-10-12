@@ -708,11 +708,11 @@ class Header extends React.Component {
   };
 
   onLogout = () => {
-    if(window.confirm("Are you sure you want to log out?")) {
-      Session.clearItem("gloFenseUser");
-      this.props.logout()
+    if (window.confirm('Are you sure you want to log out?')) {
+      Session.clearItem('gloFenseUser');
+      this.props.logout();
     }
-  }
+  };
 
   render() {
     return (
@@ -839,15 +839,22 @@ class Header extends React.Component {
                     aria-labelledby="dropdownMenuButton"
                     className="dropdown-menu"
                   >
-                    <Link className="dropdown-item drop-link" to="/user/profile">
+                    <Link
+                      className="dropdown-item drop-link"
+                      to="/user/profile"
+                    >
                       My Profile
                     </Link>
                     <Link className="dropdown-item drop-link" to="/user">
                       Contests
                     </Link>
-                    <Link className="dropdown-item drop-link" to="#" onClick={() =>{
-                      this.onLogout()
-                    }}>
+                    <Link
+                      className="dropdown-item drop-link"
+                      to="#"
+                      onClick={() => {
+                        this.onLogout();
+                      }}
+                    >
                       Log out
                     </Link>
                   </div>
@@ -884,9 +891,9 @@ const mapDispatchToProps = (dispatch) => {
     updateLoginform: () => {
       dispatch({type: 'login_form', payload: false});
     },
-    logout : () => {
-      dispatch({type:"logout",payload: null})
-    }
+    logout: () => {
+      dispatch({type: 'logout', payload: null});
+    },
   };
 };
 

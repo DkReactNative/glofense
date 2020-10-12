@@ -1,12 +1,11 @@
 import {connect} from 'react-redux';
 import React, {useEffect, useState} from 'react';
-import {Link,Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import WebBg from '../../../components/web-bg';
 import {getService} from '../../../services/getService';
 import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
 const Contest = (props) => {
- 
   const categoryId = props.match.params.id;
   const [toggle, setToggle] = useState('headtohead');
   const [quizList, setQuizList] = useState([]);
@@ -17,9 +16,9 @@ const Contest = (props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     getQuizList();
-    return (()=>{
+    return () => {
       document.body.style.overflow = 'auto';
-    })
+    };
   }, [effect]);
 
   const handleToggle = (toggle) => {
@@ -74,21 +73,20 @@ const Contest = (props) => {
       .catch((err) => {});
   };
 
-  window.onpopstate = function(event) {
-    if(event){
-      return <Redirect to='/user' />
-    }
-    else{
+  window.onpopstate = function (event) {
+    if (event) {
+      return <Redirect to="/user" />;
+    } else {
       // Continue user action through link or button
     }
-  }
+  };
 
   return (
     <section className="body-inner-P">
       <div className="web-container">
         <WebBg />
         <div className="header_height pb-5">
-          <WebHeader title={"Contest and Quiz"} />
+          <WebHeader title={'Contest and Quiz'} />
         </div>
         <div className="contestquiz">
           <div className="quiztab">
@@ -132,9 +130,12 @@ const Contest = (props) => {
               >
                 {quizList.map((ele, index) => {
                   return (
-                    <div className="quizboxouter" onClick={()=>{
-                      props.history.push("/user/quiz-detail/"+ele._id)
-                    }}>
+                    <div
+                      className="quizboxouter"
+                      onClick={() => {
+                        props.history.push('/user/quiz-detail/' + ele._id);
+                      }}
+                    >
                       <div className="quizdetails">
                         <div className="quizimg">
                           <Link to="#">
@@ -202,9 +203,12 @@ const Contest = (props) => {
               >
                 {contestList.map((ele, index) => {
                   return (
-                    <div className="quizboxouter" onClick={()=>{
-                      props.history.push("/user/contest-detail/"+ele.id)
-                    }}>
+                    <div
+                      className="quizboxouter"
+                      onClick={() => {
+                        props.history.push('/user/contest-detail/' + ele.id);
+                      }}
+                    >
                       <div className="quizdetails">
                         <div className="quizimg">
                           <Link to="#">
@@ -227,26 +231,36 @@ const Contest = (props) => {
                             {ele.description ? ele.description : 'NA'}
                           </p>
                         </div>
-                        <button className={`btn ${
+                        <button
+                          className={`btn ${
                             ele.status === 'active'
                               ? 'activebtn'
                               : 'inactivebtn'
-                          }`}>Active</button>
+                          }`}
+                        >
+                          Active
+                        </button>
                       </div>
                       <div className="quizamounts">
                         <div className="text-center">
                           <p>Total Questions</p>
-                          <span>{ele.questions_count ? ele.questions_count : 'NA'}</span>
+                          <span>
+                            {ele.questions_count ? ele.questions_count : 'NA'}
+                          </span>
                         </div>
                         <div className="text-center">
                           <p>Winning Amount</p>
-                          <span>{ele.winning_amount ? ele.winning_amount : 0} ₹</span>
+                          <span>
+                            {ele.winning_amount ? ele.winning_amount : 0} ₹
+                          </span>
                         </div>
                         <div className="text-center">
                           <p>Entry Fee</p>
-                          <span>{ele.quiz_type && ele.quiz_type === 'free'
+                          <span>
+                            {ele.quiz_type && ele.quiz_type === 'free'
                               ? 'free'
-                              : `${ele.entry_fee ? ele.entry_fee : 0} ₹`}</span>
+                              : `${ele.entry_fee ? ele.entry_fee : 0} ₹`}
+                          </span>
                         </div>
                       </div>
                       <div className="statusouter">
@@ -265,7 +279,7 @@ const Contest = (props) => {
             </div>
           </div>
         </div>
-        <Buttom active={"home"}/>
+        <Buttom active={'home'} />
       </div>
     </section>
   );

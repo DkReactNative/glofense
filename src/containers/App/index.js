@@ -1,12 +1,41 @@
 import {connect} from 'react-redux';
-import React from 'react';
+import {Link, Redirect} from 'react-router-dom';
 import AppRoute from '../../routes/appRoute';
-
+import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import Session from '../../helpers/session';
 const App = (props) => {
+  var href = window.location.href;
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(
+    props.state && props.state.user ? props.state.user : {}
+  );
+  useEffect(() => {
+    document.getElementById('closebtn').onclick = (e) => {
+      document.getElementById('glofensidebar').classList.remove('main');
+    };
+    document.querySelectorAll('.closeMenu').forEach((item) => {
+      item.addEventListener('click', (event) => {
+        document.getElementById('glofensidebar').classList.remove('main');
+      });
+    });
+    document.getElementById('overlay').onclick = (e) => {
+      document.getElementById('glofensidebar').classList.remove('main');
+    };
+  }, [user, props, href]);
+
+  const onLogout = () => {
+    if (window.confirm('Are you sure you want to log out?')) {
+      Session.clearItem('gloFenseUser');
+      dispatch({type: 'logout', payload: null});
+    }
+  };
   return (
     <>
       <AppRoute />
-      <div className="glofensidebar main">
+
+      {/* Homeburger menu */}
+      <div className="glofensidebar" id="glofensidebar">
         <div className="sidebarheader">
           <span className="sidebaruserimg">
             <img src="img/winneruser.png" alt="#" />
@@ -14,35 +43,54 @@ const App = (props) => {
           <div className="sidebaruserinfo">
             <h4>Stive smith</h4>
             <p>stive smith....</p>
-            <span className="closebtn">
+            <span
+              className="closebtn"
+              id="closebtn"
+              onClick={() => {
+                document
+                  .getElementById('glofensidebar')
+                  .classList.remove('main');
+              }}
+            >
               <i className="fas fa-times" />
             </span>
           </div>
         </div>
         <ul className="sidebarlisting">
           <li>
-            <a href="#">
-              <i className="fas fa-home" /> Home
-            </a>
+            <Link to="/user" className="closeMenu">
+              <i className="fas fa-home closeMenu" /> Home
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <i className="fas fa-wallet" /> My balance
-            </a>
+            <Link to="#" className="closeMenu">
+              <i className="fas fa-wallet closeMenu" /> My balance
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <i className="fas fa-bell" /> Notification
-            </a>
+            <Link to="#" className="closeMenu">
+              <i className="fas fa-bell closeMenu" /> Notification
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link
+              to="#"
+              onClick={() => {
+                onLogout();
+              }}
+            >
               <i className="fas fa-sign-out-alt" /> Logout
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
-      <span class="overlay"></span>
+      <span
+        className="overlay"
+        id="overlay"
+        onClick={() => {
+          document.getElementById('glofensidebar').classList.remove('main');
+        }}
+      ></span>
     </>
   );
 };

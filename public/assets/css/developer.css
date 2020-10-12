@@ -186,3 +186,18 @@
 .rules h4 {
   font-weight: bold;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.newslist {
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.newslist li a {
+  max-height: 100px;
+}
+.newslist li a h5 {
+  font-weight: bold;
+}

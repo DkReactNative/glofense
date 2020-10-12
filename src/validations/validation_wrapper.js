@@ -29,6 +29,16 @@ export default function validate(fieldName, value, value2 = null) {
         } else {
         }
       }
+    } else if (v.hasOwnProperty('date')) {
+      var today = new Date();
+      var date = Math.floor(
+        (today - new Date(value)) / (365.25 * 24 * 60 * 60 * 1000)
+      );
+      if(date < 18){
+        resp = v['date']['message'];
+      } else {
+        resp = '';
+      }
     } else {
       resp = '';
     }

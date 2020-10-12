@@ -78,6 +78,15 @@ const validation = {
       message: 'Please select valid city',
     },
   },
+  state: {
+    presence: {
+      message: 'Please select your state',
+    },
+    format: {
+      pattern: /^(?!\s*$|\s).*$/,
+      message: 'Please select valid state',
+    },
+  },
 
   pincode: {
     presence: {
@@ -139,6 +148,15 @@ const validation = {
     length: {
       minimum: 4,
       message: 'Please enter a valid OTP',
+    },
+  },
+
+  dob: {
+    presence: {
+      message: 'Please enter your birth date',
+    },
+    date: {
+      message: 'Age should be minimum 18',
     },
   },
 

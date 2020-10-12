@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import deviceIfo from '../src/helpers/deviceInfo';
 import Loader from '../src/components/loader';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import "react-datepicker/dist/react-datepicker.css";
 import SocketContext from './constants/socket-context'
 import * as io from 'socket.io-client';
 console.log(process.env)

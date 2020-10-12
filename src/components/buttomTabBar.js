@@ -24,7 +24,7 @@ export default function TabBar({active}) {
           className={`"list-group-item list-group-item-action news " ${
             active === 'news' ? 'active' : ''
           }`}
-          to="#"
+          to="/user/news"
         >
           <span>News</span>
         </Link>

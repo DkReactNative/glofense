@@ -9,7 +9,6 @@ const Profile = (props) => {
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
-
   const [effect, setEffect] = useState(true);
 
   useEffect(() => {
@@ -38,7 +37,12 @@ const Profile = (props) => {
             <div className="tab-content">
               <div className="tab-pane active" id="profile" role="tabpanel">
                 <div className="header_height profileboxcenter">
-                  <WebHeader title={'PROFILE'} history={props.history} arrow={true} notification={false}/>
+                  <WebHeader
+                    title={'PROFILE'}
+                    history={props.history}
+                    arrow={true}
+                    notification={false}
+                  />
                   <div className="userprofietop text-center mt-3">
                     <div className="profileimg">
                       <img
@@ -69,11 +73,25 @@ const Profile = (props) => {
                       {user.phone ? ' +91 ' + user.phone : 'NA'}
                     </p>
                     <p>
-                      <span>Gender</span> Male
+                      <span>Gender</span>{' '}
+                      {user.gender
+                        ? user.gender === 'male'
+                          ? 'Male'
+                          : user.gender === 'female'
+                          ? 'Female'
+                          : 'NA'
+                        : 'NA'}
                     </p>
                   </div>
                   <div className="joinbtn text-center">
-                    <button className="btn">Edit Profile</button>
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        props.history.push('edit-profile');
+                      }}
+                    >
+                      Edit Profile
+                    </button>
                   </div>
                 </div>
               </div>

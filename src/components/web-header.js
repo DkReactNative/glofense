@@ -6,7 +6,13 @@ export default function ({title, arrow = false, history, notification = true}) {
       {!arrow ? (
         <div className="web-header">
           <div className="barbox">
-            <button className="barsouter">
+            <button
+              className="barsouter img-fluid opensidebar"
+              id="opensidebar"
+              onClick = {()=>{
+                document.getElementById('glofensidebar').classList.toggle('main');
+              }}
+            >
               <img
                 src={require('../assets/img/bars.png')}
                 alt="#"
@@ -23,12 +29,12 @@ export default function ({title, arrow = false, history, notification = true}) {
             </Link>
           </div>
         </div>
-        
       ) : (
         <div className="web-header">
           <div className="barbox">
             <button
-              className="barsouter"
+              className="barsouter img-fluid opensidebar"
+              id="opensidebar"
               onClick={() => {
                 history.goBack();
               }}
