@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import WebBg from '../../../components/web-bg';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import WebHeader from '../../../components/web-header';
 import {getService} from '../../../services/getService';
 import Owl from '../../../components/owlSlider';
@@ -23,7 +23,7 @@ var options = {
       items: 1,
     },
   },
-  autoplay:true
+  autoplay: true,
 };
 const Home = (props) => {
   const [sliderList, setsliderList] = useState([]);
@@ -51,8 +51,7 @@ const Home = (props) => {
         // setCurrentPage(page)
         let array = [...categoryList];
         array = response['results']['docs'].map((ele) => {
-          if(ele.image)
-          ele.image = response.image_path + ele.image;
+          if (ele.image) ele.image = response.image_path + ele.image;
           return ele;
         });
 
@@ -88,7 +87,7 @@ const Home = (props) => {
       }
     }
   };
-  
+
   return (
     <section className="body-inner-P">
       <div className="web-container">
@@ -109,22 +108,29 @@ const Home = (props) => {
 
               <div className="sliderbanner">
                 {sliderList.length > 0 && (
-                <Owl
-                  item={1}
-                  className="owl-carousel"
-                  component={sliderList.map((ele, i) => {
-                    return (
-                      <div key={i} className={i === 0 ? 'item active' : 'item'}>
-                        <Link to="#">
-                          <div className="carousel_img_outer">
-                            <img src={ele.image} alt="#" className="img-fluid" />
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                  options={options}
-                />
+                  <Owl
+                    item={1}
+                    className="owl-carousel"
+                    component={sliderList.map((ele, i) => {
+                      return (
+                        <div
+                          key={i}
+                          className={i === 0 ? 'item active' : 'item'}
+                        >
+                          <Link to="#">
+                            <div className="carousel_img_outer">
+                              <img
+                                src={ele.image}
+                                alt="#"
+                                className="img-fluid"
+                              />
+                            </div>
+                          </Link>
+                        </div>
+                      );
+                    })}
+                    options={options}
+                  />
                 )}
               </div>
             </div>
@@ -140,7 +146,13 @@ const Home = (props) => {
                           className={index === 0 ? 'sport active' : 'sport'}
                         >
                           <span
-                            style={{backgroundImage: `url(${ele.image ? ele.image:require("../../../assets/img/logo.png")})`}}
+                            style={{
+                              backgroundImage: `url(${
+                                ele.image
+                                  ? ele.image
+                                  : require('../../../assets/img/logo.png')
+                              })`,
+                            }}
                           />
                           {ele.title}
                         </Link>
@@ -150,7 +162,7 @@ const Home = (props) => {
                 </ul>
               </div>
             </div>
-            <Buttom active={"home"} />
+            <Buttom active={'home'} />
           </div>
         </div>
       </div>

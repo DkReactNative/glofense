@@ -1,10 +1,9 @@
 import {connect, useDispatch} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
 import QuestionList from '../../../components/questionList';
-import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
+import {showToast, showDangerToast} from '../../../components/toastMessage';
 import {getService} from '../../../services/getService';
 const PlayQuiz = (props) => {
   const params = props.match.params.id.split(':');
@@ -14,13 +13,56 @@ const PlayQuiz = (props) => {
   );
   const [quizDetail, SetQuizDetail] = useState({});
   const [effect, setEffect] = useState(true);
-  const [otherUser , setOtherUser] = useState({})
-  const [questionsData , setQuestionsData] = useState([])
+  const [otherUser, setOtherUser] = useState({});
+  const [questionsData, setQuestionsData] = useState([]);
 
   useEffect(() => {
     getQuizDetail();
+    domEventHandler();
+    return () => {
+      if (3 === 2) window.removeEventListener('beforeunload');
+    };
   }, [effect]);
 
+  function exitHandler(e) {
+    if (
+      document.webkitIsFullScreen ||
+      document.mozFullScreen ||
+      document.msFullscreenElement !== null
+    ) {
+      showDangerToast("Please don't exit full screen");
+      document.body.requestFullscreen().catch((err) => {});
+    }
+  }
+
+  const domEventHandler = () => {
+    window.addEventListener('beforeunload', function (e) {
+      console.log('i am called');
+      e.preventDefault();
+      e.returnValue = '';
+    });
+
+    window.addEventListener('blur', function (e) {
+      showDangerToast("Please don't leave for continuos play the game");
+    });
+    window.addEventListener('onstatepop', (e) => {
+      console.log(e);
+      e.preventDefault();
+    });
+    document.addEventListener('fullscreenchange', exitHandler, false);
+    document.addEventListener('mozfullscreenchange', exitHandler, false);
+    document.addEventListener('MSFullscreenChange', exitHandler, false);
+    document.addEventListener('webkitfullscreenchange', exitHandler, false);
+    try {
+      if (!document.requestFullscreen) {
+        document.body.requestFullscreen().catch((err) => {});
+      } else {
+        document.body.exitFullscreen();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const getQuizDetail = () => {
     getService(
       `${
