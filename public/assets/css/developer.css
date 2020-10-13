@@ -201,3 +201,18 @@
 .newslist li a h5 {
   font-weight: bold;
 }
+.selectlengugequiz h4 {
+  font-weight: bold;
+}
+.pt-0 {
+  padding: 10px !important;
+}
+
+.enteryfees p {
+  font-weight: bold;
+}
+
+.language-active {
+  color: white !important;
+  background-color: #b40901 !important;
+}

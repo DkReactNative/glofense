@@ -4,6 +4,7 @@ var Session = (function () {
   };
 
   var setSession = function (key, data) {
+    console.log(data)
     localStorage.setItem(key, JSON.stringify(data));
   };
 

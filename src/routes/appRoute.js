@@ -5,10 +5,11 @@ import Contest from '../containers/App/ContestAndQuiz';
 import Profile from '../containers/App/Profile';
 import QuizDetail from '../containers/App/QuizDetail';
 import ContestDetail from '../containers/App/ContestDetail';
-import StartQuizComponent from "../containers/App/ChangeLanguage";
+import PlayQuiz from "../containers/App/PlayQuiz";
 import EditProfile from "../containers/App/EditProfile";
 import News from "../containers/App/News";
-import NewsDetail from "../containers/App/NewsDetail"
+import NewsDetail from "../containers/App/NewsDetail";
+import ChooseLangugae from "../containers/App/ChangeLanguage"
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -24,8 +25,13 @@ export default function AuthStack() {
         component={ContestDetail}
         exact
       />
+      <Route
+        path={`${path}/choose-language/:id`}
+        component={ChooseLangugae}
+        exact
+      />
       <Route path={`${path}/quiz-detail/:id`} component={QuizDetail} exact />
-      <Route path={`${path}/start-quiz/:id`} component={StartQuizComponent} exact />
+      <Route path={`${path}/play-quiz/:id`} component={PlayQuiz} exact />
       <Route path={`${path}/news`} component={News} exact />
       <Route path={`${path}/news-detail/:id`} component={NewsDetail} exact />
     </Switch>

@@ -63,7 +63,11 @@ const QuizDetail = (props) => {
             <div className="tab-content">
               <div className="tab-pane active" id="profile" role="tabpanel">
                 <div className="header_height">
-                  <WebHeader title={'Quiz Detail'} history={props.history} arrow={true} />
+                  <WebHeader
+                    title={'Quiz Detail'}
+                    history={props.history}
+                    arrow={true}
+                  />
                 </div>
                 <div className="contestquiz">
                   <div className="quiztab p-4">
@@ -140,7 +144,14 @@ const QuizDetail = (props) => {
                       </div>
                     </div>
                     <div className="joinbtn text-center">
-                      <button className="btn">Join the Quiz</button>
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          props.history.push('/user/choose-language/quiz:' + quizId);
+                        }}
+                      >
+                        Join the Quiz
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -1,10 +1,10 @@
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.14rem;
   font-weight: 300;
   color: #42413d;
@@ -20,7 +20,7 @@ button,
 input,
 textarea,
 select {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   opacity: 1;
   letter-spacing: 0.0143rem;
 }
@@ -69,7 +69,7 @@ h6 {
 section::after {
   display: block;
   clear: both;
-  content: "";
+  content: '';
 }
 
 .full_container {
@@ -327,7 +327,7 @@ input::placeholder {
   overflow: hidden;
   -webkit-transform: scale(0);
   transform: scale(0);
-  content: "";
+  content: '';
   -webkit-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
 }
@@ -528,7 +528,7 @@ input::placeholder {
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
   transform: translate(-50%, 0%);
-  content: "";
+  content: '';
 }
 section.client_says_block {
   background: #f7f7f7;
@@ -550,7 +550,7 @@ section.client_says_block {
 }
 
 .client_says_box h4 {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   color: #ff590a;
   font-size: 1.14rem;
@@ -957,7 +957,7 @@ footer ul.social_list li a {
   border-width: 0px 2px 2px 0px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  content: "";
+  content: '';
 }
 .loginmodal button.btn.btn-primary {
   width: 98%;
@@ -1641,7 +1641,7 @@ span.points i {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  content: "";
+  content: '';
   position: absolute;
   left: 4px;
   bottom: 4px;
@@ -1657,7 +1657,7 @@ span.points i {
 }
 .switch input:checked + .slider:before {
   left: calc(100% - 26px);
-  content: "";
+  content: '';
   color: #ffffff;
   text-indent: -30px;
 }
@@ -1718,7 +1718,7 @@ span.points i {
   border-width: 0px 3px 3px 0px;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  content: "";
+  content: '';
 }
 .questionsrightpart {
   width: 80%;
@@ -1938,7 +1938,7 @@ span.uploadimg {
   border-radius: 50%;
   background: #fff;
 }
-span.uploadimg input[type="file"] {
+span.uploadimg input[type='file'] {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -2004,7 +2004,7 @@ span.uploadimg input[type="file"] {
   left: 50%;
   top: 50%;
   margin: -6px 0px 0px -6px;
-  content: "";
+  content: '';
 }
 
 .sidebarheader {
@@ -2126,4 +2126,193 @@ span.newadate {
   text-align: right;
   display: block;
   font-size: 12px;
+}
+.modalresize .modal-dialog {
+  max-width: 440px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) !important;
+  margin: 0px auto;
+  left: 20px;
+}
+.confirmationmodal h5 {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #000;
+}
+.confirmationmodal p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #999;
+}
+.enteryfees {
+  padding: 10px 0px 0px;
+}
+.enteryfees p {
+  margin-bottom: 0px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.enteryfees p > span {
+  float: right;
+}
+.enteryfees p i {
+  margin-left: 5px;
+  color: #848484;
+  position: relative;
+}
+.enteryfees p i:hover span {
+  position: absolute;
+  background: #b40901;
+  color: #fff;
+  display: block !important;
+  width: 250px;
+  padding: 6px;
+  border-radius: 2px;
+  transform: translateX(-42%);
+  margin-top: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+span.d-none::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: '';
+  border-top: 0.5em solid;
+  border-right: 0.5em solid transparent;
+  border-bottom: 0;
+  border-left: 0.5em solid transparent;
+  position: absolute;
+  top: -7px;
+  color: #b40901;
+  transform: rotate(-180deg);
+  left: 40%;
+}
+p.totalpay {
+  color: #2693ca;
+}
+p.alertmessage {
+  font-size: 15px;
+  width: 95%;
+  margin: 0 auto 20px;
+  color: #848484;
+}
+.enteryfees p i span small {
+  display: block;
+  margin-bottom: 3px;
+}
+.winneruserouter.pt-0.pb-5 {
+  padding-bottom: 150px !important;
+}
+.detailsform {
+  width: calc(100% - 30px);
+  margin: -150px 15px 0px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+.detailsform label {
+  font-weight: 500;
+}
+.detailsform .form-control {
+  height: 50px;
+  background: #ededed;
+  border: 0px;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.cardphoto {
+  position: relative;
+}
+span.closeicon {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  display: flex;
+  color: #2693ca;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  right: -5px;
+  overflow: hidden;
+}
+.cardphoto span.uploadbtn {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  color: #2693ca;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  left: -5px;
+  overflow: hidden;
+}
+span.uploadbtn input[type='file'] {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  opacity: 0;
+  z-index: 100;
+}
+.referalpage p {
+  padding: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+ul.referallist {
+  padding: 0px 15px 15px;
+  text-align: center;
+}
+ul.referallist li {
+  display: inline-block;
+}
+ul.referallist li a {
+  padding: 0 10px;
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2693ca;
+}
+ul.referallist li a::after {
+  content: '|';
+  position: absolute;
+  right: -4px;
+  color: #333;
+}
+ul.referallist li:last-child a::after {
+  display: none;
+}
+.invitefriend {
+  text-align: center;
+  background: #ecebeb;
+  width: 90%;
+  margin: 0 auto;
+  padding: 15px 15px 0px;
+  border-radius: 10px;
+  box-shadow: 1px 4px 4px #ccc;
+}
+.invitefriend h5 {
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 7px;
+}
+.invitefriend h3 {
+  text-transform: uppercase;
+  margin: 14px 0px;
+  font-weight: 600;
+}
+.inviteouter {
+  padding: 15px;
 }
