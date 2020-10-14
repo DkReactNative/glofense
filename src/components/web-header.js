@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-export default function ({title, arrow = false, history, notification = true}) {
+export default function ({title, arrow = false, history, notification = true,disableClick}) {
   return (
     <>
       {!arrow ? (
@@ -10,6 +10,7 @@ export default function ({title, arrow = false, history, notification = true}) {
               className="barsouter img-fluid opensidebar"
               id="opensidebar"
               onClick = {()=>{
+                if(!disableClick)
                 document.getElementById('glofensidebar').classList.toggle('main');
               }}
             >

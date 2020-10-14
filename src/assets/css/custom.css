@@ -2134,6 +2134,7 @@ span.newadate {
   transform: translateY(-50%) !important;
   margin: 0px auto;
   left: 20px;
+  width: 100%;
 }
 .confirmationmodal h5 {
   font-size: 18px;
@@ -2315,4 +2316,230 @@ ul.referallist li:last-child a::after {
 }
 .inviteouter {
   padding: 15px;
+}
+.selfouter {
+  display: flex;
+  margin: 5px 15px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.08);
+}
+span.selfimg {
+  width: 80px;
+}
+span.selfimg img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+span.selfcontent {
+  width: calc(100% - 80px);
+  padding-left: 15px;
+}
+span.selfcontent h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+span.selfcontent p {
+  font-size: 17px;
+  color: #999;
+  margin: 0px;
+}
+span.selfcontent span.points {
+  margin: 5px 0px 0px;
+  display: inline-block;
+  background: #2693ca;
+  color: #fff;
+}
+.topThree {
+  padding: 35px 15px 80px;
+}
+.topThree h4 {
+  font-size: 27px;
+  font-weight: 600;
+  margin-bottom: 17px;
+}
+.firstwinner {
+  background-color: #9366e2;
+  padding: 15px;
+  background-image: url(../img/winner-01.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+  border-radius: 5px;
+  box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.08);
+  margin-bottom: 15px;
+}
+.firstwinner.winners2 {
+  background-color: #0054af;
+  background-image: url(../img/winner-02.png);
+}
+.firstwinner.winners3 {
+  background-color: #2a1056;
+  background-image: url(../img/winner-03.png);
+}
+.winnerinfo {
+  width: 200px;
+  text-align: center;
+}
+.winnerimgosuters img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgb(0 0 0 / 13%);
+}
+.bottomcontent {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  color: #fff;
+  text-align: left;
+}
+.bottomcontent h5 {
+  font-size: 23px;
+}
+.bottomcontent p {
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+.bottomcontent span.points {
+  background: #2693ca;
+  color: #fff;
+}
+ul.moreopctionslist li a {
+  position: relative;
+  padding: 10px 20px;
+  display: block;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: 18px;
+  color: #333;
+}
+span.rightarrow {
+  float: right;
+}
+ul.moreopctionslist li a:hover {
+  background: #efefef;
+  color: #333;
+}
+ul.moreopctionslist li a > i {
+  width: 30px;
+}
+ul.moreopctionslist li a i {
+  color: #bdbdbd;
+}
+ul.moreopctionslist li:last-child a {
+  border: 0px;
+}
+.innerpagecontent {
+  padding: 10px 15px 80px;
+}
+.totalbalence {
+  box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 5px;
+}
+button.addmoney {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #2693ca;
+  color: #2693ca;
+  border-radius: 55px;
+  font-weight: 600;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.balanceadd {
+  font-size: 18px;
+  font-weight: 500;
+}
+button.addmoney:hover {
+  background: #2693ca;
+  color: #fff;
+}
+.depositedtable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #d8d8d8;
+  margin: 10px 0px 0px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+.depositedtable p span {
+  display: block;
+  color: #2693ca;
+  font-weight: 600;
+}
+.depositedtable p {
+  margin: 0px;
+}
+.depositedtable .fa-info-circle {
+  font-size: 21px;
+  color: #2693ca;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.depositedtable div button.addmoney.btn {
+  margin-top: -7px;
+}
+.redeemcouponmodal .form-control {
+  height: 50px;
+  font-size: 16px;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.redeemcouponmodal button.btn {
+  width: 50%;
+  background: transparent;
+  border: 1px solid #2693ca;
+  margin: 10px 0px 0px;
+  font-size: 16px;
+  color: #2693ca;
+  height: 45px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.redeemcouponmodal button.btn:hover {
+  background: #2693ca;
+  color: #fff;
+}
+.waitingboard {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
+}
+.waitingboard span.timer {
+  width: 60px;
+  height: 60px;
+  border: 3px solid #3ba0ce;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #3ba0ce;
+  border-radius: 50%;
+  position: absolute;
+  right: 20px;
+  top: 50px;
+}
+.loader {
+  background: #fff;
+  padding: 0px 0px 20px;
+}
+.loader img {
+  width: 50%;
+}
+.loader h3 {
+  color: #000;
+  font-weight: normal;
+  font-size: 20px;
 }
