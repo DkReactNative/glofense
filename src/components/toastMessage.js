@@ -31,4 +31,19 @@ const showDangerToast = (message, id = toastId) => {
   });
 };
 
-export {showToast, showDangerToast};
+const showInfoToast = (message, id = toastId) => {
+  toast.configure();
+  toast.dismiss();
+  toast.info(message, {
+    position: 'top-right',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    toastId: id,
+  });
+};
+
+export {showToast, showDangerToast,showInfoToast};

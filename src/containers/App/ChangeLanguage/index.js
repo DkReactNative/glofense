@@ -30,6 +30,10 @@ const Changelanguage = (props) => {
         type: 'update_profile',
         payload: {language: 'english'},
       });
+      dispatch({
+        type: 'reload_browser',
+        payload: false,
+      });
     };
   }, [effect]);
 
@@ -205,6 +209,10 @@ const Changelanguage = (props) => {
             <button
               className="btn mb-2"
               onClick={() => {
+                dispatch({
+                  type: 'reload_browser',
+                  payload: false,
+                });
                 props.history.push('/user/play-quiz/' + params[1]);
               }}
             >

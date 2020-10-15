@@ -797,7 +797,7 @@ class Header extends React.Component {
                   </Link>
                 </li>
               </ul>
-              {!this.props.user && (
+              {(!this.props.user || !this.props.user.id) && (
                 <ul className="home_toggle_block ml-0 ml-lg-0">
                   <li
                     className={this.state.loginModal ? 'selected' : ''}
@@ -816,7 +816,7 @@ class Header extends React.Component {
                 </ul>
               )}
 
-              {this.props.user && (
+              {this.props.user && this.props.user.id && (
                 <ul className="dropdown aw-user">
                   <button
                     aria-expanded="false"

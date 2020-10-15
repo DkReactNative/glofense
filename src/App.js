@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    socket.on('connect', function() {
+    socket.on('connect', function () {
       console.log('socket connected', socket.connected);
     });
     this.props.storeDevice(deviceIfo());
@@ -40,7 +40,11 @@ class App extends Component {
             <Route
               path="/user"
               render={() =>
-                this.props.user ? <Application /> : <Redirect to="/" />
+                this.props.user && this.props.user.id ? (
+                  <Application />
+                ) : (
+                  <Redirect to="/" />
+                )
               }
             />
             <Route path="/" component={Auth} />

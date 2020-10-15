@@ -132,6 +132,7 @@ const Contest = (props) => {
                   return (
                     <div
                       className="quizboxouter"
+                      key={index.toString()}
                       onClick={() => {
                         props.history.push('/user/quiz-detail/' + ele._id);
                       }}

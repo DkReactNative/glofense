@@ -9,7 +9,8 @@ import PlayQuiz from "../containers/App/PlayQuiz";
 import EditProfile from "../containers/App/EditProfile";
 import News from "../containers/App/News";
 import NewsDetail from "../containers/App/NewsDetail";
-import ChooseLangugae from "../containers/App/ChangeLanguage"
+import MatchComplete from "../containers/App/MatchComplete"
+import ChooseLangugae from "../containers/App/ChangeLanguage";
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -34,6 +35,7 @@ export default function AuthStack() {
       <Route path={`${path}/play-quiz/:id`} component={PlayQuiz} exact />
       <Route path={`${path}/news`} component={News} exact />
       <Route path={`${path}/news-detail/:id`} component={NewsDetail} exact />
+      <Route path={`${path}/match-end/:id`} component={MatchComplete} exact />
     </Switch>
   );
 }

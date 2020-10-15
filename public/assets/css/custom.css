@@ -2215,15 +2215,19 @@ p.alertmessage {
   padding: 20px;
   border-radius: 5px;
 }
-.detailsform label {
+.detailsform label,
+.panverifyform label {
   font-weight: 500;
+  font-size: 16px;
 }
-.detailsform .form-control {
+.detailsform .form-control,
+.panverifyform .form-control {
   height: 50px;
-  background: #ededed;
+  background-color: #ededed;
   border: 0px;
   box-shadow: none !important;
   outline: none !important;
+  font-size: 15px;
 }
 .cardphoto {
   position: relative;
@@ -2542,4 +2546,162 @@ button.addmoney:hover {
   color: #000;
   font-weight: normal;
   font-size: 20px;
+}
+.tabboxs .list-group {
+  flex-direction: revert;
+  text-align: center;
+}
+.tabboxs .list-group a {
+  background: transparent;
+  border: 0px;
+  border-bottom: 4px solid transparent;
+  border-radius: 0px;
+  font-weight: 600;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.tabboxs .list-group a.active {
+  border-color: #333;
+  color: #2693ca;
+}
+.withdrawmainouter {
+  box-shadow: 0px 0px 10px #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.numberverify {
+  display: flex;
+  align-items: center;
+  border: 2px solid #2693ca;
+  padding: 5px 15px;
+  border-radius: 8px;
+}
+.numberverify span.mibileicon {
+  min-width: 40px;
+  font-size: 40px;
+  color: #03a503;
+}
+span.headlines h5 {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+span.headlines a {
+  color: #2693ca;
+  font-weight: 600;
+}
+.Verifyemail a {
+  font-weight: 600;
+  font-size: 15px;
+  color: #666;
+}
+.Verifyemail a i {
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+  font-size: 20px;
+}
+.socialbtn {
+  margin: 10px 0px 0px;
+  display: flex;
+}
+.socialbtn .btn {
+  width: 100%;
+  border: 0px;
+  height: 48px;
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #fff;
+  border-radius: 2px;
+}
+.socialbtn .fbbtn {
+  background: #3a63be;
+}
+.socialbtn .fbbtn:hover {
+  background: #1c55d2;
+}
+.socialbtn .googlebtn {
+  background: #c94130;
+}
+.socialbtn .googlebtn:hover {
+  background: #d63420;
+}
+p.permission {
+  margin: 15px 0px;
+  font-weight: 600;
+  color: #666;
+  font-size: 15px;
+}
+.oroption {
+  text-align: center;
+  overflow: hidden;
+}
+.oroption span {
+  background: #fff;
+  padding: 2px;
+  position: relative;
+  font-weight: 600;
+}
+.oroption span::after {
+  content: '';
+  width: 500px;
+  height: 1px;
+  background: #ccc;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+}
+.oroption span::before {
+  content: '';
+  width: 500px;
+  height: 1px;
+  background: #ccc;
+  top: 50%;
+  position: absolute;
+  right: 30px;
+  z-index: 0;
+}
+.verifyemailaddress {
+  margin: 10px 0px 0px;
+}
+.verifyemailaddress .form-control {
+  height: 45px;
+  box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #ccc;
+}
+.verifyemailaddress p {
+  font-weight: 600;
+  font-size: 15px;
+  color: #666;
+}
+.panverifyform .btn {
+  position: relative;
+  background: #2693ca;
+  margin-top: 12px;
+  border-radius: 5px 5px 0px 0px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  height: 45px;
+  text-transform: uppercase;
+}
+.panverifyform .btn input[type='file'] {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+.Verifyemail a span {
+  display: block;
+  padding-left: 27px;
+  font-weight: normal;
 }

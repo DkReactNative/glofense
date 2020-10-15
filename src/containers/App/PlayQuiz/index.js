@@ -2,15 +2,26 @@ import {connect, useDispatch} from 'react-redux';
 import React, {useEffect, useContext, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import QuestionList from '../../../components/questionList';
+import Session from '../../../helpers/session';
 import WebHeader from '../../../components/web-header';
-import {showToast, showDangerToast} from '../../../components/toastMessage';
+import {
+  showToast,
+  showDangerToast,
+  showInfoToast,
+} from '../../../components/toastMessage';
 import {getService} from '../../../services/getService';
+import {postService} from '../../../services/postService';
 import WaitingUser from '../../../components/waitingOpponent';
 import QuestionResponseTimer from '../../../components/questionResponseTimer';
 import SocketContext from '../../../constants/socket-context';
+import JSONDATA from '../../../constants/findUserDummy';
 import * as $ from 'jquery';
 
 const PlayQuiz = (props) => {
+  if (props.state.browserReload) {
+    showDangerToast('Refreshing page not allowed');
+    props.history.replace('/user');
+  }
   const socket = useContext(SocketContext);
   socket.on('connect', () => {
     if (!socket.connected) {
@@ -26,7 +37,7 @@ const PlayQuiz = (props) => {
     }
     console.log('socket connected', socket.connected);
   });
-  const params = props.match.params.id.split(':');
+  const quizID = props.match.params.id;
   const dispatch = useDispatch();
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
@@ -34,40 +45,86 @@ const PlayQuiz = (props) => {
   const [quizDetail, SetQuizDetail] = useState({});
   const [effect, setEffect] = useState(true);
   const [otherUser, setOtherUser] = useState({});
+  const [matchId, setMatchId] = useState(null);
   const [questionsData, setQuestionsData] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userMatch, setUsermatch] = useState(false);
   const [show5secondTimer, set5secondTimer] = useState(false);
   const [show10SecondTimer, set10SecondTimer] = useState(false);
 
   useEffect(() => {
     getQuizDetail();
-     domEventHandler();
-      return () => {
-        if (true) {
-          window.removeEventListener('beforeunload', () => {});
-          window.removeEventListener('blur', () => {});
-          document.removeEventListener('fullscreenchange', () => {});
-          document.removeEventListener('mozfullscreenchange', () => {});
-          document.removeEventListener('MSFullscreenChange', () => {});
-          document.removeEventListener('webkitfullscreenchange', () => {});
-          document
-            .getElementById('fullscreen')
-            .removeEventListener('click', () => {});
-          window.removeEventListener('onstatepop', () => {});
-        }
-      };
+    SearchOnlineUser();
+    return () => {
+      console.log('I am destroyed');
+      if (true) {
+        window.removeEventListener('beforeunload', () => {});
+        window.removeEventListener('blur', () => {});
+        document.removeEventListener('fullscreenchange', () => {});
+        document.removeEventListener('mozfullscreenchange', () => {});
+        document.removeEventListener('MSFullscreenChange', () => {});
+        document.removeEventListener('webkitfullscreenchange', () => {});
+        document
+          .getElementById('fullscreen')
+          .removeEventListener('click', () => {});
+        window.removeEventListener('onstatepop', () => {});
+      }
+    };
   }, [effect]);
 
+  const SearchOnlineUser = () => {
+    if (JSONDATA) {
+      var response;
+      response = JSONDATA;
+      if (response.success) {
+        domEventHandler();
+        response = response.results;
+        setUsermatch(true);
+        showToast(response.msg);
+        set5secondTimer(true);
+        setMatchId(response.match_id);
+        setOtherUser(response.opponent);
+        setQuestionsData(response.questions);
+      } else {
+        showDangerToast(response.msg);
+        if (response.isDeactivate) {
+          Session.clearItem('gloFenseUser');
+          dispatch({type: 'logout', payload: null});
+          this.props.history.push('/');
+        } else {
+          this.props.history.replace('/user');
+        }
+      }
+    } else {
+      postService(`online-user-search`, JSON.stringify({quiz_id: quizID}))
+        .then((response) => {
+          response = response['data'];
+          if (response.success) {
+            domEventHandler();
+            response = response.results;
+            setUsermatch(true);
+            showToast(response.msg);
+            set5secondTimer(true);
+            setMatchId(response.match_id);
+            setOtherUser(response.opponent);
+            setQuestionsData(response.questions);
+          } else {
+            showDangerToast(response.msg);
+            if (response.isDeactivate) {
+              Session.clearItem('gloFenseUser');
+              dispatch({type: 'logout', payload: null});
+              this.props.history.push('/');
+            } else {
+              this.props.history.replace('/user');
+            }
+          }
+        })
+        .catch((err) => {});
+    }
+  };
+
   const getQuizDetail = () => {
-    getService(
-      `${
-        params[0] === 'quiz'
-          ? 'get-quiz'
-          : params[0] === 'contest'
-          ? 'get-contest'
-          : ''
-      }/${params[1]}`
-    )
+    getService(`${'get-quiz'}/${quizID}`)
       .then((response) => {
         response = response['data'];
 
@@ -87,7 +144,6 @@ const PlayQuiz = (props) => {
       .catch((err) => {});
   };
 
-
   // Dom all handlers
   function exitHandler(e) {
     if (
@@ -95,7 +151,7 @@ const PlayQuiz = (props) => {
       document.mozFullScreen ||
       document.msFullscreenElement !== null
     ) {
-      showDangerToast("Please don't exit full screen");
+      showInfoToast("Please don't exit full screen");
       document.body.requestFullscreen().catch((err) => {});
       mKeyF11();
       $('#fullscreen').trigger('click');
@@ -127,13 +183,12 @@ const PlayQuiz = (props) => {
       });
 
     window.addEventListener('beforeunload', function (e) {
-      console.log('i am called');
       e.preventDefault();
       e.returnValue = '';
     });
 
     window.addEventListener('blur', function (e) {
-      showDangerToast("Please don't leave for continuos play the game");
+      showInfoToast("Please don't leave page for continuos play the game");
     });
 
     window.addEventListener('onstatepop', (e) => {
@@ -190,10 +245,16 @@ const PlayQuiz = (props) => {
       <div className="web-container">
         {userMatch ? (
           <QuestionList
-            onFinish5second={() => {
-              set5secondTimer(false);
-              set10SecondTimer(true);
+            question={
+              questionsData && questionsData[currentQuestion]
+                ? questionsData[currentQuestion]
+                : null
+            }
+            onFinish5second={(status) => {
+              set5secondTimer(status ? true : false);
+              set10SecondTimer(status ? false : true);
             }}
+            loadResult={questionsData.length === currentQuestion + 1}
             counter={5}
             show5secondTimer={show5secondTimer}
           />
@@ -220,17 +281,28 @@ const PlayQuiz = (props) => {
                       console.log('onFinish10SecondTimer');
                       set5secondTimer(true);
                       set10SecondTimer(false);
+                      setCurrentQuestion(
+                        questionsData.length === currentQuestion
+                          ? currentQuestion
+                          : currentQuestion + 1
+                      );
                     }}
                     status={show10SecondTimer}
                   />
                   <div className="quizpatner">
                     <div className="userone">
                       <div className="userimg">
-                        <img src="img/header_profile.png" alt="#" />
+                        <img src={user.image} alt="#" />
                       </div>
-                      <a href="#">
-                        <h5>Stive</h5>
-                      </a>
+                      <Link to="#">
+                        <h5>
+                          {user.first_name
+                            ? user.last_name
+                              ? user.first_name + ' ' + user.last_name
+                              : user.first_name
+                            : 'NA'}
+                        </h5>
+                      </Link>
                       <span className="points">
                         <i className="fas fa-star" /> 456 Pts.
                       </span>
@@ -238,18 +310,32 @@ const PlayQuiz = (props) => {
                     <div className="vsteam">vs</div>
                     <div className="userone">
                       <div className="userimg">
-                        <img src="img/header_profile.png" alt="#" />
+                        <img src={otherUser.image} alt="#" />
                       </div>
-                      <a href="#">
-                        <h5>Stive</h5>
-                      </a>
+                      <Link to="#">
+                        <h5>
+                          {otherUser
+                            ? otherUser.first_name
+                              ? otherUser.last_name
+                                ? otherUser.first_name +
+                                  ' ' +
+                                  otherUser.last_name
+                                : otherUser.first_name
+                              : 'NA'
+                            : 'Waiting'}
+                        </h5>
+                      </Link>
                       <span className="points">
                         <i className="fas fa-star" /> 456 Pts.
                       </span>
                     </div>
                   </div>
                   <div className="questionsflex d-flex mb-4">
-                    <div className="question">Q. 1/10</div>
+                    {questionsData && questionsData.length > 0 && (
+                      <div className="question">
+                        Q. {currentQuestion + 1}/{questionsData.length}
+                      </div>
+                    )}
                     {/* <div className="selectlenguge">
                       <span>Eng.</span>
                       <span>

@@ -3,8 +3,8 @@ import Countdown from './countDown';
 export default function WaitingUser({counter, style, status, onFinish}) {
   React.useEffect(() => {}, [status, counter]);
   return (
-    <div class="web-bg">
-      <div class="download-app-right">
+    <div className="web-bg">
+      <div className="download-app-right">
         <div className="questionsrightpart">
           <div className="waitingboard">
             <Countdown

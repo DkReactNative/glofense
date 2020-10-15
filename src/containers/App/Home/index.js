@@ -42,7 +42,11 @@ const Home = (props) => {
 
   const getcategoryList = (page = currentPage + 1) => {
     currentPage = page;
-    getService(`get-quiz-categories?page=${page}&itemsPerPage=100`)
+    getService(
+      `get-quiz-categories?page=${page}&itemsPerPage=100`,
+      '',
+      props.state.user.token
+    )
       .then((response) => {
         response = response['data'];
 
@@ -61,7 +65,11 @@ const Home = (props) => {
   };
 
   const getBannerList = () => {
-    getService('get-banners?page=1&itemsPerPage=100')
+    getService(
+      'get-banners?page=1&itemsPerPage=100',
+      '',
+      props.state.user.token
+    )
       .then((response) => {
         response = response['data'];
         let array = [...sliderList];
@@ -101,7 +109,7 @@ const Home = (props) => {
                   type="text"
                   className="form-control"
                   placeholder="Search Quiz"
-                  name
+                  name="true"
                 />
                 <i className="fas fa-search" />
               </div>

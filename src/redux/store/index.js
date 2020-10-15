@@ -7,6 +7,7 @@ import LoadingReducer from '../reducers/loadingReducer';
 import LoginFormReducer from '../reducers/loginFormReducer';
 import ActiveClassReducer from '../reducers/activeClassReducer';
 import QuizReducer from '../reducers/quizReducer';
+import RefreshBrowser from '../reducers/browserReload';
 var rootReducer = combineReducers({
   user: ProfileReducer,
   deviceInfo: DeviceInfo,
@@ -14,6 +15,7 @@ var rootReducer = combineReducers({
   loginForm: LoginFormReducer,
   activeClass: ActiveClassReducer,
   quizData: QuizReducer,
+  browserReload: RefreshBrowser,
 });
 
 function configureStore(state = {rotating: true}) {

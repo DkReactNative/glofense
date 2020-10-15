@@ -5,7 +5,7 @@ const validation = {
       message: 'Please enter your email',
     },
     format: {
-      pattern: /^\w+([\.-]?\w+)+([\+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/,
+      pattern: /^\w+([\.-]?\w*)+([\+-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/,
       message: 'Please enter a valid email',
     },
   },

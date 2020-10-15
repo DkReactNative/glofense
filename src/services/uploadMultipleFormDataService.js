@@ -1,6 +1,7 @@
 import axios from 'axios';
 /******** MUTLIPART FORM DATA ********/
-var JWTToken = JSON.parse(localStorage.getItem('gloFenseUser'));
+import Session from '../helpers/session';
+var JWTToken = Session.getSession('gloFenseUser');
 JWTToken = JWTToken ? JWTToken.token : '';
 export default function uploadImageWithData(url, formData, token = JWTToken) {
   return new Promise((resolve, reject) => {
