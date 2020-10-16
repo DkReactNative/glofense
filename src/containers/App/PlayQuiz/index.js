@@ -254,7 +254,7 @@ const PlayQuiz = (props) => {
               set5secondTimer(status ? true : false);
               set10SecondTimer(status ? false : true);
             }}
-            loadResult={questionsData.length === currentQuestion + 1}
+            loadResult={questionsData.length === currentQuestion}
             counter={5}
             show5secondTimer={show5secondTimer}
           />
@@ -281,11 +281,7 @@ const PlayQuiz = (props) => {
                       console.log('onFinish10SecondTimer');
                       set5secondTimer(true);
                       set10SecondTimer(false);
-                      setCurrentQuestion(
-                        questionsData.length === currentQuestion
-                          ? currentQuestion
-                          : currentQuestion + 1
-                      );
+                      setCurrentQuestion(currentQuestion + 1);
                     }}
                     status={show10SecondTimer}
                   />
@@ -333,7 +329,11 @@ const PlayQuiz = (props) => {
                   <div className="questionsflex d-flex mb-4">
                     {questionsData && questionsData.length > 0 && (
                       <div className="question">
-                        Q. {currentQuestion + 1}/{questionsData.length}
+                        Q.{' '}
+                        {questionsData.length === currentQuestion
+                          ? currentQuestion
+                          : currentQuestion + 1}
+                        /{questionsData.length}
                       </div>
                     )}
                     {/* <div className="selectlenguge">

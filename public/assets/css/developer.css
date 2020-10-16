@@ -14,6 +14,7 @@
 .loading-component {
   overflow: hidden;
   position: absolute !important;
+  background: transparent;
   top: 50vh;
   left: 50%;
   overflow: hidden;
@@ -37,6 +38,10 @@
   pointer-events: none;
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.7) !important;
+}
+.loading-component > .modal-content {
+  background: transparent !important;
+  border-width: 0px !important;
 }
 
 .card {
@@ -224,9 +229,10 @@
 .waitingboard {
   position: relative;
 }
-.waitingboard-copy span.timer{
+.waitingboard-copy span.timer {
   right: 100px;
 }
-.statusouter .d-flex{
+.statusouter .d-flex {
   align-items: center;
 }
+

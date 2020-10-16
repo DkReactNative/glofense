@@ -16,8 +16,14 @@
   position: absolute !important;
   top: 50vh;
   left: 50%;
+  background: transparent;
   overflow: hidden;
   z-index: 2;
+}
+
+.loading-component > .modal-content {
+  background: transparent !important;
+  border-width: 0px !important;
 }
 
 .loading-component-modal {
@@ -36,7 +42,8 @@
 .disabled-event {
   pointer-events: none;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.7) !important;
+  background: transparent;
+  background-color: transparent !important;
 }
 
 .card {
@@ -121,3 +128,10 @@
   max-height: 80vh;
 }
 
+audio::-webkit-media-controls-mute-button {
+  display: none !important;
+}
+
+audio::-webkit-media-controls-volume-slider {
+  display: none !important;
+}

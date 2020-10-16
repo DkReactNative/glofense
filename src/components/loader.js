@@ -1,7 +1,8 @@
 import React from 'react';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
-
+import Svg from '../assets/img/loader.svg';
+import Modal from 'react-bootstrap/Modal';
 const loader = ({
   loading = false,
   color = '#00BFFF',
@@ -24,16 +25,13 @@ const loader = ({
   }
 
   return (
-    <div className={className}>
-      <Loader
-        visible={loading}
-        type="ThreeDots"
-        color={color}
-        height={100}
-        width={100}
-        // className = {"overlay"}
-      />
-    </div>
+    <Modal
+      aria-labelledby="exampleModalLabel"
+      dialogClassName="loading-component"
+      show={loading}
+    >
+      <img src={Svg} alt="React Logo" />
+    </Modal>
   );
 };
 
