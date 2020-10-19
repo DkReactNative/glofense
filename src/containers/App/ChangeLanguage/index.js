@@ -137,7 +137,7 @@ const Changelanguage = (props) => {
           setConfirmModal(false);
         }}
       >
-        <Modal.Header classNa="modal-header p-0 border-0 pt-2 pr-2">
+        <Modal.Header className="modal-header p-0 border-0 pt-2 pr-2">
           <button
             type="button"
             className="close"

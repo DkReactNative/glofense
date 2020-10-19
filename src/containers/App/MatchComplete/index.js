@@ -29,11 +29,14 @@ const MatchComplete = (props) => {
   }, [effect]);
 
   const getMatchDetail = () => {
-    postService(`${'match-completed'}/${matchId}`)
+    postService(
+      'match-completed',
+      JSON.stringify({status: 'completed', match_id: matchId})
+    )
       .then((response) => {
         response = response['data'];
         if (response.success) {
-          SetMatchDetail(response.results);
+          SetMatchDetail(response.result);
         }
       })
       .catch((err) => {});
@@ -68,28 +71,46 @@ const MatchComplete = (props) => {
                         />
                       </span>
                     </div>
-                    <h3>Congrats!</h3>
-                    <p>You won 1000 Rupes!</p>
+                    <h3>
+                      {matchDetail.winner_id === user._id
+                        ? 'Congrats!'
+                        : 'Looser!'}
+                    </h3>
+                    <p>
+                      {' '}
+                      {matchDetail.winner_id === user._id
+                        ? `You won ${matchDetail.win_amount} Rupes!`
+                        : 'You have lost the match'}
+                    </p>
                   </div>
                   <div className="winnercontent">
                     <div className="d-flex">
-                      <h3>Amelia</h3>{' '}
+                      <h3>{}</h3>{' '}
                       <span className="points">
                         <i className="fas fa-star" />
-                        620 Pts.
+                        {matchDetail.winner_points
+                          ? matchDetail.winner_points
+                          : 0}{' '}
+                        Pts.
                       </span>
                     </div>
                     <p>
-                      <span>Total question :- </span>20{' '}
+                      <span>Total question :- </span>
+                      {matchDetail.total_question
+                        ? matchDetail.total_question
+                        : 0}{' '}
                     </p>
                     <p>
-                      <span>Attempted :- </span>18{' '}
+                      <span>Attempted :- </span>
+                      {matchDetail.totalWrong + matchDetail.totalRight}{' '}
                     </p>
                     <p>
-                      <span>Right :- </span>14{' '}
+                      <span>Right :- </span>
+                      {matchDetail.totalRight ? matchDetail.totalRight : 0}{' '}
                     </p>
                     <p>
-                      <span>Wrong :- </span>4{' '}
+                      <span>Wrong :- </span>
+                      {matchDetail.totalWrong ? matchDetail.totalWrong : 0}{' '}
                     </p>
                   </div>
                   <div className="joinbtn text-center mt-4">

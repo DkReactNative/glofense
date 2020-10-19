@@ -3,6 +3,9 @@ import {connect, useDispatch} from 'react-redux';
 import Countdown from './countDown';
 import {Line} from 'rc-progress';
 var player;
+var interval10SecondsVid;
+var interval10Seconds;
+var Timer10Seconds = 10;
 const QuestionList = ({
   question,
   loadResult,
@@ -13,13 +16,23 @@ const QuestionList = ({
   ...props
 }) => {
   const language = props.state.user.language;
-  const [answer, setAnswer] = React.useState(null);
+  var answer = {
+    question_id: question && question.id ? question.id : '',
+    answer_key:
+      language === 'english'
+        ? question && question.answer_english
+        : language === 'hindi'
+        ? question && question.answer_hindi
+        : '',
+    user_answer_key: '',
+    duration: 0+"",
+    result: 'missed',
+  };
   const [currentTime, setDuration] = React.useState(0);
   const [checked, setChecked] = React.useState(-1);
   const [show5second, setShowOptions] = React.useState(show5secondTimer);
   const [playEnd, setPlayer] = React.useState(true);
   React.useEffect(() => {
-    console.log('playEnd =>', playEnd);
     setShowOptions(
       question &&
         question.question_type &&
@@ -32,7 +45,7 @@ const QuestionList = ({
   }, [show5secondTimer, counter, loadResult, question]);
 
   React.useEffect(() => {
-    const vid = document.getElementById(question.question_type);
+    const vid = document.getElementById(question && question.question_type);
     if (
       question &&
       question.question_type &&
@@ -47,12 +60,24 @@ const QuestionList = ({
         console.log(player.duration);
         const interval = setInterval(() => {
           setDuration(player.currentTime);
-          console.log(currentTime, player.currentTime);
+          //console.log(currentTime, player.currentTime);
           if (player.currentTime >= player.duration) {
             clearInterval(interval);
             setPlayer(true);
             console.log('on finish');
             onFinish5second(loadResult);
+            if (show5secondTimer) {
+              interval10SecondsVid = setInterval(() => {
+                // console.log('Timer10Seconds vid =>', Timer10Seconds);
+                Timer10Seconds = Timer10Seconds - 0.5;
+                if (Timer10Seconds <= 0) {
+                  clearInterval(interval10SecondsVid);
+                  Timer10Seconds = 10;
+                  onChoose(answer);
+                  return;
+                }
+              }, 500);
+            }
           }
         }, 1000);
       };
@@ -60,6 +85,9 @@ const QuestionList = ({
   }, [playEnd]);
 
   React.useEffect(() => {
+    Timer10Seconds = 10;
+    clearInterval(interval10Seconds);
+    clearInterval(interval10SecondsVid);
     if (
       question &&
       question.question_type &&
@@ -68,6 +96,21 @@ const QuestionList = ({
       setPlayer(!playEnd);
     }
   }, [question]);
+
+  const onSelect = (option, index, selected) => {
+    clearInterval(interval10Seconds);
+    clearInterval(interval10SecondsVid);
+    answer['question_id'] = question._id ? question._id : '';
+    answer['answer_key'] = selected ? selected : '';
+    answer['user_answer_key'] = option ? option : '';
+    answer['duration'] = String(parseInt(Timer10Seconds))
+      ? parseInt(Timer10Seconds)
+      : 1;
+    answer['result'] = option === selected ? 'right' : 'wrong';
+    onChoose(answer);
+    Timer10Seconds = 10;
+    setChecked(index);
+  };
 
   return (
     <div className="web-bg">
@@ -131,10 +174,20 @@ const QuestionList = ({
           {show5second && (
             <div className="waitingboard waitingboard-copy">
               <Countdown
-                counter={loadResult ? 10 : counter}
+                counter={loadResult ? 10-1 : counter-1}
                 status={show5secondTimer}
                 onFinish={() => {
                   console.log('on finish');
+                  interval10Seconds = setInterval(() => {
+                    // console.log('Timer10Seconds =>', Timer10Seconds);
+                    Timer10Seconds = Timer10Seconds - 0.5;
+                    if (Timer10Seconds <= 0) {
+                      clearInterval(interval10Seconds);
+                      Timer10Seconds = 10;
+                      onChoose(answer);
+                      return;
+                    }
+                  }, 500);
                   setShowOptions(false);
                   onFinish5second(loadResult);
                 }}
@@ -148,7 +201,21 @@ const QuestionList = ({
                   <li
                     className={`${checked === 0 ? 'active' : ''} `}
                     onClick={() => {
-                      if (checked === -1) setChecked(0);
+                      if (checked === -1) {
+                        onSelect(
+                          language === 'english'
+                            ? 'first_option_english'
+                            : language === 'hindi'
+                            ? 'first_option_hindi'
+                            : 'NA',
+                          0,
+                          language === 'english'
+                            ? question.answer_english
+                            : language === 'hindi'
+                            ? question.answer_hindi
+                            : 'NA'
+                        );
+                      }
                     }}
                   >
                     <span>
@@ -166,7 +233,21 @@ const QuestionList = ({
                           checked={checked === 0}
                           disabled={checked > -1}
                           onChange={() => {
-                            if (checked === -1) setChecked(0);
+                            if (checked === -1) {
+                              onSelect(
+                                language === 'english'
+                                  ? 'first_option_english'
+                                  : language === 'hindi'
+                                  ? 'first_option_hindi'
+                                  : 'NA',
+                                0,
+                                language === 'english'
+                                  ? question.answer_english
+                                  : language === 'hindi'
+                                  ? question.answer_hindi
+                                  : 'NA'
+                              );
+                            }
                           }}
                         />
                         <span className="check_indicator">&nbsp;</span>
@@ -176,7 +257,21 @@ const QuestionList = ({
                   <li
                     className={`${checked === 1 ? 'active' : ''} `}
                     onClick={() => {
-                      if (checked === -1) setChecked(1);
+                      if (checked === -1) {
+                        onSelect(
+                          language === 'english'
+                            ? 'first_option_english'
+                            : language === 'hindi'
+                            ? 'first_option_hindi'
+                            : 'NA',
+                          1,
+                          language === 'english'
+                            ? question.answer_english
+                            : language === 'hindi'
+                            ? question.answer_hindi
+                            : 'NA'
+                        );
+                      }
                     }}
                   >
                     <span>
@@ -194,7 +289,21 @@ const QuestionList = ({
                           checked={checked === 1}
                           disabled={checked > -1}
                           onChange={() => {
-                            if (checked === -1) setChecked(1);
+                            if (checked === -1) {
+                              onSelect(
+                                language === 'english'
+                                  ? 'second_option_english'
+                                  : language === 'hindi'
+                                  ? 'second_option_hindi'
+                                  : 'NA',
+                                1,
+                                language === 'english'
+                                  ? question.answer_english
+                                  : language === 'hindi'
+                                  ? question.answer_hindi
+                                  : 'NA'
+                              );
+                            }
                           }}
                         />
                         <span className="check_indicator">&nbsp;</span>
@@ -204,7 +313,21 @@ const QuestionList = ({
                   <li
                     className={`${checked === 2 ? 'active' : ''} `}
                     onClick={() => {
-                      if (checked === -1) setChecked(2);
+                      if (checked === -1) {
+                        onSelect(
+                          language === 'english'
+                            ? 'third_option_english'
+                            : language === 'hindi'
+                            ? 'third_option_english'
+                            : 'NA',
+                          2,
+                          language === 'english'
+                            ? question.answer_english
+                            : language === 'hindi'
+                            ? question.answer_hindi
+                            : 'NA'
+                        );
+                      }
                     }}
                   >
                     <span>
@@ -222,7 +345,19 @@ const QuestionList = ({
                           checked={checked === 2}
                           disabled={checked > -1}
                           onChange={() => {
-                            setChecked(2);
+                            onSelect(
+                              language === 'english'
+                                ? 'third_option_english'
+                                : language === 'hindi'
+                                ? 'third_option_english'
+                                : 'NA',
+                              2,
+                              language === 'english'
+                                ? question.answer_english
+                                : language === 'hindi'
+                                ? question.answer_hindi
+                                : 'NA'
+                            );
                           }}
                         />
                         <span className="check_indicator">&nbsp;</span>
@@ -232,7 +367,21 @@ const QuestionList = ({
                   <li
                     className={`${checked === 3 ? 'active' : ''} `}
                     onClick={() => {
-                      if (checked === -1) setChecked(3);
+                      if (checked === -1) {
+                        onSelect(
+                          language === 'english'
+                            ? 'fourth_option_english'
+                            : language === 'hindi'
+                            ? 'fourth_option_english'
+                            : 'NA',
+                          3,
+                          language === 'english'
+                            ? question.answer_english
+                            : language === 'hindi'
+                            ? question.answer_hindi
+                            : 'NA'
+                        );
+                      }
                     }}
                   >
                     <span>
@@ -250,7 +399,19 @@ const QuestionList = ({
                           checked={checked === 3}
                           disabled={checked > -1}
                           onChange={() => {
-                            setChecked(3);
+                            onSelect(
+                              language === 'english'
+                                ? 'fourth_option_english'
+                                : language === 'hindi'
+                                ? 'fourth_option_hindi'
+                                : 'NA',
+                              3,
+                              language === 'english'
+                                ? question.answer_english
+                                : language === 'hindi'
+                                ? question.answer_hindi
+                                : 'NA'
+                            );
                           }}
                         />
                         <span className="check_indicator">&nbsp;</span>

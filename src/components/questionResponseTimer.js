@@ -10,7 +10,7 @@ export default function QuestionResponseTimer({
 }) {
   const [value, setValue] = useState(counter);
   const [progress, setprogress] = useState(100);
-  var timer = counter;
+  var timer = counter-1;
   useEffect(() => {
     if (status) {
       Interval = setInterval(() => {
