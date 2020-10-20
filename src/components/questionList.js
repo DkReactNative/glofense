@@ -25,7 +25,7 @@ const QuestionList = ({
         ? question && question.answer_hindi
         : '',
     user_answer_key: '',
-    duration: 0+"",
+    duration: 0 + '',
     result: 'missed',
   };
   const [currentTime, setDuration] = React.useState(0);
@@ -174,7 +174,7 @@ const QuestionList = ({
           {show5second && (
             <div className="waitingboard waitingboard-copy">
               <Countdown
-                counter={loadResult ? 10-1 : counter-1}
+                counter={loadResult ? 9 : counter}
                 status={show5secondTimer}
                 onFinish={() => {
                   console.log('on finish');
@@ -184,7 +184,7 @@ const QuestionList = ({
                     if (Timer10Seconds <= 0) {
                       clearInterval(interval10Seconds);
                       Timer10Seconds = 10;
-                      onChoose(answer);
+                      if (!loadResult) onChoose(answer);
                       return;
                     }
                   }, 500);
@@ -318,7 +318,7 @@ const QuestionList = ({
                           language === 'english'
                             ? 'third_option_english'
                             : language === 'hindi'
-                            ? 'third_option_english'
+                            ? 'third_option_hindi'
                             : 'NA',
                           2,
                           language === 'english'
@@ -335,7 +335,7 @@ const QuestionList = ({
                         ? language === 'english'
                           ? question.third_option_english
                           : language === 'hindi'
-                          ? question.third_option_english
+                          ? question.third_option_hindi
                           : 'NA'
                         : 'NA'}{' '}
                       <span className="custom_check">
@@ -349,7 +349,7 @@ const QuestionList = ({
                               language === 'english'
                                 ? 'third_option_english'
                                 : language === 'hindi'
-                                ? 'third_option_english'
+                                ? 'third_option_hindi'
                                 : 'NA',
                               2,
                               language === 'english'

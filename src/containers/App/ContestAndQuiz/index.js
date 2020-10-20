@@ -40,6 +40,9 @@ const Contest = (props) => {
         // setCurrentPage(page)
         let array = [...contestList];
         array = response['results']['docs'].map((ele) => {
+          ele['left_slot'] = ele.users_limit - ele.joined_user_count;
+          ele['left_slot'] = ele.left_slot.toLocaleString();
+          ele['total_slot'] = ele.users_limit.toLocaleString();
           ele.image = ele.category_id.image;
           ele.category_id = ele.category_id._id;
           ele.category_title = ele.category_id.title;
@@ -269,8 +272,8 @@ const Contest = (props) => {
                           <div className="bar" data-percent={70} />
                         </div>
                         <div className="d-flex">
-                          <span>Only 8,631 spots left</span>{' '}
-                          <span>50,000 Teams</span>
+                          <span>Only {ele.left_slot} spots left</span>{' '}
+                          <span>{ele.total_slot} Teams</span>
                         </div>
                       </div>
                     </div>

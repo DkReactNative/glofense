@@ -17,12 +17,21 @@ const MatchComplete = (props) => {
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
-
+  const session = sessionStorage.getItem('matchDetail')
+    ? JSON.parse(sessionStorage.getItem('matchDetail'))
+    : {};
   const [matchDetail, SetMatchDetail] = useState({});
   const [effect, setEffect] = useState(true);
 
   useEffect(() => {
     getMatchDetail();
+    window.removeEventListener('beforeunload', () => {});
+    window.removeEventListener('blur', () => {});
+    document.removeEventListener('fullscreenchange', () => {});
+    document.removeEventListener('mozfullscreenchange', () => {});
+    document.removeEventListener('MSFullscreenChange', () => {});
+    document.removeEventListener('webkitfullscreenchange', () => {});
+    window.removeEventListener('onstatepop', () => {});
     return () => {
       console.log('I am destroyed');
     };
@@ -85,11 +94,15 @@ const MatchComplete = (props) => {
                   </div>
                   <div className="winnercontent">
                     <div className="d-flex">
-                      <h3>{}</h3>{' '}
+                      <h3>{user.username ? user.username : 'NA'}</h3>{' '}
                       <span className="points">
                         <i className="fas fa-star" />
-                        {matchDetail.winner_points
+                        {matchDetail.winner_id === user._id
                           ? matchDetail.winner_points
+                            ? matchDetail.winner_points
+                            : matchDetail.losser_points
+                            ? matchDetail.losser_points
+                            : 0
                           : 0}{' '}
                         Pts.
                       </span>
@@ -102,15 +115,15 @@ const MatchComplete = (props) => {
                     </p>
                     <p>
                       <span>Attempted :- </span>
-                      {matchDetail.totalWrong + matchDetail.totalRight}{' '}
+                      {session.right_answers + session.wrong_answers}{' '}
                     </p>
                     <p>
                       <span>Right :- </span>
-                      {matchDetail.totalRight ? matchDetail.totalRight : 0}{' '}
+                      {session.right_answers ? session.right_answers : 0}{' '}
                     </p>
                     <p>
                       <span>Wrong :- </span>
-                      {matchDetail.totalWrong ? matchDetail.totalWrong : 0}{' '}
+                      {session.wrong_answers ? session.wrong_answers : 0}{' '}
                     </p>
                   </div>
                   <div className="joinbtn text-center mt-4">

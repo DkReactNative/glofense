@@ -40,7 +40,7 @@ export default function TabBar({active}) {
           className={`"list-group-item list-group-item-action moreopctions " ${
             active === 'more' ? 'active' : ''
           }`}
-          to="#"
+          to="/user/more"
         >
           <span>More</span>
         </Link>

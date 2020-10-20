@@ -11,6 +11,7 @@ import WebBg from '../../../components/web-bg';
 import {getService} from '../../../services/getService';
 import uploadMultipleFormDataService from '../../../services/uploadMultipleFormDataService';
 import {showToast, showDangerToast} from '../../../components/toastMessage';
+import * as moment from 'moment';
 import DatePicker from 'react-datepicker';
 var disable = false;
 const EditProfile = (props) => {
@@ -334,9 +335,9 @@ const EditProfile = (props) => {
                           selected={
                             !formDetail.dob || formDetail.dob === ''
                               ? null
-                              : new Date(formDetail.dob)
+                              : Date.parse(moment(formDetail.dob ).toISOString())
                           }
-                          dateFormat="dd/MM/yyyy"
+                          dateFormat="dd-MM-yyyy"
                           minDate={new Date('1900/01/01')}
                           maxDate={new Date()}
                           className={'form-control'}
@@ -363,7 +364,6 @@ const EditProfile = (props) => {
                           <input
                             type="radio"
                             name="radio"
-                            defaultChecked={true}
                             checked={
                               formDetail.gender && formDetail.gender === 'male'
                             }

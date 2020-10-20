@@ -38,6 +38,13 @@ const Home = (props) => {
     wrapper.addEventListener('scroll', function (event) {
       checkForNewDiv(wrapper);
     });
+    window.removeEventListener('beforeunload', () => {});
+    window.removeEventListener('blur', () => {});
+    document.removeEventListener('fullscreenchange', () => {});
+    document.removeEventListener('mozfullscreenchange', () => {});
+    document.removeEventListener('MSFullscreenChange', () => {});
+    document.removeEventListener('webkitfullscreenchange', () => {});
+    window.removeEventListener('onstatepop', () => {});
   }, [effect]);
 
   const getcategoryList = (page = currentPage + 1) => {

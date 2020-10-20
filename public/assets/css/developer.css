@@ -236,3 +236,15 @@
   align-items: center;
 }
 
+.quizboxouter:last-child {
+  margin-bottom: 100px;
+}
+
+.contest-user-img {
+  height: 100px !important;
+  width: 100px !important;
+}
+
+.user-contest { 
+  margin: auto;
+}

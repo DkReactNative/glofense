@@ -10,6 +10,12 @@ const validation = {
     },
   },
 
+  loginInput :{
+    presence: {
+      message: 'Please enter your email or mobile',
+    }
+  },
+
   firstName: {
     presence: {
       message: 'Please enter your first name',

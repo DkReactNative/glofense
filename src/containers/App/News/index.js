@@ -66,7 +66,7 @@ const Contest = (props) => {
             })}
           </div>
         </div>
-        <Buttom active={'home'} />
+        <Buttom active={'news'} />
       </div>
     </section>
   );

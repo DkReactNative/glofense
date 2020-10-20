@@ -38,11 +38,11 @@ const App = (props) => {
       <div className="glofensidebar" id="glofensidebar">
         <div className="sidebarheader">
           <span className="sidebaruserimg">
-            <img src="img/winneruser.png" alt="#" />
+            <img src={user.image} alt="#" />
           </span>
           <div className="sidebaruserinfo">
-            <h4>Stive smith</h4>
-            <p>stive smith....</p>
+            <h4>{user.first_name ? user.first_name : 'NA'}</h4>
+            <p>{user.last_name ? user.first_name : ''}</p>
             <span
               className="closebtn"
               id="closebtn"

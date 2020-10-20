@@ -25,11 +25,14 @@ const Changelanguage = (props) => {
   };
   useEffect(() => {
     getQuizDetail();
+    window.removeEventListener('beforeunload', () => {});
+    window.removeEventListener('blur', () => {});
+    document.removeEventListener('fullscreenchange', () => {});
+    document.removeEventListener('mozfullscreenchange', () => {});
+    document.removeEventListener('MSFullscreenChange', () => {});
+    document.removeEventListener('webkitfullscreenchange', () => {});
+    window.removeEventListener('onstatepop', () => {});
     return () => {
-      dispatch({
-        type: 'update_profile',
-        payload: {language: 'english'},
-      });
       dispatch({
         type: 'reload_browser',
         payload: false,

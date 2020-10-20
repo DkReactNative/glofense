@@ -1,10 +1,13 @@
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import WebHeader from '../../../components/web-header';
 import {getService} from '../../../services/getService';
+import {postService} from '../../../services/postService';
+import Modal from 'react-bootstrap/Modal';
 import Buttom from '../../../components/buttomTabBar';
 import {formateDate} from '../../../helpers/commonHelpers';
+import {showDangerToast, showToast} from '../../../components/toastMessage';
 const ContestDetail = (props) => {
   const quizId = props.match.params.id;
   const [user, setUser] = useState(
@@ -12,17 +15,33 @@ const ContestDetail = (props) => {
   );
   const [contestDetail, setContestDetail] = useState({});
   const [effect, setEffect] = useState(true);
-
+  const [confirmModal, setConfirmModal] = useState(false);
   useEffect(() => {
     getContestDetail();
-    return (()=>{
-
-    })
+    return () => {};
   }, [effect]);
+
+  const jointContest = () => {
+    postService(`join-contest`, JSON.stringify({contest_id: quizId}))
+      .then((response) => {
+        setConfirmModal(false)
+        response = response['data'];
+        if (response.success) {
+          showToast(response.msg);
+        } else {
+          showDangerToast(response.msg);
+        }
+      })
+      .catch((err) => {
+        setConfirmModal(false)
+        showDangerToast(err.message);
+      });
+  };
 
   const getContestDetail = () => {
     getService(`get-contest/${quizId}`)
       .then((response) => {
+        
         response = response['data'];
         response.results['left_slot'] =
           response.results.users_limit - response.results.joined_user_count;
@@ -58,15 +77,16 @@ const ContestDetail = (props) => {
                     <i className="fas fa-check" /> You must have a stable
                     internet connection. You will lose if you disconnect!.
                   </p>
-                  {contestDetail.contest_rules && contestDetail.contest_rules.trim() && (
-                    <>
-                      <h4>Rules for Contest</h4>
-                      <p>
-                        <i className="fas fa-check" />
-                        {contestDetail.contest_rules}
-                      </p>
-                    </>
-                  )}
+                  {contestDetail.contest_rules &&
+                    contestDetail.contest_rules.trim() && (
+                      <>
+                        <h4>Rules for Contest</h4>
+                        <p>
+                          <i className="fas fa-check" />
+                          {contestDetail.contest_rules}
+                        </p>
+                      </>
+                    )}
                 </div>
               </div>
             </div>
@@ -76,7 +96,11 @@ const ContestDetail = (props) => {
                 <div className="tab-content">
                   <div className="tab-pane active" id="profile" role="tabpanel">
                     <div className="header_height">
-                      <WebHeader title={'Contest Detail'} history={props.history} arrow={true}/>
+                      <WebHeader
+                        title={'Contest Detail'}
+                        history={props.history}
+                        arrow={true}
+                      />
                     </div>
                     <div className="contestquiz">
                       <div className="quiztab p-4">
@@ -208,7 +232,14 @@ const ContestDetail = (props) => {
                           </div>
                         </div>
                         <div className="joinbtn text-center">
-                          <button className="btn">Join the contest</button>
+                          <button
+                            className="btn"
+                            onClick={() => {
+                              setConfirmModal(true);
+                            }}
+                          >
+                            Join the contest
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -220,6 +251,97 @@ const ContestDetail = (props) => {
           </div>
         </section>
       )}
+
+      <Modal
+        aria-labelledby="exampleModalLabel"
+        dialogClassName="modal-dialog"
+        className="confirmations modalresize"
+        show={confirmModal}
+        onHide={() => {
+          setConfirmModal(false);
+        }}
+      >
+        <Modal.Header className="modal-header p-0 border-0 pt-2 pr-2">
+          <button
+            type="button"
+            className="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            onClick={() => {
+              setConfirmModal(false);
+            }}
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </Modal.Header>
+        <Modal.Body className="modal-body pt-0">
+          <div className="confirmationmodal">
+            <h5>Confirmation</h5>
+            <p>
+              Unutilized Balance + Winnings= ₹{' '}
+              {user.total_balance || user.total_balance === 0
+                ? contestDetail.winning_amount ||
+                  contestDetail.winning_amount === 0
+                  ? user.total_balance + contestDetail.winning_amount
+                  : user.total_balance || user.total_balance === 0
+                : 'NA'}
+            </p>
+          </div>
+          <div className="enteryfees">
+            <p>
+              Entry Fee{' '}
+              <span>
+                ₹{' '}
+                {contestDetail.entry_fee || contestDetail.entry_fee === 0
+                  ? contestDetail.entry_fee
+                  : 'NA'}
+              </span>
+            </p>
+            <p>
+              Usable Cash Bonus
+              <i className="fas fa-info-circle">
+                <span className="d-none">
+                  <small>Max 10% of total entry fee* per match</small>
+                  <small>* valid for Selected Contests only</small>
+                  <small>* not valid for private contests</small>
+                </span>
+              </i>
+              <span>
+                ₹{' '}
+                {contestDetail.bonus || contestDetail.bonus === 0
+                  ? contestDetail.bonus
+                  : 'NA'}
+              </span>
+            </p>
+            <hr />
+            <p className="totalpay">
+              To Pay{' '}
+              <span>
+                ₹{' '}
+                {contestDetail.entry_fee || contestDetail.entry_fee === 0
+                  ? contestDetail.bonus || contestDetail.bonus === 0
+                    ? contestDetail.entry_fee - contestDetail.bonus
+                    : contestDetail.entry_fee || contestDetail.entry_fee === 0
+                  : 'NA'}
+              </span>
+            </p>
+          </div>
+          <p className="alertmessage text-center mt-4">
+            By joining this contest you accept T &amp; C and confirm that you
+            are not a resident of Assam Odisha, Telengana Sikkim.
+          </p>
+          <div className="joinbtn text-center">
+            <button
+              className="btn mb-2"
+              onClick={() => {
+                jointContest();
+              }}
+            >
+              Join The Quiz
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

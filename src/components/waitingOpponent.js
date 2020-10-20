@@ -23,7 +23,7 @@ export default function WaitingUser({counter, style, status, onFinish}) {
                 className="img-fluid"
               />
               <h3>
-                <strong>Waiting for opponent to join</strong>
+                <strong>Waiting for opponents to join</strong>
               </h3>
             </div>
           </div>

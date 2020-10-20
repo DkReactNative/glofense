@@ -20,15 +20,15 @@ var answerData;
 var totalRight = 0;
 var totalWrong = 0;
 var matchId;
-const PlayQuiz = (props) => {
+const PlayContest = (props) => {
   const socket = useContext(SocketContext);
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
   if (props.state.browserReload) {
     showDangerToast('Refreshing page not allowed');
-    endGame();
-    props.history.replace('/user');
+    // endGame();
+    // props.history.replace('/user');
   }
   socket.on('connect', () => {
     if (!socket.connected) {
@@ -60,7 +60,7 @@ const PlayQuiz = (props) => {
 
   useEffect(() => {
     getQuizDetail();
-    SearchOnlineUser();
+    // SearchOnlineUser();
     return () => {
       console.log('I am destroyed');
       if (true) {
@@ -282,7 +282,7 @@ const PlayQuiz = (props) => {
                   wrong_answers: totalWrong,
                 };
                 sessionStorage.setItem('matchDetail', JSON.stringify(obj));
-                props.history.replace('/user/match-end/' + matchId);
+                // props.history.replace('/user/match-end/' + matchId);
               }
               set5secondTimer(status ? true : false);
               set10SecondTimer(status ? false : true);
@@ -319,9 +319,9 @@ const PlayQuiz = (props) => {
                     status={show10SecondTimer}
                   />
                   <div className="quizpatner">
-                    <div className="userone">
+                    <div className="userone user-contest">
                       <div className="userimg">
-                        <img src={user.image} alt="#" />
+                        <img src={user.image} alt="#"  className="contest-user-img"/>
                       </div>
                       <Link to="#">
                         <h5>{user.username ? user.username : 'NA'}</h5>
@@ -329,25 +329,6 @@ const PlayQuiz = (props) => {
                       <span className="points">
                         <i className="fas fa-star" />{' '}
                         {UserPoints ? UserPoints : 0} Pts.
-                      </span>
-                    </div>
-                    <div className="vsteam">vs</div>
-                    <div className="userone">
-                      <div className="userimg">
-                        <img src={otherUser ? otherUser.image : ''} alt="#" />
-                      </div>
-                      <Link to="#">
-                        <h5>
-                          {otherUser
-                            ? otherUser.username
-                              ? otherUser.username
-                              : 'NA'
-                            : 'Waiting'}
-                        </h5>
-                      </Link>
-                      <span className="points">
-                        <i className="fas fa-star" />{' '}
-                        {otherUserPoints ? otherUserPoints : 0} Pts.
                       </span>
                     </div>
                   </div>
@@ -388,4 +369,4 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(PlayQuiz);
+export default connect(mapStateToProps)(PlayContest);

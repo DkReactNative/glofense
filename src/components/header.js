@@ -23,8 +23,8 @@ class Header extends React.Component {
       loginModal: false,
       registerModal: false,
       forgotmodal: false,
-      email: '',
-      emailError: '',
+      loginInput: '',
+      loginInputError: '',
       forgotForm: {},
       loginPassword: '',
       loginPasswordError: '',
@@ -153,7 +153,7 @@ class Header extends React.Component {
   onSubmitLogin = () => {
     if (disable) return;
     disable = 1;
-    let emailError = Validation('email', this.state.loginForm.email);
+    let emailError = Validation('loginInput', this.state.loginForm.loginInput);
     let passwordError = Validation(
       'loginPassword',
       this.state.loginForm.loginPassword
@@ -163,7 +163,7 @@ class Header extends React.Component {
         ...this.state,
         loginForm: {
           ...this.state.loginForm,
-          emailError: emailError,
+          loginInputError: emailError,
           loginPasswordError: passwordError,
         },
       });
@@ -172,7 +172,7 @@ class Header extends React.Component {
     }
 
     let body = {};
-    body['email'] = this.state.loginForm.email.toLowerCase();
+    body['email'] = this.state.loginForm.loginInput.toLowerCase();
     body['password'] = this.state.loginForm.loginPassword;
     body['device_id'] = this.state.deviceInfo.device_id;
     body['user_type'] = 'user';
@@ -359,13 +359,13 @@ class Header extends React.Component {
                   <div className="form-group">
                     <Input
                       type="text"
-                      name="email"
+                      name="loginInput"
                       className="form-control"
-                      placeholder="Email Address"
-                      value={this.state.loginForm.email}
+                      placeholder="Email Address/Phone number"
+                      value={this.state.loginForm.loginInput}
                       onBlur={(e) => this.handleBlur(e, 'loginForm')}
                       onChange={(e) => this.handleChange(e, 'loginForm')}
-                      error={this.state.loginForm.emailError}
+                      error={this.state.loginForm.loginInputError}
                     />
                   </div>
                   <div className="form-group">
