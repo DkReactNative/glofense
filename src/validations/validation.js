@@ -10,10 +10,10 @@ const validation = {
     },
   },
 
-  loginInput :{
+  loginInput: {
     presence: {
       message: 'Please enter your email or mobile',
-    }
+    },
   },
 
   firstName: {
@@ -156,7 +156,20 @@ const validation = {
       message: 'Please enter a valid OTP',
     },
   },
-
+  inviteCode: {
+    presence: {
+      message: 'Please enter invite code for invitation',
+    },
+    format: {
+      pattern: /^[a-z A-Z 0-9]{6}$/,
+      message: 'Please enter a valid 6 chracters long code',
+    },
+    length: {
+      minimum: 6,
+      maximum: 6,
+      message: 'Please enter a valid 6 chracters long code',
+    },
+  },
   dob: {
     presence: {
       message: 'Please enter your birth date',

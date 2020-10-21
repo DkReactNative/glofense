@@ -1,6 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-export default function ({title, arrow = false, history, notification = true,disableClick}) {
+export default function ({
+  title,
+  arrow = false,
+  history,
+  notification = true,
+  disableClick,
+  share,
+  id,
+}) {
   return (
     <>
       {!arrow ? (
@@ -9,9 +17,11 @@ export default function ({title, arrow = false, history, notification = true,dis
             <button
               className="barsouter img-fluid opensidebar"
               id="opensidebar"
-              onClick = {()=>{
-                if(!disableClick)
-                document.getElementById('glofensidebar').classList.toggle('main');
+              onClick={() => {
+                if (!disableClick)
+                  document
+                    .getElementById('glofensidebar')
+                    .classList.toggle('main');
               }}
             >
               <img
@@ -44,16 +54,27 @@ export default function ({title, arrow = false, history, notification = true,dis
             </button>
           </div>
           <div className="web-logo">
-            <Link to="/user/profile">{title}</Link>
+            <Link to="#">{title ? title : 'Heading'}</Link>
           </div>
           <div className="notification-count">
-            <Link to="#">
-              {notification && (
-                <>
-                  <i className="fas fa-bell" /> <span>5</span>
-                </>
-              )}
-            </Link>
+            {share ? (
+              <Link to={'/user/invite-code/' + id}>
+                <img
+                  src={require('../assets/img/share-icon.png')}
+                  alt="share"
+                />
+              </Link>
+            ) : (
+              !arrow && (
+                <Link to="#">
+                  {notification && (
+                    <>
+                      <i className="fas fa-bell" /> <span>5</span>
+                    </>
+                  )}
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}

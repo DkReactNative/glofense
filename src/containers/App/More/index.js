@@ -33,7 +33,7 @@ const MoreOption = (props) => {
           </div>
           <ul className="moreopctionslist">
             <li>
-              <Link to="#">
+              <Link to="/user/referral-code">
                 <i className="fas fa-user-plus"></i> Referral Code{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -41,7 +41,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/invite-quiz">
                 <i className="fas fa-envelope-open-text"></i> Quiz Invite COde{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -49,7 +49,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/more/how-to-play">
                 <i className="fab fa-python"></i> How to play{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -57,7 +57,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/more/faq">
                 <i className="fas fa-question-circle"></i> FAQ{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -65,7 +65,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/more/about-us">
                 <i className="fas fa-info-circle"></i> About Us{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -73,7 +73,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/more/terms-and-conditions">
                 <i className="fas fa-file-alt"></i> Terms and Condition{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>
@@ -81,7 +81,7 @@ const MoreOption = (props) => {
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/user/more/privacy-policy">
                 <i className="fas fa-user-shield"></i> Privacy Policy{' '}
                 <span className="rightarrow">
                   <i className="fas fa-chevron-right"></i>

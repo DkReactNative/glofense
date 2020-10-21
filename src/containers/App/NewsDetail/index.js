@@ -37,7 +37,11 @@ const NewsDetail = (props) => {
 
         <div className="tab-pane" id="messages" role="tabpanel">
           <div className="header_height">
-            <WebHeader title={newsDetail.title ? newsDetail.title : 'News Detail'} />
+            <WebHeader
+              title={newsDetail.title ? newsDetail.title : 'News Detail'}
+              history={props.history}
+              arrow={true}
+            />
           </div>
           <div className="newslist">
             <li>

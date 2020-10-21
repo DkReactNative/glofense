@@ -16,6 +16,7 @@ export default function ({
   onBlur,
   onFocus,
   onInput,
+  style
 }) {
   return (
     <div className="input-component">
@@ -32,6 +33,7 @@ export default function ({
         onBlur={onBlur}
         onFocus={onFocus}
         onInput={onInput}
+        style={style}
         onChange={(evt) => {
           evt.target.value = evt.target.value.trimStart();
           evt.target.value = removeEmojis(evt.target.value);

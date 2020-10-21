@@ -1023,11 +1023,11 @@ footer ul.social_list li a {
 /*Inner page css start*/
 .body-inner-P {
   background-color: #ecf0f4;
-  height: 100vh;
+  min-height: 100vh;
 }
 .web-container {
   max-width: 480px;
-  height: 100%;
+  min-height: 100%;
 }
 .web-bg {
   background-image: url(../img/innerrightbg.jpg);
@@ -1052,7 +1052,7 @@ footer ul.social_list li a {
 }
 .web-logo {
   display: flex;
-  flex: 1 0 0;
+  flex: 2 0 0;
   justify-content: center;
   align-items: center;
 }
@@ -1120,7 +1120,7 @@ button.barsouter img {
 }
 .searchquiz {
   width: calc(100% - 20px);
-  margin: 12px auto 25px;
+  margin: 0px auto 14px;
   position: relative;
 }
 .searchquiz .form-control {
@@ -1368,7 +1368,7 @@ button.barsouter img {
 .pageheaderouter {
   padding-bottom: 80px;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
 }
 .choosequizouter ul li:nth-child(1),
 .choosequizouter ul li:nth-child(4),
@@ -1949,10 +1949,10 @@ span.uploadimg input[type='file'] {
 }
 .editouter {
   margin: 15px 15px 0px;
-  background: #e8e8e8;
+  background: #ffffff;
   padding: 15px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #e4e4e4;
 }
 .editouter .text-center {
   margin-bottom: 30px;
@@ -1963,7 +1963,7 @@ span.uploadimg input[type='file'] {
   border-radius: 0px;
   box-shadow: none !important;
   outline: none !important;
-  border: 1px solid #ccc;
+  border: 1px solid #e4e4e4;
 }
 .custom_radio {
   display: inline-block;
@@ -2077,7 +2077,7 @@ span.closebtn {
   position: fixed;
   width: 0px;
   height: 100vh;
-  background-color: #ccc;
+  background-color: #fff;
   z-index: 100;
   top: 0px;
   left: -100px;
@@ -2101,17 +2101,17 @@ span.closebtn {
   z-index: 10;
 }
 .newslist {
-  padding: 10px 15px 80px;
+  padding: 10px 15px 0px;
 }
 .newslist li a {
   display: block;
   margin-bottom: 10px;
-  background: #e6e4e4;
+  background: #ffffff;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0px 0px 7px #ccc;
-  border: 1px solid #ccc;
-  color: #000;
+  box-shadow: 0px 0px 7px #eaeaea;
+  border: 1px solid #e0e0e0;
+  color: #333;
 }
 .newslist li a h5 {
   font-size: 18px;
@@ -2223,7 +2223,7 @@ p.alertmessage {
 .detailsform .form-control,
 .panverifyform .form-control {
   height: 50px;
-  background-color: #ededed;
+  background-color: #f3f3f3;
   border: 0px;
   box-shadow: none !important;
   outline: none !important;
@@ -2303,7 +2303,7 @@ ul.referallist li:last-child a::after {
   text-align: center;
   background: #ecebeb;
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   padding: 15px 15px 0px;
   border-radius: 10px;
   box-shadow: 1px 4px 4px #ccc;
@@ -2358,10 +2358,10 @@ span.selfcontent span.points {
   color: #fff;
 }
 .topThree {
-  padding: 35px 15px 80px;
+  padding: 35px 15px 0px;
 }
 .topThree h4 {
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 17px;
 }
@@ -2418,8 +2418,9 @@ ul.moreopctionslist li a {
   padding: 10px 20px;
   display: block;
   border-bottom: 1px solid #e4e4e4;
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
+  font-weight: 500;
 }
 span.rightarrow {
   float: right;
@@ -2438,7 +2439,7 @@ ul.moreopctionslist li:last-child a {
   border: 0px;
 }
 .innerpagecontent {
-  padding: 10px 15px 80px;
+  padding: 10px 15px 0px;
 }
 .totalbalence {
   box-shadow: 0px 7px 15px 0px rgba(0, 0, 0, 0.08);
@@ -2640,7 +2641,7 @@ p.permission {
   overflow: hidden;
 }
 .oroption span {
-  background: #fff;
+  background: #ecf0f4;
   padding: 2px;
   position: relative;
   font-weight: 600;
@@ -2704,4 +2705,130 @@ p.permission {
   display: block;
   padding-left: 27px;
   font-weight: normal;
+}
+.walletamount {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px -3px 40px 0px rgba(0, 0, 0, 0.15);
+  padding: 30px 15px;
+  margin: 15px;
+  border-radius: 5px;
+}
+.walletamount h5 {
+  color: #ababab;
+  font-size: 16px;
+  font-weight: 600;
+}
+.walletamount h2 {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 15px 0px;
+}
+.walletamount h2 span {
+  font-size: 16px;
+  position: relative;
+  top: -10px;
+}
+.mainouterdiv {
+  display: flex;
+  justify-content: space-between;
+}
+.mainouterdiv div {
+  width: 33.33%;
+}
+.mainouterdiv div h4 {
+  font-size: 16px;
+  color: #b3abab;
+  margin-bottom: 7px;
+}
+.mainouterdiv div h3 {
+  font-weight: 600;
+  font-size: 14px;
+}
+.translation-history {
+  padding: 15px;
+}
+.translation-history h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 15px;
+}
+ul.translationlist li {
+  display: flex;
+  margin-bottom: 10px;
+  width: 100%;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0px 0px 14.25px 0.75px rgba(0, 0, 0, 0.08);
+  padding: 25px 15px;
+  border-radius: 5px;
+}
+ul.translationlist li span.sendresevicon {
+  min-width: 50px;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0px 0px 14.25px 0.75px rgb(0 0 0 / 14%);
+  border-radius: 5px;
+}
+ul.translationlist li span.sendcontent {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-left: 15px;
+}
+span.sendcontent h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.sendresevicon img {
+  width: 21px;
+  object-fit: cover;
+}
+.accountmonny h4 {
+  color: #b40901;
+}
+.sendcontent span {
+  font-weight: 600;
+}
+ul.translationlist {
+  margin-bottom: 10px;
+}
+.errorouter {
+  display: flex;
+  margin: 14px 0px;
+  align-items: flex-end;
+}
+.errorouter span + span {
+  padding-left: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #888;
+}
+.errorscontent p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+.errorscontent p a {
+  color: #2693ca;
+}
+.panreviewnext h4 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #f77d16;
+  font-weight: 600;
+}
+.panreviewnext {
+  padding: 20px;
+}
+.panreviewnext p {
+  font-size: 16px;
+}
+.Verifyemail p {
+  font-size: 16px;
+}
+.detailsform {
+  margin-bottom: 15px;
 }

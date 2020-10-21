@@ -12,6 +12,7 @@ export default function ErrorMessage({text, className = 'error-line', style}) {
             fontFamily: 'Mulish-Regular',
             textAlign: 'right',
             color: 'red',
+            padding: 0,
           },
           ...style,
         }}

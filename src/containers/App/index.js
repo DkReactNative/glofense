@@ -63,7 +63,7 @@ const App = (props) => {
             </Link>
           </li>
           <li>
-            <Link to="#" className="closeMenu">
+            <Link to="/user/my-account" className="closeMenu">
               <i className="fas fa-wallet closeMenu" /> My balance
             </Link>
           </li>

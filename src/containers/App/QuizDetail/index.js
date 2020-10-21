@@ -67,6 +67,8 @@ const QuizDetail = (props) => {
                     title={'Quiz Detail'}
                     history={props.history}
                     arrow={true}
+                    share={true}
+                    id={quizId}
                   />
                 </div>
                 <div className="contestquiz">
