@@ -170,6 +170,11 @@ const validation = {
       message: 'Please enter a valid 6 chracters long code',
     },
   },
+  redemCode: {
+    presence: {
+      message: 'Please enter code',
+    },
+  },
   dob: {
     presence: {
       message: 'Please enter your birth date',

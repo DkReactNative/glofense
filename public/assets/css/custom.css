@@ -2832,3 +2832,164 @@ ul.translationlist {
 .detailsform {
   margin-bottom: 15px;
 }
+/*21/10/2020*/
+.pricepoolmodal .modal-dialog {
+  width: 480px;
+  margin-left: 0px;
+  bottom: 0px;
+  position: absolute;
+  margin-bottom: 0px;
+}
+.modal-header {
+  /* background: #b40901; */
+  color: #fff;
+}
+.modal-header h5 {
+  font-size: 20px;
+}
+.modal-header .close {
+  opacity: 1;
+  color: #fff;
+  font-size: 30px;
+}
+.pricepoolmodal .modal-body h5 {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 600;
+  color: #449bc5;
+  padding: 15px 15px 0px;
+}
+.amounts {
+  text-align: center;
+  border-bottom: 1px solid #ececec;
+  padding: 7px 15px 10px;
+  font-weight: 700;
+  font-size: 19px;
+  color: #af1810;
+}
+.topranksmoney {
+  padding: 0px 0 10px;
+  background: #f3f3f3;
+}
+.topranksmoney p {
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 15px;
+  margin-bottom: 0px;
+}
+.topranksmoney p span {
+  color: #af1810;
+}
+.topranksmoney p:nth-child(even) {
+  background: #fff;
+}
+.tremsconditions {
+  width: 100%;
+  margin: 0 auto 50px;
+  background: #f3f3f3;
+  padding: 0px 40px;
+}
+.tremsconditions h4 {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+.tremsconditions p {
+  font-size: 16px;
+  color: #a6a6a6;
+}
+.contestlisting .list-group,
+.bottomtabs .list-group {
+  flex-direction: row;
+  text-align: center;
+  margin: 0px !important;
+  border-radius: 0px !important;
+  width: 100% !important;
+}
+.contestlisting .list-group a,
+.bottomtabs .list-group a {
+  background: transparent !important;
+  border: 0px;
+  border-radius: 0px !important;
+  border-bottom: 3px solid transparent !important;
+  color: #9b9a9f !important;
+  font-weight: 600;
+  margin: 0px;
+  font-size: 18px;
+}
+.contestlisting .list-group a.active,
+.contestlisting .list-group a:hover,
+.bottomtabs .list-group a.active,
+.bottomtabs .list-group a:hover {
+  border-bottom: 3px solid #b80803 !important;
+  color: #333 !important;
+}
+.list-group-item:last-child {
+  margin-bottom: auto !important;
+}
+.upcominglist {
+  padding: 15px;
+}
+.timerset span {
+  background: #d8d9da;
+  margin-top: 5px;
+  display: inline-block;
+  border-radius: 53px;
+  padding: 4px 9px;
+  color: #2693ca;
+  font-weight: 600;
+}
+.timerset span i {
+  margin-right: 5px;
+  color: #717171;
+}
+.Leaderboardlisting ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 5px 15px;
+}
+.leftpart span.userimg img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+span.nameuser {
+  font-weight: 600;
+  margin-left: 10px;
+}
+.joincontest {
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.joincontest a {
+  display: block;
+  text-align: center;
+}
+.joincontest p {
+  font-size: 16px;
+  margin-top: 15px;
+  font-weight: 600;
+}
+.joincontest div {
+  text-align: center;
+}
+.joincontest button.btn {
+  background: #2693ca;
+  font-size: 16px;
+  padding: 7px 15px;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #2693ca;
+}
+.joincontest button.btn:hover {
+  background: transparent;
+  color: #2693ca;
+}

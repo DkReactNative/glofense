@@ -44,7 +44,7 @@ const Contest = (props) => {
           <div className="newslist">
             {newsList.map((ele, index) => {
               return (
-                <li>
+                <li key={index}>
                   <Link to={'/user/news-detail/' + ele._id}>
                     <h5>{ele.title ? ele.title : 'NA'}</h5>
                     <p style={{textOverflow: 'ellipsis'}}>

@@ -35,8 +35,8 @@ const QuizInvite = (props) => {
     body['invite_code'] = invideCode;
     postService('verify-invite-code', JSON.stringify(body))
       .then((response) => {
-        response = response.data;
         disable = false;
+        response = response.data;
         if (response.success) {
           showToast(response.msg);
           this.props.updateLoginform();

@@ -24,16 +24,17 @@ const ContestDetail = (props) => {
   const jointContest = () => {
     postService(`join-contest`, JSON.stringify({contest_id: quizId}))
       .then((response) => {
-        setConfirmModal(false)
+        setConfirmModal(false);
         response = response['data'];
         if (response.success) {
           showToast(response.msg);
+          props.history.goBack()
         } else {
           showDangerToast(response.msg);
         }
       })
       .catch((err) => {
-        setConfirmModal(false)
+        setConfirmModal(false);
         showDangerToast(err.message);
       });
   };
@@ -41,7 +42,6 @@ const ContestDetail = (props) => {
   const getContestDetail = () => {
     getService(`get-contest/${quizId}`)
       .then((response) => {
-        
         response = response['data'];
         response.results['left_slot'] =
           response.results.users_limit - response.results.joined_user_count;
@@ -63,7 +63,35 @@ const ContestDetail = (props) => {
           <div className="web-container">
             <div className="web-bg">
               <div className="download-app-right">
-                <div className="rules">
+                <div className="bg-header">
+                  <h3 className="prize-break-up">Prize Breakup</h3>
+                </div>
+                <div className="rules" style={{paddingTop: 10}}>
+                  <h3 className="text-total-winning">Total Winning Amount</h3>
+                  <p className="text-total-rs">
+                    ₹ {contestDetail.winning_amount}
+                  </p>
+                  <div className="prize-breakup-view">
+                    {contestDetail &&
+                      contestDetail.price_breakup &&
+                      contestDetail.price_breakup.map((ele, index) => {
+                        return (
+                          <div
+                            className="prize-innner-block"
+                            // style={{background: index % 2 !== 0 ? 'white' : ''}}
+                          >
+                            <p>
+                              Rank{' '}
+                              {ele.start_rank +
+                                (ele.end_rank > ele.start_rank
+                                  ? '-' + ele.end_rank
+                                  : '')}
+                            </p>
+                            <p>₹ {ele.each_price}</p>
+                          </div>
+                        );
+                      })}
+                  </div>
                   <h4>Important Notes</h4>
                   <p>
                     <i className="fas fa-check" />
@@ -337,7 +365,7 @@ const ContestDetail = (props) => {
                 jointContest();
               }}
             >
-              Join The Quiz
+              Join The Contest
             </button>
           </div>
         </Modal.Body>

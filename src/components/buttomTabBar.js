@@ -14,9 +14,9 @@ export default function TabBar({active}) {
         </Link>
         <Link
           className={`"list-group-item list-group-item-action mycontest " ${
-            active === 'contest' ? 'active' : ''
+            active === 'my-contest' ? 'active' : ''
           }`}
-          to="#"
+          to="/user/my-contest"
         >
           <span>My Contest</span>
         </Link>

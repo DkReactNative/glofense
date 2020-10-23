@@ -1,11 +1,9 @@
 import {connect} from 'react-redux';
 import React, {useEffect, useState} from 'react';
-import {Link, Redirect} from 'react-router-dom';
 import WebBg from '../../../components/web-bg';
-import {getService} from '../../../services/getService';
 import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
-import {showToast, showDangerToast} from '../../../components/toastMessage';
+import {showToast} from '../../../components/toastMessage';
 import Share from '../../../components/shareCodeOptions';
 const inviteCode =
     Math.random().toString(36).substring(2, 5) +

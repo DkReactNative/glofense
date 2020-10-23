@@ -58,8 +58,8 @@ const App = (props) => {
         </div>
         <ul className="sidebarlisting">
           <li>
-            <Link to="/user" className="closeMenu">
-              <i className="fas fa-home closeMenu" /> Home
+            <Link to="/user/profile" className="closeMenu">
+              <i className="fas fa-home closeMenu" /> My Profile
             </Link>
           </li>
           <li>

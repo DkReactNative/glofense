@@ -18,7 +18,10 @@ import ChooseLangugae from '../containers/App/ChangeLanguage';
 import InvideCode from '../containers/App/InviteCode';
 import QuizInviteCode from '../containers/App/More/QuizInvite';
 import MyAccount from '../containers/App/Profile/my-account';
-
+import Transaction from "../containers/App/Profile/transaction"
+import Withdraw from "../containers/App/Profile/withdraw";
+import MyContest from "../containers/App/MyContest";
+import MyContestDetail from "../containers/App/MyContest/contestDetail"
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -50,9 +53,15 @@ export default function AuthStack() {
       <Route path={`${path}/more/:id`} component={CmsPage} exact />
       <Route path={`${path}/invite-quiz`} component={QuizInviteCode} exact />
       <Route path={`${path}/referral-code`} component={ReferralCode} exact />
-      <Route path={`${path}/transactions`} component={MoreOption} exact />
       <Route path={`${path}/my-account`} component={MyAccount} exact />
-      <Route path={`${path}/withdraw`} component={MoreOption} exact />
+      <Route path={`${path}/my-contest`} component={MyContest} exact />
+      <Route
+        path={`${path}/my-contest/contest-detail/:id`}
+        component={MyContestDetail}
+        exact
+      />
+      <Route path={`${path}/transactions`} component={Transaction} exact />
+      <Route path={`${path}/withdraw`} component={Withdraw} exact />
       <Route path={`${path}/notification`} component={MoreOption} exact />
     </Switch>
   );
