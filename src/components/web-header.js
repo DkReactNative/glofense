@@ -8,6 +8,7 @@ export default function ({
   disableClick,
   share,
   id,
+  onShare
 }) {
   return (
     <>
@@ -58,7 +59,7 @@ export default function ({
           </div>
           <div className="notification-count">
             {share ? (
-              <Link to={'/user/invite-code/' + id}>
+              <Link to={'/user/invite-code/' + id} onClick={onShare}>
                 <img
                   src={require('../assets/img/share-icon.png')}
                   alt="share"

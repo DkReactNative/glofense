@@ -97,12 +97,11 @@ const MatchComplete = (props) => {
                       <h3>{user.username ? user.username : 'NA'}</h3>{' '}
                       <span className="points">
                         <i className="fas fa-star" />
-                        {matchDetail.winner_id === user._id
+                        {matchDetail.winner_id === user._id &&
+                        matchDetail.winner_points
                           ? matchDetail.winner_points
-                            ? matchDetail.winner_points
-                            : matchDetail.losser_points
-                            ? matchDetail.losser_points
-                            : 0
+                          : matchDetail.losser_points
+                          ? matchDetail.losser_points
                           : 0}{' '}
                         Pts.
                       </span>

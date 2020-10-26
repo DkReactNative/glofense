@@ -1,24 +1,58 @@
-import {connect} from 'react-redux';
-import React, {useEffect, useState} from 'react';
+import {connect, useDispatch} from 'react-redux';
+import React, {useEffect, useContext, useState} from 'react';
+import {showToast, showDangerToast} from '../../../components/toastMessage';
+import {postService} from '../../../services/postService';
 import WebBg from '../../../components/web-bg';
 import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
-import {showToast} from '../../../components/toastMessage';
+import SocketContext from '../../../constants/socket-context';
 import Share from '../../../components/shareCodeOptions';
-const inviteCode =
-    Math.random().toString(36).substring(2, 5) +
-    Math.random().toString(36).substring(2, 5);
+import {getService} from '../../../services/getService';
+import Session from '../../../helpers/session';
+var inviteCode;
+
 const InviteCode = (props) => {
+  const quizId = props.match.params.id;
+  const socket = useContext(SocketContext);
+  const dispatch = useDispatch();
+  socket.on('connect', () => {
+    if (!socket.connected) {
+      showDangerToast(
+        'Something went wrong while connecting. Please try again'
+      );
+      socket.io(process.env.REACT_APP_API_BASE_URL, {
+        secure: true,
+        rejectUnauthorized: false,
+        path: '',
+      });
+      props.history.goBack();
+    }
+    console.log('socket connected', socket.connected);
+  });
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
+  const [quizDetail, setQuizDetail] = useState({});
   const [effect, setEffect] = useState(true);
   const [showShare, setShare] = useState(false);
 
   useEffect(() => {
+    inviteCode =
+      Math.random('abcdefghjklmnpqrstuvwxyz12345789')
+        .toString(36)
+        .substring(2, 5) +
+      Math.random('abcdefghjklmnpqrstuvwxyz12345789')
+        .toString(36)
+        .substring(2, 5);
     document.body.style.overflow = 'hidden';
+    getQuizDetail();
+    addHandler();
     return () => {
       document.body.style.overflow = 'auto';
+      dispatch({
+        type: 'reload_browser',
+        payload: false,
+      });
     };
   }, [effect]);
 
@@ -34,6 +68,65 @@ const InviteCode = (props) => {
       showToast('Copied');
     }
   }
+
+  const addHandler = () => {
+    let tempID = `startInviteGame_${user._id}`;
+    socket.on(tempID, (data) => {
+      console.log('startInviteGame__data--->', data);
+      dispatch({
+        type: 'reload_browser',
+        payload: false,
+      });
+      dispatch({
+        type: 'update_invite_match_detail',
+        payload: data,
+      });
+      props.history.replace('/user/play-quiz/FromInvite:' + quizId);
+    });
+  };
+
+  const onShare = (category_id) => {
+    console.log(quizDetail);
+    let body = {};
+    body['quiz_id'] = quizId;
+    body['quiz_cat'] = category_id;
+    body['invite_code'] = inviteCode;
+    postService(`invite-user`, JSON.stringify(body))
+      .then((response) => {
+        response = response.data;
+        console.log(response);
+        if (response.success) {
+          showToast(response.msg);
+          response = response.results;
+        } else {
+          showDangerToast(response.msg);
+          if (response.isDeactivate) {
+            Session.clearItem('gloFenseUser');
+            dispatch({type: 'logout', payload: null});
+            props.history.replace('/');
+          } else {
+            props.history.replace('/user');
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getQuizDetail = () => {
+    getService(`get-quiz/${quizId}`)
+      .then((response) => {
+        response = response['data'];
+        console.log(response);
+        if (response.success) {
+          setQuizDetail(response.results);
+          onShare(response.results.category_id._id);
+        }
+      })
+      .catch((err) => {});
+  };
+
   return (
     <section className="body-inner-P">
       <div className="web-container">

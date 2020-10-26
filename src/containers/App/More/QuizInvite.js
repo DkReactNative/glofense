@@ -8,6 +8,7 @@ import WebHeader from '../../../components/web-header';
 import {showToast, showDangerToast} from '../../../components/toastMessage';
 import Input from '../../../components/Input';
 import Validation from '../../../validations/validation_wrapper';
+import Session from '../../../helpers/session';
 var disable = false;
 const QuizInvite = (props) => {
   const [effect, setEffect] = useState(true);
@@ -38,8 +39,12 @@ const QuizInvite = (props) => {
         disable = false;
         response = response.data;
         if (response.success) {
+          console.log(response);
           showToast(response.msg);
-          this.props.updateLoginform();
+          Session.setSession('inViteCode', response.results);
+          props.history.push(
+            '/user/quiz-detail/FromInvite:' + response.results.quiz_id.id
+          );
         } else {
           showDangerToast(response.msg);
         }

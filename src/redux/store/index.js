@@ -7,6 +7,7 @@ import LoadingReducer from '../reducers/loadingReducer';
 import LoginFormReducer from '../reducers/loginFormReducer';
 import ActiveClassReducer from '../reducers/activeClassReducer';
 import QuizReducer from '../reducers/quizReducer';
+import inviteMatchDetail from '../reducers/inviteMatchDetail';
 import RefreshBrowser from '../reducers/browserReload';
 var rootReducer = combineReducers({
   user: ProfileReducer,
@@ -16,6 +17,7 @@ var rootReducer = combineReducers({
   activeClass: ActiveClassReducer,
   quizData: QuizReducer,
   browserReload: RefreshBrowser,
+  inviteMatchDetail: inviteMatchDetail
 });
 
 function configureStore(state = {rotating: true}) {

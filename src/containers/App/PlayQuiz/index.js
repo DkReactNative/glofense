@@ -14,13 +14,17 @@ import {postService} from '../../../services/postService';
 import WaitingUser from '../../../components/waitingOpponent';
 import QuestionResponseTimer from '../../../components/questionResponseTimer';
 import SocketContext from '../../../constants/socket-context';
-import JSONDATA from '../../../constants/findUserDummy';
 import * as $ from 'jquery';
 var answerData;
 var totalRight = 0;
 var totalWrong = 0;
 var matchId;
 const PlayQuiz = (props) => {
+  var FromInvite = false;
+  var inviteCode = Session.getSession('inViteCode')
+    ? Session.getSession('inViteCode').invite_code
+    : null;
+
   const socket = useContext(SocketContext);
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
@@ -44,9 +48,23 @@ const PlayQuiz = (props) => {
     }
     console.log('socket connected', socket.connected);
   });
-  const quizID = props.match.params.id;
+  var quizID = props.match.params.id;
+  quizID = quizID.split(':');
+  if (quizID.length === 1) {
+    quizID = quizID[0];
+  } else if (quizID[0] === 'FromInvite') {
+    FromInvite = true;
+    quizID = quizID[1];
+  } else {
+    endGame();
+    showDangerToast('Changing URL of Website are permitted');
+    props.history.replace('/user');
+  }
+  if (!inviteCode && FromInvite) {
+    showDangerToast('Sorry Invite code detail lost. Please try again');
+    props.history.replace('/user');
+  }
   const dispatch = useDispatch();
-
   const [quizDetail, SetQuizDetail] = useState({});
   const [effect, setEffect] = useState(true);
   const [otherUser, setOtherUser] = useState(null);
@@ -57,10 +75,20 @@ const PlayQuiz = (props) => {
   const [userMatch, setUsermatch] = useState(false);
   const [show5secondTimer, set5secondTimer] = useState(false);
   const [show10SecondTimer, set10SecondTimer] = useState(false);
-
+  const [inviteMatchDetail, setInviteMatchDetail] = useState(
+    props.state.inviteMatchDetail
+  );
   useEffect(() => {
+    console.log('inviteMatchDetail => ', props.state.inviteMatchDetail);
     getQuizDetail();
-    SearchOnlineUser();
+
+    if (!FromInvite) {
+      SearchOnlineUser();
+    } else {
+      QuestionsApi();
+      setInviteMatchDetail(props.state.inviteMatchDetail);
+    }
+
     return () => {
       console.log('I am destroyed');
       if (true) {
@@ -90,6 +118,43 @@ const PlayQuiz = (props) => {
           setOtherUser(response.opponent);
           setUsermatch(true);
           addMatchHandlers(response.opponent);
+          set5secondTimer(true);
+          matchId = response.match_id;
+        } else {
+          showDangerToast(response.msg);
+          if (response.isDeactivate) {
+            Session.clearItem('gloFenseUser');
+            dispatch({type: 'logout', payload: null});
+            props.history.replace('/');
+          } else {
+            props.history.replace('/user');
+          }
+        }
+      })
+      .catch((err) => {});
+  };
+
+  const QuestionsApi = () => {
+    postService(
+      `invite-user-question`,
+      JSON.stringify({match_id: inviteMatchDetail.match_id})
+    )
+      .then((response) => {
+        response = response['data'];
+        console.log('invite-user-question =>', response);
+        if (response.success) {
+          showToast(response.msg);
+          response = response.results;
+          domEventHandler();
+          setQuestionsData(response.questions);
+          if (user._id === response.opponent._id) {
+            setOtherUser(response.user);
+            addMatchHandlers(response.user);
+          } else {
+            setOtherUser(response.opponent);
+            addMatchHandlers(response.opponent);
+          }
+          setUsermatch(true);
           set5secondTimer(true);
           matchId = response.match_id;
         } else {
@@ -139,22 +204,32 @@ const PlayQuiz = (props) => {
   };
 
   function endGame() {
-    socket.emit(
-      'endGame',
-      JSON.stringify({match_id: matchId, user_id: user._id})
-    );
+    if (FromInvite) {
+      socket.emit('removeInviteCode', {
+        user_id: user._id,
+        invite_code: inviteCode,
+        quiz_id: quizID,
+      });
+    } else {
+      socket.emit(
+        'endGame',
+        JSON.stringify({match_id: matchId, user_id: user._id})
+      );
+    }
   }
 
   const onChoose = (answer) => {
     answerData = answer;
+    let points = UserPoints;
     if (answer.result === 'right') {
       totalRight += 1;
+      points = UserPoints + answer.duration;
       setUserPoints(UserPoints + answer.duration);
     } else if (answer.result === 'wrong') {
       totalWrong += 1;
     }
     let socketRequest = {
-      Points: UserPoints + '',
+      Points: points + '',
       ListnerKey: `RunningGame_${user._id}`,
       matchId: matchId,
       user_id: user._id,
