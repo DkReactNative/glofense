@@ -4,9 +4,11 @@ import AppRoute from '../../routes/appRoute';
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import Session from '../../helpers/session';
+import Modal from 'react-bootstrap/Modal';
 const App = (props) => {
   var href = window.location.href;
   const dispatch = useDispatch();
+  const [confirmModal,setModal] = useState(false)
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
@@ -22,6 +24,9 @@ const App = (props) => {
     document.getElementById('overlay').onclick = (e) => {
       document.getElementById('glofensidebar').classList.remove('main');
     };
+    if(user.profile){
+      
+    }
   }, [user, props, href]);
 
   const onLogout = () => {
@@ -33,7 +38,15 @@ const App = (props) => {
   return (
     <>
       <AppRoute />
-
+      <Modal
+        aria-labelledby="exampleModalLabel"
+        dialogClassName="modal-dialog"
+        className="confirmations modalresize"
+        show={confirmModal}
+      >
+        <Modal.Body>
+        </Modal.Body>
+      </Modal>
       {/* Homeburger menu */}
       <div className="glofensidebar" id="glofensidebar">
         <div className="sidebarheader">
