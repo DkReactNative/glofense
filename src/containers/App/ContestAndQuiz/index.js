@@ -235,15 +235,7 @@ const Contest = (props) => {
                             {ele.description ? ele.description : 'NA'}
                           </p>
                         </div>
-                        <button
-                          className={`btn ${
-                            ele.status === 'active'
-                              ? 'activebtn'
-                              : 'inactivebtn'
-                          }`}
-                        >
-                          Active
-                        </button>
+                        <button className={`btn ${'activebtn'}`}>Active</button>
                       </div>
                       <div className="quizamounts">
                         <div className="text-center">
@@ -269,7 +261,23 @@ const Contest = (props) => {
                       </div>
                       <div className="statusouter">
                         <div className="bar-three bar-con">
-                          <div className="bar" data-percent={70} />
+                          {ele.joined_user_count && ele.total_slot && (
+                            <div
+                              className="bar"
+                              data-percent={
+                                (ele.joined_user_count /
+                                  ele.total_slot.replace(/\D/g, '')) *
+                                100
+                              }
+                              style={{
+                                width:
+                                  (ele.joined_user_count /
+                                    ele.total_slot.replace(/\D/g, '')) *
+                                    100 +
+                                  '%',
+                              }}
+                            />
+                          )}
                         </div>
                         <div className="d-flex">
                           <span>Only {ele.left_slot} spots left</span>{' '}

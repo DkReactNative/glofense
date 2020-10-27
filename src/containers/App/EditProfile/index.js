@@ -335,7 +335,9 @@ const EditProfile = (props) => {
                           selected={
                             !formDetail.dob || formDetail.dob === ''
                               ? null
-                              : Date.parse(moment(formDetail.dob ).toISOString())
+                              : Date.parse(
+                                  moment(new Date(formDetail.dob)).toISOString()
+                                )
                           }
                           dateFormat="dd-MM-yyyy"
                           minDate={new Date('1900/01/01')}

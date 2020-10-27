@@ -20,11 +20,10 @@ const MatchComplete = (props) => {
   const session = sessionStorage.getItem('matchDetail')
     ? JSON.parse(sessionStorage.getItem('matchDetail'))
     : {};
-  const [matchDetail, SetMatchDetail] = useState({});
+  const [matchDetail, SetMatchDetail] = useState({session});
   const [effect, setEffect] = useState(true);
 
   useEffect(() => {
-    getMatchDetail();
     window.removeEventListener('beforeunload', () => {});
     window.removeEventListener('blur', () => {});
     document.removeEventListener('fullscreenchange', () => {});
@@ -36,23 +35,6 @@ const MatchComplete = (props) => {
       console.log('I am destroyed');
     };
   }, [effect]);
-
-  const getMatchDetail = () => {
-    postService(
-      'match-completed',
-      JSON.stringify({status: 'completed', match_id: matchId})
-    )
-      .then((response) => {
-        response = response['data'];
-        if (response.success) {
-          SetMatchDetail(response.result);
-        } else {
-          showDangerToast(response.msg);
-          props.history.replace('/user');
-        }
-      })
-      .catch((err) => {});
-  };
 
   return (
     <section className="body-inner-P">
@@ -83,30 +65,15 @@ const MatchComplete = (props) => {
                         />
                       </span>
                     </div>
-                    <h3>
-                      {matchDetail.winner_id === user._id
-                        ? 'Congrats!'
-                        : 'Looser!'}
-                    </h3>
-                    <p>
-                      {' '}
-                      {matchDetail.winner_id === user._id
-                        ? `You won ${matchDetail.win_amount} Rupes!`
-                        : 'You have lost the match'}
-                    </p>
+                    <h3>Under Review</h3>
+                    <p>Please wait results are under review</p>
                   </div>
                   <div className="winnercontent">
                     <div className="d-flex">
                       <h3>{user.username ? user.username : 'NA'}</h3>{' '}
                       <span className="points">
                         <i className="fas fa-star" />
-                        {matchDetail.winner_id === user._id &&
-                        matchDetail.winner_points
-                          ? matchDetail.winner_points
-                          : matchDetail.losser_points
-                          ? matchDetail.losser_points
-                          : 0}{' '}
-                        Pts.
+                        {matchDetail.points} Pts.
                       </span>
                     </div>
                     <p>
@@ -129,7 +96,14 @@ const MatchComplete = (props) => {
                     </p>
                   </div>
                   <div className="joinbtn text-center mt-4">
-                    <button className="btn">Redeem Your Award</button>
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        props.history.replace('/user');
+                      }}
+                    >
+                      Go to home
+                    </button>
                   </div>
                 </div>
               </div>

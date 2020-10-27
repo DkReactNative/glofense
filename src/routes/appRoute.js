@@ -21,7 +21,8 @@ import MyAccount from '../containers/App/Profile/my-account';
 import Transaction from "../containers/App/Profile/transaction"
 import Withdraw from "../containers/App/Profile/withdraw";
 import MyContest from "../containers/App/MyContest";
-import MyContestDetail from "../containers/App/MyContest/contestDetail"
+import MyContestDetail from "../containers/App/MyContest/contestDetail";
+import ContestEnd from "../containers/App/MyContest/contestComplete"
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -49,6 +50,7 @@ export default function AuthStack() {
       <Route path={`${path}/news`} component={News} exact />
       <Route path={`${path}/news-detail/:id`} component={NewsDetail} exact />
       <Route path={`${path}/match-end/:id`} component={MatchComplete} exact />
+      <Route path={`${path}/contest-end/:id`} component={ContestEnd} exact />
       <Route path={`${path}/more`} component={MoreOption} exact />
       <Route path={`${path}/more/:id`} component={CmsPage} exact />
       <Route path={`${path}/invite-quiz`} component={QuizInviteCode} exact />

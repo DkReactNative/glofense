@@ -4,7 +4,11 @@ import axios from 'axios';
 import Session from '../helpers/session';
 var JWTToken = Session.getSession('gloFenseUser');
 JWTToken = JWTToken ? JWTToken.token : '';
-export const postService = (urlAction, params, token = JWTToken) => {
+export const postService = (urlAction, params, token = null) => {
+  if (!token) {
+    var JWTToken = Session.getSession('gloFenseUser');
+    token = JWTToken ? JWTToken.token : '';
+  }
   let ServiceUrl = process.env.REACT_APP_API_BASE_URL+"api/users/" + urlAction;
   return axios({
     method: 'post',

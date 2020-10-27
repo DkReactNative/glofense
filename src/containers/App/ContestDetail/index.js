@@ -28,7 +28,7 @@ const ContestDetail = (props) => {
         response = response['data'];
         if (response.success) {
           showToast(response.msg);
-          props.history.goBack()
+          props.history.goBack();
         } else {
           showDangerToast(response.msg);
         }
@@ -135,7 +135,7 @@ const ContestDetail = (props) => {
                         <div className="quizboxouter">
                           <div className="quizdetails">
                             <div className="quizimg">
-                              <Link href="#">
+                              <Link to="#">
                                 <img
                                   src={
                                     contestDetail.image
@@ -161,16 +161,8 @@ const ContestDetail = (props) => {
                                   : 'NA'}
                               </p>
                             </div>
-                            <button
-                              className={`btn ${
-                                contestDetail.status === 'active'
-                                  ? 'activebtn'
-                                  : 'inactivebtn'
-                              }`}
-                            >
-                              {contestDetail.status === 'active'
-                                ? 'Active'
-                                : 'Inactive'}
+                            <button className={`btn ${'activebtn'}`}>
+                              Active
                             </button>
                           </div>
                           <div className="quizamounts">
@@ -220,6 +212,13 @@ const ContestDetail = (props) => {
                                         )) *
                                       100
                                     }
+                                    style={{
+                                      width:
+                                        (contestDetail.joined_user_count /
+                                          contestDetail.total_slot.replace(/\D/g, '')) *
+                                          100 +
+                                        '%',
+                                    }}
                                   />
                                 )}
                             </div>

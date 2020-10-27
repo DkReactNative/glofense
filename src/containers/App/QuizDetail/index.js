@@ -278,7 +278,7 @@ const QuizDetail = (props) => {
                           </div>
                           <button
                             className={`btn ${
-                              quizDetail.status === 'active'
+                              quizDetail.status === 'active' 
                                 ? 'activebtn'
                                 : 'inactivebtn'
                             }`}

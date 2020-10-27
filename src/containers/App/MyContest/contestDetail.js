@@ -8,6 +8,7 @@ import WebBg from '../../../components/web-bg';
 import Timer from '../../../components/timer';
 import {formateDate} from '../../../helpers/commonHelpers';
 const MyContestDetail = (props) => {
+  const dispatch = useDispatch();
   const quizId = props.match.params.id;
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
@@ -31,7 +32,7 @@ const MyContestDetail = (props) => {
       .then((response) => {
         response = response['data'];
         if (response.success) {
-          let me = {};
+          let me = null;
           response.results['left_slot'] =
             response.results.users_limit - response.results.joined_user_count;
           response.results[
@@ -49,8 +50,9 @@ const MyContestDetail = (props) => {
               }
             }
           );
-
-          response.results.joined_users.unshift(me);
+          if (me) {
+            response.results.joined_users.unshift(me);
+          }
           response.results.counter = returnSeconds(response.results.start_date);
           setContestDetail(response.results);
         }
@@ -144,6 +146,16 @@ const MyContestDetail = (props) => {
                                     )) *
                                   100
                                 }
+                                style={{
+                                  width:
+                                    (contestDetail.joined_user_count /
+                                      contestDetail.total_slot.replace(
+                                        /\D/g,
+                                        ''
+                                      )) *
+                                      100 +
+                                    '%',
+                                }}
                               />
                             )}
                         </div>
@@ -189,13 +201,26 @@ const MyContestDetail = (props) => {
                     </div>
                     <div className="joinbtn text-center">
                       <button className="btn mb-3">
-                        {contestDetail.counter > 0 ? (
-                          <Timer
-                            counter={contestDetail.counter}
-                            onFinish={() => {}}
-                          />
+                        {props.state.gameId &&
+                        props.state.gameId.status === 'completed' ? (
+                          'Completed'
                         ) : (
-                          'Wait'
+                          <Timer
+                            counter={
+                              contestDetail.counter > 0
+                                ? contestDetail.counter
+                                : 0
+                            }
+                            onFinish={() => {
+                              dispatch({
+                                type: 'reload_browser',
+                                payload: false,
+                              });
+                              props.history.push(
+                                '/user/play-contest/' + quizId
+                              );
+                            }}
+                          />
                         )}
                       </button>
                     </div>
@@ -262,23 +287,25 @@ const MyContestDetail = (props) => {
                               {contestDetail &&
                                 contestDetail.joined_users &&
                                 contestDetail.joined_users.map((ele, index) => {
-                                  return (
-                                    <li>
-                                      <div className="leftpart">
-                                        <span className="userimg">
-                                          <img
-                                            src={ele.user_id.image}
-                                            alt="#"
-                                          />
-                                        </span>
-                                        <span className="nameuser">
-                                          {ele.user_id.first_name +
-                                            ' ' +
-                                            ele.user_id.last_name}
-                                        </span>
-                                      </div>
-                                    </li>
-                                  );
+                                  if (ele.user_id) {
+                                    return (
+                                      <li>
+                                        <div className="leftpart">
+                                          <span className="userimg">
+                                            <img
+                                              src={ele.user_id.image}
+                                              alt="#"
+                                            />
+                                          </span>
+                                          <span className="nameuser">
+                                            {ele.user_id.first_name +
+                                              ' ' +
+                                              ele.user_id.last_name}
+                                          </span>
+                                        </div>
+                                      </li>
+                                    );
+                                  }
                                 })}
                             </ul>
                           </div>

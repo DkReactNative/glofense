@@ -9,6 +9,7 @@ import ActiveClassReducer from '../reducers/activeClassReducer';
 import QuizReducer from '../reducers/quizReducer';
 import inviteMatchDetail from '../reducers/inviteMatchDetail';
 import RefreshBrowser from '../reducers/browserReload';
+import GameIdReducer from '../reducers/gameIdReducer';
 var rootReducer = combineReducers({
   user: ProfileReducer,
   deviceInfo: DeviceInfo,
@@ -17,7 +18,8 @@ var rootReducer = combineReducers({
   activeClass: ActiveClassReducer,
   quizData: QuizReducer,
   browserReload: RefreshBrowser,
-  inviteMatchDetail: inviteMatchDetail
+  inviteMatchDetail: inviteMatchDetail,
+  gameId: GameIdReducer,
 });
 
 function configureStore(state = {rotating: true}) {

@@ -14,7 +14,6 @@ import {postService} from '../../../services/postService';
 import WaitingUser from '../../../components/waitingOpponent';
 import QuestionResponseTimer from '../../../components/questionResponseTimer';
 import SocketContext from '../../../constants/socket-context';
-import JSONDATA from '../../../constants/findUserDummy';
 import * as $ from 'jquery';
 var answerData;
 var totalRight = 0;
@@ -27,8 +26,8 @@ const PlayContest = (props) => {
   );
   if (props.state.browserReload) {
     showDangerToast('Refreshing page not allowed');
-    // endGame();
-    // props.history.replace('/user');
+    endGame();
+    props.history.replace('/user');
   }
   socket.on('connect', () => {
     if (!socket.connected) {
@@ -44,13 +43,11 @@ const PlayContest = (props) => {
     }
     console.log('socket connected', socket.connected);
   });
-  const quizID = props.match.params.id;
+  const contestId = props.match.params.id;
   const dispatch = useDispatch();
 
-  const [quizDetail, SetQuizDetail] = useState({});
+  const [contestDetail, SetContestDetail] = useState({});
   const [effect, setEffect] = useState(true);
-  const [otherUser, setOtherUser] = useState(null);
-  const [otherUserPoints, setOtherUserPoints] = useState(0);
   const [UserPoints, setUserPoints] = useState(0);
   const [questionsData, setQuestionsData] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -59,10 +56,19 @@ const PlayContest = (props) => {
   const [show10SecondTimer, set10SecondTimer] = useState(false);
 
   useEffect(() => {
-    getQuizDetail();
-    // SearchOnlineUser();
+    if (!props.state.gameId || !props.state.gameId.gameId) {
+      showDangerToast(
+        'Something went wrong. Game detail is not found. Please try again'
+      );
+      props.history.replace('/user/my-contest');
+      return;
+    }
+    matchId = props.state.gameId.gameId;
+    getContestDetail();
+    loadContestQuestion();
     return () => {
       console.log('I am destroyed');
+      endGame();
       if (true) {
         window.removeEventListener('beforeunload', () => {});
         window.removeEventListener('blur', () => {});
@@ -78,20 +84,21 @@ const PlayContest = (props) => {
     };
   }, [effect]);
 
-  const SearchOnlineUser = () => {
-    postService(`online-user-search`, JSON.stringify({quiz_id: quizID}))
+  const loadContestQuestion = () => {
+    postService(`contest-questions`, JSON.stringify({contest_id: contestId}))
       .then((response) => {
         response = response['data'];
         if (response.success) {
           showToast(response.msg);
           response = response.results;
           domEventHandler();
-          setQuestionsData(response.questions);
-          setOtherUser(response.opponent);
+          setQuestionsData(response);
           setUsermatch(true);
-          addMatchHandlers(response.opponent);
           set5secondTimer(true);
-          matchId = response.match_id;
+          socket.emit('startContestGame', {
+            match_id: matchId,
+            user_id: user._id,
+          });
         } else {
           showDangerToast(response.msg);
           if (response.isDeactivate) {
@@ -106,43 +113,19 @@ const PlayContest = (props) => {
       .catch((err) => {});
   };
 
-  const addMatchHandlers = (opponent) => {
-    let tempID = `RunningGame_${opponent.id}`;
-    console.log('tempID', tempID, opponent);
-    socket.on(tempID, (data) => {
-      console.log('RunningGame_data--->', data);
-      if (data) {
-        setOtherUserPoints(data['Points'] ? data['Points'] : otherUserPoints);
-      }
-    });
-  };
-
-  const getQuizDetail = () => {
-    getService(`${'get-quiz'}/${quizID}`)
+  const getContestDetail = () => {
+    getService(`${'get-contest'}/${contestId}`)
       .then((response) => {
         response = response['data'];
-
         if (response.success) {
-          // if (
-          //   quizDetail.quiz_language === 'english' ||
-          //   quizDetail.quiz_language === 'hindi'
-          // ) {
-          //   dispatch({
-          //     type: 'update_profile',
-          //     payload: {language: quizDetail.quiz_language},
-          //   });
-          // }
-          SetQuizDetail(response.results);
+          SetContestDetail(response.results);
         }
       })
       .catch((err) => {});
   };
 
   function endGame() {
-    socket.emit(
-      'endGame',
-      JSON.stringify({match_id: matchId, user_id: user._id})
-    );
+    socket.emit('endContestGame', {match_id: matchId, user_id: user._id});
   }
 
   const onChoose = (answer) => {
@@ -155,7 +138,6 @@ const PlayContest = (props) => {
     }
     let socketRequest = {
       Points: UserPoints + '',
-      ListnerKey: `RunningGame_${user._id}`,
       matchId: matchId,
       user_id: user._id,
       questionData: answer,
@@ -163,7 +145,12 @@ const PlayContest = (props) => {
       TotalWrongAnswer: totalWrong + '',
     };
     console.log(JSON.stringify(socketRequest));
-    socket.emit('RunningGame', socketRequest);
+    socket.emit('RunningContest', socketRequest);
+
+    if (questionsData.length === currentQuestion + 1) {
+      console.log('currentQuestion', currentQuestion);
+      endGame();
+    }
   };
 
   // Dom all handlers
@@ -280,9 +267,13 @@ const PlayContest = (props) => {
                 let obj = {
                   right_answers: totalRight,
                   wrong_answers: totalWrong,
+                  points: UserPoints,
                 };
+                document
+                  .getElementById('fullscreen')
+                  .removeEventListener('click', () => {});
                 sessionStorage.setItem('matchDetail', JSON.stringify(obj));
-                // props.history.replace('/user/match-end/' + matchId);
+                props.history.replace('/user/contest-end/' + matchId);
               }
               set5secondTimer(status ? true : false);
               set10SecondTimer(status ? false : true);
@@ -321,7 +312,11 @@ const PlayContest = (props) => {
                   <div className="quizpatner">
                     <div className="userone user-contest">
                       <div className="userimg">
-                        <img src={user.image} alt="#"  className="contest-user-img"/>
+                        <img
+                          src={user.image}
+                          alt="#"
+                          className="contest-user-img"
+                        />
                       </div>
                       <Link to="#">
                         <h5>{user.username ? user.username : 'NA'}</h5>

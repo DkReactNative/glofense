@@ -356,6 +356,9 @@ const PlayQuiz = (props) => {
                   right_answers: totalRight,
                   wrong_answers: totalWrong,
                 };
+                document
+                  .getElementById('fullscreen')
+                  .removeEventListener('click', () => {});
                 sessionStorage.setItem('matchDetail', JSON.stringify(obj));
                 props.history.replace('/user/match-end/' + matchId);
               }

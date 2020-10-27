@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import React, {useEffect, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import WebBg from '../../../components/web-bg';
@@ -7,7 +7,10 @@ import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
 import Timer from '../../../components/timer';
 import {Line} from 'rc-progress';
+import Session from '../../../helpers/session';
+import {showInfoToast} from '../../../components/toastMessage';
 const MyContest = (props) => {
+  const dispatch = useDispatch();
   const [effect, setEffect] = useState(true);
   const [upcomingList, setupcomingList] = useState([]);
   const [livetList, setlivetList] = useState([]);
@@ -15,6 +18,7 @@ const MyContest = (props) => {
   var currentPage = 0;
 
   useEffect(() => {
+    console.log("called")
     document.body.style.overflow = 'hidden';
     getContestList(1, 'upcoming');
     return () => {
@@ -70,10 +74,25 @@ const MyContest = (props) => {
         className="quizboxouter"
         key={index + '2'}
         onClick={() => {
-          if (type === 'running') {
-            props.history.push(
-              '/user/my-contest/contest-detail/' + ele.game_id._id
-            );
+          if (type === 'running' || type === 'completed') {
+            if (ele.status === 'under_review') {
+              showInfoToast('Contest is under review please wait for results');
+            } else {
+              localStorage.setItem(
+                'game_id',
+                JSON.stringify({
+                  ...ele.game_id,
+                  ...{gameId: ele.id},
+                })
+              );
+              dispatch({
+                type: 'update_game_id',
+                payload: {...ele.game_id, ...{gameId: ele.id}},
+              });
+              props.history.push(
+                '/user/my-contest/contest-detail/' + ele.game_id._id
+              );
+            }
           }
         }}
       >
@@ -135,11 +154,13 @@ const MyContest = (props) => {
           <div className="timerset text-center">
             <span>
               <i className="fas fa-clock" />
-              {ele.counter > 0 ? (
+              {ele.status === 'under_review' ? (
+                'Under Review'
+              ) : ele.counter > 2 ? (
                 <Timer
                   counter={ele.counter}
                   onFinish={() => {
-                    getContestList(1, 'running');
+                    getContestList(1, type);
                   }}
                 />
               ) : type === 'completed' ? (

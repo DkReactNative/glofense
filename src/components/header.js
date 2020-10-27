@@ -32,6 +32,7 @@ class Header extends React.Component {
       loginForm: {},
       deviceInfo: {},
       user_id: null,
+      remberMe: Session.getSession('remember_me') ? true : false,
     };
   }
 
@@ -185,6 +186,14 @@ class Header extends React.Component {
         if (response.success) {
           showToast(response.msg);
           this.props.updateLoginform();
+          if (this.state.remberMe) {
+            Session.setSession('remember_me', {
+              loginInput: this.state.loginForm.loginInput.toLowerCase(),
+              loginPassword: this.state.loginForm.loginPassword,
+            });
+          } else {
+            Session.clearItem('remember_me');
+          }
           this.setState({
             loading: false,
             loginModal: false,
@@ -382,7 +391,14 @@ class Header extends React.Component {
                   </div>
                   <div className="form-group form-check">
                     <span className="custom_check">
-                      Remember me &nbsp; <input type="checkbox" />
+                      Remember me &nbsp;{' '}
+                      <input
+                        type="checkbox"
+                        checked={this.state.remberMe ? true : false}
+                        onChange={(event) => {
+                          this.setState({remberMe: !this.state.remberMe});
+                        }}
+                      />
                       <span className="check_indicator">&nbsp;</span>
                     </span>
                   </div>
@@ -637,7 +653,13 @@ class Header extends React.Component {
                     <a
                       href="javascript:void(0);"
                       onClick={() => {
-                        this.setState({loginModal: true, registerModal: false});
+                        this.setState({
+                          loginModal: true,
+                          registerModal: false,
+                          loginForm: Session.getSession('remember_me')
+                            ? Session.getSession('remember_me')
+                            : {},
+                        });
                       }}
                     >
                       Sign in
@@ -801,7 +823,14 @@ class Header extends React.Component {
                 <ul className="home_toggle_block ml-0 ml-lg-0">
                   <li
                     className={this.state.loginModal ? 'selected' : ''}
-                    onClick={() => this.handleModal('loginModal', true)}
+                    onClick={() => {
+                      this.handleModal('loginModal', true);
+                      this.setState({
+                        loginForm: Session.getSession('remember_me')
+                          ? Session.getSession('remember_me')
+                          : {},
+                      });
+                    }}
                   >
                     <Link to="#">Login</Link>
                   </li>

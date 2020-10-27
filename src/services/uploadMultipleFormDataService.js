@@ -3,7 +3,11 @@ import axios from 'axios';
 import Session from '../helpers/session';
 var JWTToken = Session.getSession('gloFenseUser');
 JWTToken = JWTToken ? JWTToken.token : '';
-export default function uploadImageWithData(url, formData, token = JWTToken) {
+export default function uploadImageWithData(url, formData, token = null) {
+  if (!token) {
+    var JWTToken = Session.getSession('gloFenseUser');
+    token = JWTToken ? JWTToken.token : '';
+  }
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',

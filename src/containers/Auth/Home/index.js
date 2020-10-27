@@ -87,7 +87,7 @@ const Home = (props) => {
   const _renderOwlSlider = () => {
     return list.map((ele, i) => {
       return (
-        <div key={i} className={i == 0 ? 'item active' : 'item'}>
+        <div key={i} className={i === 0 ? 'item active' : 'item'}>
           <div className="client_says_box position-relative">
             <div className="client_img">
               <img src={ele.image} alt="client" />
@@ -234,6 +234,7 @@ const Home = (props) => {
             <div className="col-md-12">
               <Owl
                 item={1}
+                rtl={false}
                 className="client_says_slider owl-carousel"
                 options={options}
                 component={_renderOwlSlider()}
