@@ -36,8 +36,9 @@ export default function ({
             <Link to="#">{title}</Link>
           </div>
           <div className="notification-count">
-            <Link to="#">
-              <i className="fas fa-bell" /> <span>5</span>
+            <Link to="/user/notification">
+              <i className="fas fa-bell" /> 
+              {/* <span>5</span> */}
             </Link>
           </div>
         </div>

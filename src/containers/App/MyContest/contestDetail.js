@@ -316,7 +316,7 @@ const MyContestDetail = (props) => {
                 </div>
               </div>
             </div>
-            <Buttom active={'home'} />
+            <Buttom active={'my-contest'} />
           </div>
         </div>
       </div>

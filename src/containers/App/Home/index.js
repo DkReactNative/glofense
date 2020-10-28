@@ -28,6 +28,7 @@ var options = {
 const Home = (props) => {
   const [sliderList, setsliderList] = useState([]);
   const [categoryList, setcategoryList] = useState([]);
+  const [categoryListOriginal, setcategoryListOriginal] = useState([]);
   const [effect, setEffect] = useState(true);
   var currentPage = 0;
 
@@ -65,8 +66,8 @@ const Home = (props) => {
           if (ele.image) ele.image = response.image_path + ele.image;
           return ele;
         });
-
         setcategoryList(array);
+        setcategoryListOriginal(array);
       })
       .catch((err) => {});
   };
@@ -117,6 +118,20 @@ const Home = (props) => {
                   className="form-control"
                   placeholder="Search Quiz"
                   name="true"
+                  onKeyUp={(evt) => {
+                    console.log();
+                    evt.target.value = evt.target.value.trimStart();
+                    let array = categoryListOriginal.filter((ele) => {
+                      if (
+                        ele.title
+                          .toLowerCase()
+                          .includes(evt.target.value.toLowerCase())
+                      ) {
+                        return ele;
+                      }
+                    });
+                    setcategoryList(array);
+                  }}
                 />
                 <i className="fas fa-search" />
               </div>
@@ -151,7 +166,10 @@ const Home = (props) => {
             </div>
             <div className="quizouterbox">
               <h4>Choose Quiz</h4>
-              <div className="choosequizouter" id="choosequizouter">
+              <div
+                className={categoryList.length > 0 ? 'choosequizouter' : ''}
+                id="choosequizouter"
+              >
                 <ul id="scroll-content">
                   {categoryList.map((ele, index) => {
                     return (
@@ -174,6 +192,19 @@ const Home = (props) => {
                       </li>
                     );
                   })}
+                  {categoryList.length === 0 && (
+                    <div className="joincontest">
+                      <div>
+                        <Link to="/user">
+                          <img
+                            src={require('../../../assets/img/logo.png')}
+                            alt="#"
+                          />
+                        </Link>
+                        <p>No categories found </p>
+                      </div>
+                    </div>
+                  )}
                 </ul>
               </div>
             </div>

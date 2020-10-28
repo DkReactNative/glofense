@@ -1,18 +1,21 @@
 import {connect} from 'react-redux';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, useRouteMatch} from 'react-router-dom';
 import AppRoute from '../../routes/appRoute';
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import Session from '../../helpers/session';
 import Modal from 'react-bootstrap/Modal';
 const App = (props) => {
+  let {path, url} = useRouteMatch();
+  console.log('path,url,pathname=>', path, url, window.location.pathname);
   var href = window.location.href;
   const dispatch = useDispatch();
-  const [confirmModal,setModal] = useState(false)
+  const [confirmModal, setModal] = useState(true);
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
   useEffect(() => {
+    console.log('href =>', href);
     document.getElementById('closebtn').onclick = (e) => {
       document.getElementById('glofensidebar').classList.remove('main');
     };
@@ -24,8 +27,13 @@ const App = (props) => {
     document.getElementById('overlay').onclick = (e) => {
       document.getElementById('glofensidebar').classList.remove('main');
     };
-    if(user.profile){
-      
+    if (
+      (!props.state.user.dob) &&
+      window.location.pathname !== '/user/edit-profile'
+    ) {
+      setModal(true);
+    } else {
+      setModal(false);
     }
   }, [user, props, href]);
 
@@ -41,10 +49,27 @@ const App = (props) => {
       <Modal
         aria-labelledby="exampleModalLabel"
         dialogClassName="modal-dialog"
+        backdrop="static"
+        keyboard={false}
         className="confirmations modalresize"
         show={confirmModal}
+        onHide={() => {
+          setModal(false);
+        }}
       >
         <Modal.Body>
+          <div className="update-profile-modal">
+            <h1>Profile Update</h1>
+            <h5>Please update your profile first.</h5>
+            <Link
+              to="/user/edit-profile"
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              UPDATE
+            </Link>
+          </div>
         </Modal.Body>
       </Modal>
       {/* Homeburger menu */}
@@ -81,8 +106,8 @@ const App = (props) => {
             </Link>
           </li>
           <li>
-            <Link to="#" className="closeMenu">
-              <i className="fas fa-bell closeMenu" /> Notification
+            <Link to="/user/notification" className="closeMenu">
+              <i className="fas fa-bell closeMenu" /> Notifications
             </Link>
           </li>
           <li>

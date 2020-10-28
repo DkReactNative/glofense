@@ -36,6 +36,16 @@ const validation = {
       message: 'Your name must be between 3 and 55 characters long length',
     },
   },
+  name: {
+    presence: {
+      message: 'Please enter your full name',
+    },
+    length: {
+      minimum: 3,
+      maximum: 55,
+      message: 'Your name length must be between 3 and 55 characters',
+    },
+  },
 
   userName: {
     presence: {
@@ -207,6 +217,15 @@ const validation = {
       minimum: 6,
       maximum: 18,
       message: 'Please enter a valid Number between 6 to 18 numbers long',
+    },
+  },
+  panCard: {
+    presence: {
+      message: 'Please enter your PAN number',
+    },
+    format: {
+      pattern: /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/,
+      message: 'PAN number is not valid',
     },
   },
 

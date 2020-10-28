@@ -113,9 +113,6 @@ const EditProfile = (props) => {
     });
   };
 
-  const captlizeName = (name) => {
-    return name.charAt(0).toUpperCase() + name.substr(1);
-  };
 
   function responseToState(object) {
     let obj = {};

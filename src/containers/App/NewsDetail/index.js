@@ -47,9 +47,7 @@ const NewsDetail = (props) => {
             <li>
               <Link to="#" style={{maxHeight: '100vh'}}>
                 <h5>{newsDetail.title ? newsDetail.title : 'NA'}</h5>
-                <p style={{textOverflow: 'ellipsis'}}>
-                  {newsDetail.content ? newsDetail.content : 'NA'}
-                </p>
+                <div dangerouslySetInnerHTML={{__html: newsDetail.content}}></div>
                 <span className="newadate">
                   {formateDate(
                     newsDetail.created_at ? newsDetail.created_at : new Date(),
@@ -60,7 +58,7 @@ const NewsDetail = (props) => {
             </li>
           </div>
         </div>
-        <Buttom active={'home'} />
+        <Buttom active={'news'} />
       </div>
     </section>
   );

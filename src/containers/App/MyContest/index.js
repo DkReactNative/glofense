@@ -236,7 +236,7 @@ const MyContest = (props) => {
                   {upcomingList.length === 0 && (
                     <div className="joincontest">
                       <div>
-                        <Link to="#">
+                        <Link to="/user">
                           <img
                             src={require('../../../assets/img/logo.png')}
                             alt="#"
@@ -309,7 +309,7 @@ const MyContest = (props) => {
             </div>
           </div>
         </div>
-        <Buttom active={'home'} />
+        <Buttom active={'my-contest'} />
       </div>
     </section>
   );

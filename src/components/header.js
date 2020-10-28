@@ -273,7 +273,9 @@ class Header extends React.Component {
     body['password'] = this.state.regiterForm.password;
     body['device_id'] = this.state.deviceInfo.device_id;
     body['device_type'] = 'website';
-    body['referral_code'] = '';
+    body['referral_code'] = this.state.regiterForm.referralCode
+      ? this.state.regiterForm.referralCode
+      : '';
     this.setState({loading: true});
     postService('register', JSON.stringify(body))
       .then((response) => {
@@ -618,6 +620,17 @@ class Header extends React.Component {
                       error={this.state.regiterForm.confirm_passwordError}
                     />
                   </div>
+                  <div className="form-group">
+                    <Input
+                      type="text"
+                      name="referralCode"
+                      maxLength={55}
+                      placeholder="Referral Code If Any"
+                      value={this.state.regiterForm.referralCode}
+                      onBlur={(e) => this.handleBlur(e, 'regiterForm')}
+                      onChange={(e) => this.handleChange(e, 'regiterForm')}
+                    />
+                  </div>
                   <div className="form-group form-check">
                     <span className="custom_check">
                       I Accept the terms and conditiond and Privacy policy
@@ -875,7 +888,7 @@ class Header extends React.Component {
                       My Profile
                     </Link>
                     <Link className="dropdown-item drop-link" to="/user">
-                      Contests
+                      Home
                     </Link>
                     <Link
                       className="dropdown-item drop-link"

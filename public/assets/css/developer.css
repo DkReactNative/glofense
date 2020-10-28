@@ -236,9 +236,9 @@
   overflow-y: auto;
   max-height: 80vh;
 }
-.newslist li a {
+/* .newslist li a {
   max-height: 100px;
-}
+} */
 .newslist li a h5 {
   font-weight: bold;
 }
@@ -384,6 +384,41 @@ span.sendcontent h4 {
   padding-left: 0px;
 }
 .upcominglist {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.update-profile-modal {
+  padding: 20px;
+  height: 150px;
+  flex-direction: column;
+}
+.update-profile-modal h1 {
+  font-size: 20px;
+}
+.update-profile-modal h5 {
+  margin-top: 10px;
+  font-size: 15px;
+}
+.update-profile-modal a {
+  font-size: 15px;
+  align-self: flex-end;
+  text-align: right;
+  margin-top: 45px;
+  justify-content: flex-end;
+  float: right;
+  font-weight: 600;
+}
+
+.editouter {
+  overflow: auto;
+  max-height: 75vh;
+}
+
+.joincontest {
+  height: 60vh;
+}
+.withdraw-css {
   max-height: 80vh;
   overflow-y: auto;
 }

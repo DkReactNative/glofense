@@ -9,6 +9,7 @@ import PlayQuiz from '../containers/App/PlayQuiz';
 import PlayContest from '../containers/App/PlayContest';
 import EditProfile from '../containers/App/EditProfile';
 import News from '../containers/App/News';
+import Notification from "../containers/App/Notifications"
 import NewsDetail from '../containers/App/NewsDetail';
 import MatchComplete from '../containers/App/MatchComplete';
 import MoreOption from '../containers/App/More';
@@ -48,6 +49,7 @@ export default function AuthStack() {
       <Route path={`${path}/invite-code/:id`} component={InvideCode} exact />
       <Route path={`${path}/play-contest/:id`} component={PlayContest} exact />
       <Route path={`${path}/news`} component={News} exact />
+      <Route path={`${path}/notification`} component={Notification} exact />
       <Route path={`${path}/news-detail/:id`} component={NewsDetail} exact />
       <Route path={`${path}/match-end/:id`} component={MatchComplete} exact />
       <Route path={`${path}/contest-end/:id`} component={ContestEnd} exact />

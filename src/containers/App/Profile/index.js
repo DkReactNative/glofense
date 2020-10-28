@@ -64,6 +64,9 @@ const Profile = (props) => {
                 </div>
                 <div className="contestquiz">
                   <div className="serdetails mb-4">
+                    <p style={{color: 'black', fontWeight: 'bold'}}>
+                      <span>Unique Code</span> {user._id ? user._id : ''}
+                    </p>
                     <p>
                       <span>Email Address</span>{' '}
                       {user.email ? captlizeName(user.email) : ''}

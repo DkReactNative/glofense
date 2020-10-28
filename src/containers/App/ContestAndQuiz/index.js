@@ -197,6 +197,19 @@ const Contest = (props) => {
                     </div>
                   );
                 })}
+                {quizList.length === 0 && (
+                  <div className="joincontest">
+                    <div>
+                      <Link to="/user">
+                        <img
+                          src={require('../../../assets/img/logo.png')}
+                          alt="#"
+                        />
+                      </Link>
+                      <p>No quiz found </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* head to head view */}
@@ -287,6 +300,19 @@ const Contest = (props) => {
                     </div>
                   );
                 })}
+                {contestList.length === 0 && (
+                  <div className="joincontest">
+                    <div>
+                      <Link to="/user">
+                        <img
+                          src={require('../../../assets/img/logo.png')}
+                          alt="#"
+                        />
+                      </Link>
+                      <p>No contest found </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -6,8 +6,8 @@ import {getService} from '../../../services/getService';
 import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
 import {formateDate} from '../../../helpers/commonHelpers';
-const Contest = (props) => {
-  const [newsList, setnewsList] = useState([]);
+const Notifications = (props) => {
+  const [notificationList, setnotificationList] = useState([]);
   const [effect, setEffect] = useState(true);
   var currentPage = 0;
 
@@ -21,13 +21,13 @@ const Contest = (props) => {
 
   const getNewsList = (page = currentPage + 1) => {
     currentPage = page;
-    getService(`get-news?page=${page}&itemsPerPage=100`)
+    getService(`get-notification?page=${page}&itemsPerPage=1000`)
       .then((response) => {
         response = response['data'];
         // setCurrentPage(page)
-        let array = [...newsList];
+        let array = [...notificationList];
         array = response['results']['docs'];
-        setnewsList(array);
+        setnotificationList(array);
       })
       .catch((err) => {});
   };
@@ -39,15 +39,25 @@ const Contest = (props) => {
 
         <div className="tab-pane" id="messages" role="tabpanel">
           <div className="header_height">
-            <WebHeader title={'News'} />
+            <WebHeader
+              title={'Notification'}
+              history={props.history}
+              arrow={true}
+            />
           </div>
           <div className="newslist">
-            {newsList.map((ele, index) => {
+            {notificationList.map((ele, index) => {
               return (
                 <li key={index}>
-                  <Link to={'/user/news-detail/' + ele._id}>
+                  <Link to={'#'}>
                     <h5>{ele.title ? ele.title : 'NA'}</h5>
-                    <div dangerouslySetInnerHTML={{__html: ele.content}}></div>
+                    <p style={{textOverflow: 'ellipsis'}}>
+                      {ele.content
+                        ? ele.content.length > 100
+                          ? ele.content.substr(0, 100) + '...'
+                          : ele.content
+                        : 'NA'}
+                    </p>
                     <span className="newadate">
                       {formateDate(
                         ele.created_at ? ele.created_at : new Date(),
@@ -58,7 +68,7 @@ const Contest = (props) => {
                 </li>
               );
             })}
-            {newsList.length === 0 && (
+            {notificationList.length === 0 && (
               <div className="joincontest">
                 <div>
                   <Link to="/user">
@@ -67,13 +77,13 @@ const Contest = (props) => {
                       alt="#"
                     />
                   </Link>
-                  <p>No news found </p>
+                  <p>No notification found </p>
                 </div>
               </div>
             )}
           </div>
         </div>
-        <Buttom active={'news'} />
+        <Buttom active={'home'} />
       </div>
     </section>
   );
@@ -85,4 +95,4 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(Contest);
+export default connect(mapStateToProps)(Notifications);
