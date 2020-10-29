@@ -6,9 +6,11 @@ import {getService} from '../../../services/getService';
 import {postService} from '../../../services/postService';
 import Modal from 'react-bootstrap/Modal';
 import Buttom from '../../../components/buttomTabBar';
+import Session from '../../../helpers/session';
 import {formateDate} from '../../../helpers/commonHelpers';
 import {showDangerToast, showToast} from '../../../components/toastMessage';
 const ContestDetail = (props) => {
+  const dispatch = useDispatch();
   const quizId = props.match.params.id;
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
@@ -54,6 +56,77 @@ const ContestDetail = (props) => {
         if (response.success) setContestDetail(response.results);
       })
       .catch((err) => {});
+  };
+
+  const CallJoinContest = () => {
+    let body = {};
+    body['game_type'] = 'contest';
+    body['game_id'] = props.state.gameId.gameId;
+    postService(`check-wallet`, JSON.stringify(body))
+      .then((response) => {
+        response = response.data;
+        console.log(response);
+
+        if (response.isDeactivate) {
+          Session.clearItem('gloFenseUser');
+          showDangerToast(
+            'Your account has been deactivated. Please contact to admin.'
+          );
+          dispatch({type: 'logout', payload: null});
+          props.history.replace('/');
+        } else if (response.auth === 0) {
+          showDangerToast(response.msg);
+          props.history.replace('/user');
+        } else if (response.success) {
+          let dataResponse = response.results;
+          var contestBalance = {};
+          contestBalance.cashBalance = dataResponse.cashBalance
+            ? parseFloat(dataResponse.cashBalance)
+            : 0.0;
+          contestBalance.winningBalance = dataResponse.winningBalance
+            ? parseFloat(dataResponse.winningBalance)
+            : 0.0;
+          contestBalance.usableBalance = dataResponse.usableBonus
+            ? parseFloat(dataResponse.usableBonus)
+            : 0.0;
+          contestBalance.entryFee = dataResponse.entryFee
+            ? parseFloat(dataResponse.entryFee)
+            : 0.0;
+          contestBalance.useableBonousPercent = dataResponse.useableBonousPercent
+            ? parseFloat(dataResponse.useableBonousPercent)
+            : 0.0;
+
+          if (
+            contestBalance.entryFee -
+              (contestBalance.usableBalance +
+                contestBalance.cashBalance +
+                contestBalance.winningBalance) <=
+            0
+          ) {
+            setConfirmModal(true);
+          } else {
+            let remainingBalance =
+              contestBalance.entryFee -
+              (contestBalance.usableBalance +
+                contestBalance.cashBalance +
+                contestBalance.winningBalance);
+
+            showDangerToast(
+              `Low balance!. Please add ₹  ${remainingBalance} to join contest.`
+            );
+            window.alert(
+              `Low balance!. Please add ₹  ${remainingBalance} to join contest.`
+            );
+            props.history.replace('/user/my-account');
+          }
+        } else {
+          showDangerToast(response.msg);
+          props.history.replace('/user/my-account');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -262,7 +335,7 @@ const ContestDetail = (props) => {
                           <button
                             className="btn"
                             onClick={() => {
-                              setConfirmModal(true);
+                              CallJoinContest();
                             }}
                           >
                             Join the contest

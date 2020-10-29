@@ -26,6 +26,11 @@ const validation = {
       message: 'Your name must be between 3 and 55 characters long length',
     },
   },
+  amount: {
+    presence: {
+      message: 'Please enter amount',
+    }
+  },
   lastName: {
     presence: {
       message: 'Please enter your last name',
@@ -210,13 +215,59 @@ const validation = {
       message: 'Please enter your account number',
     },
     format: {
-      pattern: /^[0-9]{6,18}$/,
-      message: 'Please enter a valid Number between 6 to 18 numbers long',
+      pattern: /^\d{9,18}$/,
+      message: 'Please enter a valid Number between 9 to 18 numbers long',
     },
     length: {
-      minimum: 6,
+      minimum: 9,
       maximum: 18,
-      message: 'Please enter a valid Number between 6 to 18 numbers long',
+      message: 'Please enter a valid Number between 9 to 18 numbers long',
+    },
+  },
+  confirm_accountNumber: {
+    presence: {
+      message: 'Please enter your account number',
+    },
+    format: {
+      pattern: /^\d{9,18}$/,
+      message: 'Please enter a valid Number between 9 to 18 numbers long',
+    },
+    length: {
+      minimum: 9,
+      maximum: 18,
+      message: 'Please enter a valid Number between 9 to 18 numbers long',
+    },
+    match: {
+      message: 'Your account number & confirm account number must be same',
+    },
+  },
+  IFSC: {
+    presence: {
+      message: 'Please enter the IFSC code of your bank',
+    },
+    format: {
+      pattern: /^([a-zA-Z]){4}([0-9]){7}?$/,
+      message: 'Please enter a valid IFSC code',
+    },
+  },
+  bankName: {
+    presence: {
+      message: 'Please enter the name of your bank',
+    },
+    length: {
+      minimum: 3,
+      maximum: 100,
+      message: 'Name must be between 3 and 100 characters long length',
+    },
+  },
+  branchName: {
+    presence: {
+      message: 'Please enter the name of your bank branch',
+    },
+    length: {
+      minimum: 3,
+      maximum: 100,
+      message: 'Name must be between 3 and 100 characters long length',
     },
   },
   panCard: {
@@ -228,7 +279,6 @@ const validation = {
       message: 'PAN number is not valid',
     },
   },
-
   idProof: {
     presence: {
       message: 'Please upload a image',

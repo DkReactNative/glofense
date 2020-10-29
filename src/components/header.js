@@ -6,11 +6,13 @@ import Input from './Input';
 import Error from './errorMessage';
 import Validation from '../validations/validation_wrapper';
 import Loader from './loader';
-import {showToast, showDangerToast} from './toastMessage';
+import {showToast, showDangerToast, showInfoToast} from './toastMessage';
 import {postService} from '../services/postService';
 import removeEmojis from '../helpers/removerEmoji';
 import OtpInput from 'react-otp-input';
 import Session from '../helpers/session';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleLogin from 'react-google-login';
 var disable = false;
 class Header extends React.Component {
   constructor(props) {
@@ -271,6 +273,9 @@ class Header extends React.Component {
     body['email'] = this.state.regiterForm.email.toLowerCase();
     body['phone'] = +this.state.regiterForm.phone;
     body['password'] = this.state.regiterForm.password;
+    if (this.state.regiterForm.key && this.state.regiterForm.id) {
+      body[this.state.regiterForm.key] = this.state.regiterForm.id;
+    }
     body['device_id'] = this.state.deviceInfo.device_id;
     body['device_type'] = 'website';
     body['referral_code'] = this.state.regiterForm.referralCode
@@ -341,6 +346,103 @@ class Header extends React.Component {
       });
   };
 
+  responseFacebook = (response, signup = false) => {
+    if (!response.email) {
+      showDangerToast(
+        "Facebook account doesn't have email id linked. Please try with diffrent account"
+      );
+      return;
+    }
+    let obj = {};
+    obj['email'] = response.email;
+    obj['key'] = 'fb_id';
+    obj['id'] = response.id;
+    obj['first_name'] = response.name.substr(0, response.name.indexOf(' '));
+    obj['last_name'] = response.name.substr(response.name.lastIndexOf(' ') + 1);
+    console.log(obj);
+    this.socialLogin(obj, signup);
+  };
+
+  onFacebookFail = (err) => {
+    showDangerToast(err.message);
+  };
+
+  onGoogleFail = (err) => {
+    showDangerToast(err.message);
+  };
+
+  responseGoogle = (response, signup = false) => {
+    response = response.profileObj;
+    if (!response.email) {
+      showDangerToast(
+        "Google account doesn't have email id linked. Please try with diffrent account"
+      );
+      return;
+    }
+    let obj = {};
+    obj['email'] = response.email;
+    obj['key'] = 'google_id';
+    obj['id'] = response.googleId;
+    obj['first_name'] = response.name.substr(0, response.name.indexOf(' '));
+    obj['last_name'] = response.name.substr(response.name.lastIndexOf(' ') + 1);
+    console.log(obj);
+    this.socialLogin(obj, signup);
+  };
+
+  socialLogin = (obj, signup = false) => {
+    let body = {};
+    body['email'] = obj.email.toLowerCase();
+    body[obj.key] = obj.id;
+    body['device_id'] = this.state.deviceInfo.device_id;
+    body['user_type'] = 'user';
+    body['device_type'] = 'website';
+    this.setState({loading: true});
+    postService('social-login', JSON.stringify(body))
+      .then((response) => {
+        response = response.data;
+        disable = false;
+        if (response.success) {
+          showToast(response.msg);
+          this.props.updateLoginform();
+          this.setState({
+            loading: false,
+            loginModal: false,
+            registerModal: false,
+            user_id: response.result.user_id,
+          });
+          Session.setSession('gloFenseUser', response.result);
+          this.props.storeSeesion(response.result);
+        } else {
+          this.setState({loading: false});
+          if (!signup) showDangerToast(response.msg);
+          if (response.isOtpverified === 0) {
+            this.setState({otpView: true, user_id: response.result.user_id});
+          } else {
+            showInfoToast('Please fill the missing details and register');
+            this.setState({
+              regiterForm: {
+                email: obj.email,
+                firstName: obj.first_name,
+                lastName: obj.last_name,
+                key: obj.key,
+                socialId: obj.id,
+              },
+            });
+            let el = document.getElementById('scroll-top');
+            el.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+              inline: 'start',
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        disable = false;
+        this.setState({loading: false});
+        console.log(err);
+      });
+  };
   loginModal = () => {
     return (
       <Modal
@@ -415,6 +517,36 @@ class Header extends React.Component {
                     <img src={require('../assets/img/arrow.png')} alt="#" />
                   </button>
                 </form>
+                <div className="socialbtn">
+                  <FacebookLogin
+                    appId="979110455914393"
+                    fields="name,email,picture"
+                    callback={this.responseFacebook}
+                    onFailure={this.onFacebookFail}
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        className="fbbtn btn mr-2"
+                      >
+                        facebook
+                      </button>
+                    )}
+                  />
+                  <GoogleLogin
+                    clientId="59410276792-v37oa8vqo5ebj5malribj7g0dn209bag.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    icon={false}
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        className="googlebtn btn ml-2"
+                      >
+                        Google
+                      </button>
+                    )}
+                    onSuccess={this.responseGoogle}
+                    onFailure={this.onGoogleFail}
+                  />
+                </div>
                 <div className="loginbtns text-center">
                   <p className="mt-5 mb-4">
                     <a
@@ -520,6 +652,7 @@ class Header extends React.Component {
       <Modal
         aria-labelledby="exampleModalLabel2"
         dialogClassName="loginmodal"
+        id="registerModal"
         show={this.state.registerModal}
         onHide={() => {
           this.handleModal('registerModal', false);
@@ -533,7 +666,7 @@ class Header extends React.Component {
                 loading={this.state.loading}
                 className="loading-component-modal"
               />
-              <div className="modal-header border-0 p-0">
+              <div className="modal-header border-0 p-0" id="scroll-top">
                 <h5 className="modal-title mt-3 mb-3" id="exampleModalLabel">
                   Create Account
                 </h5>
@@ -660,6 +793,42 @@ class Header extends React.Component {
                     <img src={require('../assets/img/arrow.png')} alt="#" />
                   </button>
                 </form>
+                <div className="socialbtn">
+                  <FacebookLogin
+                    appId="979110455914393"
+                    fields="name,email,picture"
+                    callback={(response) =>
+                      this.responseFacebook(response, true)
+                    }
+                    onFailure={(response) =>
+                      this.onFacebookFail(response, true)
+                    }
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        className="fbbtn btn mr-2"
+                      >
+                        facebook
+                      </button>
+                    )}
+                  />
+                  <GoogleLogin
+                    clientId="59410276792-v37oa8vqo5ebj5malribj7g0dn209bag.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    icon={false}
+                    render={(renderProps) => (
+                      <button
+                        onClick={renderProps.onClick}
+                        className="googlebtn btn ml-2"
+                      >
+                        Google
+                      </button>
+                    )}
+                    onSuccess={(response) =>
+                      this.responseGoogle(response, true)
+                    }
+                    onFailure={(response) => this.onGoogleFail(response, true)}
+                  />
+                </div>
                 <div className="loginbtns text-center">
                   <p className="mb-0 mt-4 signin">
                     Already have an account?{' '}

@@ -18,7 +18,6 @@ const EditProfile = (props) => {
   const dispatch = useDispatch();
   const stateList = [
     'Andhra Pradesh',
-    'Arunachal Pradesh',
     'Assam',
     'Bihar',
     'Chhattisgarh',

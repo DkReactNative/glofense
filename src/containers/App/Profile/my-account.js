@@ -8,10 +8,12 @@ import Modal from 'react-bootstrap/Modal';
 import Input from '../../../components/Input';
 import Validation from '../../../validations/validation_wrapper';
 import {postService} from '../../../services/postService';
+import Loader from '../../../components/loader';
 var disable = false;
 const MyAccount = (props) => {
   const [effect, setEffect] = useState(true);
   const [accounDetail, setDetail] = useState({});
+  const [loading, setLoading] = useState(false);
   const [code, setCode] = useState('');
   const [codeError, setError] = useState('');
   useEffect(() => {
@@ -23,8 +25,10 @@ const MyAccount = (props) => {
   const [showRedem, setShowRedem] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     getService(`get-account-details`)
       .then((response) => {
+        setLoading(false);
         console.log(response);
         response = response['data'];
         if (response.success) {
@@ -34,6 +38,7 @@ const MyAccount = (props) => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         showDangerToast(err.message);
       });
   }, []);
@@ -46,8 +51,10 @@ const MyAccount = (props) => {
       disable = false;
       return;
     }
+    setLoading(true);
     postService(`apply-couppon`, JSON.stringify({coupon_code: code}))
       .then((response) => {
+        setLoading(false);
         disable = false;
         console.log(response);
         response = response['data'];
@@ -58,6 +65,7 @@ const MyAccount = (props) => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         disable = false;
         showDangerToast(err.message);
       });
@@ -66,7 +74,7 @@ const MyAccount = (props) => {
     <section className="body-inner-P">
       <div className="web-container">
         <WebBg />
-
+        <Loader loading={loading} className="loading-component-modal" />
         <div className="tab-pane" id="messages" role="tabpanel">
           <div className="header_height">
             <WebHeader

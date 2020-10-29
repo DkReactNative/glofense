@@ -20,7 +20,7 @@ const MatchComplete = (props) => {
   const session = sessionStorage.getItem('matchDetail')
     ? JSON.parse(sessionStorage.getItem('matchDetail'))
     : {};
-  const [matchDetail, SetMatchDetail] = useState({session});
+  const [matchDetail, SetMatchDetail] = useState(session);
   const [effect, setEffect] = useState(true);
 
   useEffect(() => {

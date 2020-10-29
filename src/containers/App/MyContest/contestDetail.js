@@ -22,7 +22,7 @@ const MyContestDetail = (props) => {
 
   const returnSeconds = (startDate, endDate) => {
     var date1 = new Date(startDate);
-    var date2 = new Date();
+    var date2 = new Date(endDate);
     var diff = (date1 - date2) / 1000;
     return diff;
   };
@@ -53,7 +53,10 @@ const MyContestDetail = (props) => {
           if (me) {
             response.results.joined_users.unshift(me);
           }
-          response.results.counter = returnSeconds(response.results.start_date);
+          response.results.counter = returnSeconds(
+            response.results.start_date,
+            response.current_date
+          );
           setContestDetail(response.results);
         }
       })
@@ -216,7 +219,7 @@ const MyContestDetail = (props) => {
                                 type: 'reload_browser',
                                 payload: false,
                               });
-                              props.history.push(
+                              props.history.replace(
                                 '/user/play-contest/' + quizId
                               );
                             }}

@@ -5,23 +5,30 @@ import WebBg from '../../../components/web-bg';
 import {getService} from '../../../services/getService';
 import Buttom from '../../../components/buttomTabBar';
 import WebHeader from '../../../components/web-header';
+import Loader from '../../../components/loader';
+import { showDangerToast } from '../../../components/toastMessage';
 const Profile = (props) => {
   const [user, setUser] = useState(
     props.state && props.state.user ? props.state.user : {}
   );
   const [effect, setEffect] = useState(true);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getUserProfile();
   }, [effect]);
 
   const getUserProfile = () => {
+    setLoading(true)
     getService(`get-profile`)
       .then((response) => {
+        setLoading(false)
         response = response['data'];
         if (response.success) setUser(response.results);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setLoading(false);
+        showDangerToast(err.message)
+      });
   };
 
   const captlizeName = (name) => {
@@ -32,6 +39,7 @@ const Profile = (props) => {
     <section className="body-inner-P">
       <div className="web-container">
         <WebBg />
+        <Loader loading={loading} className="loading-component-modal" />
         <div className="web-left-container bgCurve">
           <div className="pageheaderouter">
             <div className="tab-content">

@@ -28,7 +28,7 @@ const MyContest = (props) => {
 
   const returnSeconds = (startDate, endDate) => {
     var date1 = new Date(startDate);
-    var date2 = new Date();
+    var date2 = new Date(endDate);
     var diff = (date1 - date2) / 1000;
     return diff;
   };
@@ -51,7 +51,7 @@ const MyContest = (props) => {
           }
           ele.category_id = ele.game_id.category_id._id;
           ele.category_title = ele.game_id.category_id.title;
-          ele.counter = returnSeconds(ele.start_date);
+          ele.counter = returnSeconds(ele.start_date, response['current_date']);
           return ele;
         });
         setupcomingList([]);

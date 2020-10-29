@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import Session from '../../helpers/session';
 import Modal from 'react-bootstrap/Modal';
+import {showDangerToast} from '../../components/toastMessage';
 const App = (props) => {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -28,12 +29,19 @@ const App = (props) => {
       document.getElementById('glofensidebar').classList.remove('main');
     };
     if (
-      (!props.state.user.dob) &&
+      !props.state.user.dob &&
       window.location.pathname !== '/user/edit-profile'
     ) {
       setModal(true);
     } else {
       setModal(false);
+    }
+    if (!user.token || user.token === '') {
+      showDangerToast(
+        'Authentication token is missing. Please try to login again'
+      );
+      Session.clearItem('gloFenseUser');
+      dispatch({type: 'logout', payload: null});
     }
   }, [user, props, href]);
 

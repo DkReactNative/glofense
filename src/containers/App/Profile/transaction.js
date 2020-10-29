@@ -5,14 +5,18 @@ import {getService} from '../../../services/getService';
 import WebHeader from '../../../components/web-header';
 import {formateDate} from '../../../helpers/commonHelpers';
 import {showDangerToast, showToast} from '../../../components/toastMessage';
+import Loader from '../../../components/loader';
 const Transaction = (props) => {
   const [effect, setEffect] = useState(true);
   const [accounDetail, setDetail] = useState({});
+  const [loading, setLoading] = useState(false);
   const [transactions, setTran] = useState([]);
   useEffect(() => {
+    setLoading(true)
     document.body.style.overflow = 'hidden';
     getService(`get-account-details`)
       .then((response) => {
+        setLoading(false)
         console.log(response);
         response = response['data'];
         if (response.success) {
@@ -22,10 +26,12 @@ const Transaction = (props) => {
         }
       })
       .catch((err) => {
+        setLoading(false)
         showDangerToast(err.message);
       });
     getService(`account-statement?page=1&itemsPerPage=100`)
       .then((response) => {
+        setLoading(false)
         console.log(response);
         response = response['data'];
         if (response.success) {
@@ -35,6 +41,7 @@ const Transaction = (props) => {
         }
       })
       .catch((err) => {
+        setLoading(false)
         showDangerToast(err.message);
       });
     return () => {
@@ -47,7 +54,7 @@ const Transaction = (props) => {
     <section className="body-inner-P">
       <div className="web-container">
         <WebBg />
-
+        <Loader loading={loading} className="loading-component-modal" />
         <div className="tab-pane" id="messages" role="tabpanel">
           <div className="header_height">
             <WebHeader
