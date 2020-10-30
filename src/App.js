@@ -16,7 +16,7 @@ const socket = io(process.env.REACT_APP_API_BASE_URL, {
   path: '',
 });
 
-console.log(socket);
+console.log(socket,process.env);
 class App extends Component {
   constructor(props) {
     super(props);

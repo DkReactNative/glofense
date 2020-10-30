@@ -23,7 +23,8 @@ import Transaction from "../containers/App/Profile/transaction"
 import Withdraw from "../containers/App/Profile/withdraw";
 import MyContest from "../containers/App/MyContest";
 import MyContestDetail from "../containers/App/MyContest/contestDetail";
-import ContestEnd from "../containers/App/MyContest/contestComplete"
+import ContestEnd from "../containers/App/MyContest/contestComplete";
+import AddMoney from "../containers/App/Profile/addMoney"
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -66,6 +67,7 @@ export default function AuthStack() {
       />
       <Route path={`${path}/transactions`} component={Transaction} exact />
       <Route path={`${path}/withdraw`} component={Withdraw} exact />
+      <Route path={`${path}/add-money`} component={AddMoney} exact />
       <Route path={`${path}/notification`} component={MoreOption} exact />
     </Switch>
   );

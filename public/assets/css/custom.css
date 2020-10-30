@@ -3040,3 +3040,72 @@ span.nameuser {
   font-weight: 600;
   opacity: 0.8;
 }
+/*/*******30/10/2020------/*/
+.Addcash {
+  background: #fff;
+  min-height: calc(100vh - 70px);
+}
+.currentbalence {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2693ca;
+  border-bottom: 1px solid #ccc;
+}
+.accountcash {
+  padding: 30px 15px;
+}
+.accountcash h4 {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.accountcash .form-control {
+  border: 0px;
+  box-shadow: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0px;
+  font-size: 16px;
+}
+.accountcash label {
+  padding: 0px 10px;
+  font-size: 16px;
+}
+.cashopction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0px 10px;
+}
+.cashopction button.btn {
+  background: transparent;
+  border: 1px solid #2693ca;
+  font-size: 16px;
+  padding: 7px 20px;
+  font-weight: 600;
+  color: #2693ca;
+  box-shadow: none;
+}
+.cashopction button.btn:hover {
+  background: #2693ca;
+  color: #fff;
+}
+.amountprice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 18px;
+}
+.cashfree {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.cashfree div {
+  margin-right: 15px;
+}

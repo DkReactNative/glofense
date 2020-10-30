@@ -519,7 +519,7 @@ class Header extends React.Component {
                 </form>
                 <div className="socialbtn">
                   <FacebookLogin
-                    appId="979110455914393"
+                    appId={process.env.REACT_APP_FACEBOOK_ID}
                     fields="name,email,picture"
                     callback={this.responseFacebook}
                     onFailure={this.onFacebookFail}
@@ -533,7 +533,7 @@ class Header extends React.Component {
                     )}
                   />
                   <GoogleLogin
-                    clientId="59410276792-v37oa8vqo5ebj5malribj7g0dn209bag.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    clientId={process.env.REACT_APP_GOOGLE_ID} //CLIENTID NOT CREATED YET
                     icon={false}
                     render={(renderProps) => (
                       <button
@@ -795,7 +795,7 @@ class Header extends React.Component {
                 </form>
                 <div className="socialbtn">
                   <FacebookLogin
-                    appId="979110455914393"
+                    appId={process.env.REACT_APP_FACEBOOK_ID}
                     fields="name,email,picture"
                     callback={(response) =>
                       this.responseFacebook(response, true)
@@ -813,7 +813,7 @@ class Header extends React.Component {
                     )}
                   />
                   <GoogleLogin
-                    clientId="59410276792-v37oa8vqo5ebj5malribj7g0dn209bag.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                    clientId={process.env.REACT_APP_GOOGLE_ID} //CLIENTID NOT CREATED YET
                     icon={false}
                     render={(renderProps) => (
                       <button

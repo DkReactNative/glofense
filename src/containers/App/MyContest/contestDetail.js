@@ -97,9 +97,13 @@ const MyContestDetail = (props) => {
                         </div>
                         <div className="quizcontent">
                           <Link to="#">
-                            <h4>Hot Quiz</h4>
+                            <h4>
+                              {contestDetail.category_id
+                                ? contestDetail.category_id.title
+                                : 'NA'}
+                            </h4>
                           </Link>
-                          <p className="mb-0">Get ready for big winnings</p>
+                          <p className="mb-0">{contestDetail.name}</p>
                         </div>
                         <button className="btn activebtn">Active</button>
                       </div>

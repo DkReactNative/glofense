@@ -96,7 +96,7 @@ const MyAccount = (props) => {
               <button
                 className="addmoney btn"
                 onClick={() => {
-                  showToast('Coming soon...');
+                  props.history.push('/user/add-money');
                 }}
               >
                 Add Balance

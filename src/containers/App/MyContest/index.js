@@ -104,10 +104,10 @@ const MyContest = (props) => {
           </div>
           <div className="quizcontent">
             <Link to="#">
-              <h4>{ele.game_id.name ? ele.game_id.name : 'NA'}</h4>
+              <h4>{ele.category_title ? ele.category_title : 'NA'}</h4>
             </Link>
             <p className="mb-0">
-              {ele.game_id.description ? ele.game_id.description : 'NA'}
+              {ele.game_id.name ? ele.game_id.name : 'NA'}
             </p>
           </div>
         </div>

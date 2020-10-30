@@ -422,3 +422,7 @@ span.sendcontent h4 {
   max-height: 80vh;
   overflow-y: auto;
 }
+
+.form-pay{
+  width: 100%;
+}
