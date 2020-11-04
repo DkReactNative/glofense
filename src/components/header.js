@@ -35,6 +35,7 @@ class Header extends React.Component {
       deviceInfo: {},
       user_id: null,
       remberMe: Session.getSession('remember_me') ? true : false,
+      showPassword: false,
     };
   }
 
@@ -140,7 +141,7 @@ class Header extends React.Component {
               });
               Session.setSession('gloFenseUser', response.result);
               this.props.storeSeesion(response.result);
-              document.getElementById("login_link").click();
+              document.getElementById('login_link').click();
             } else {
               this.setState({loading: false, otp: ''});
               showDangerToast(response.msg);
@@ -207,7 +208,7 @@ class Header extends React.Component {
           this.props.storeSeesion(response.result);
           const {history} = this.props;
           console.log('history =>', history);
-         document.getElementById("login_link").click();
+          document.getElementById('login_link').click();
         } else {
           this.setState({loading: false});
           showDangerToast(response.msg);
@@ -237,11 +238,11 @@ class Header extends React.Component {
     let emailError = Validation('email', this.state.regiterForm.email);
     let phoneError = Validation('phone', this.state.regiterForm.phone);
     let passwordError = Validation('password', this.state.regiterForm.password);
-    let confirm_passwordError = Validation(
-      'confirm_password',
-      this.state.regiterForm.confirm_password,
-      this.state.regiterForm.password
-    );
+    // let confirm_passwordError = Validation(
+    //   'confirm_password',
+    //   this.state.regiterForm.confirm_password,
+    //   this.state.regiterForm.password
+    // );
     let checkError = !this.state.checked ? 'This field is required' : '';
     if (
       firstNameError ||
@@ -250,7 +251,7 @@ class Header extends React.Component {
       emailError ||
       phoneError ||
       passwordError ||
-      confirm_passwordError ||
+      // confirm_passwordError ||
       checkError
     ) {
       this.setState({
@@ -264,7 +265,7 @@ class Header extends React.Component {
           emailError: emailError,
           phoneError: phoneError,
           passwordError: passwordError,
-          confirm_passwordError: confirm_passwordError,
+          // confirm_passwordError: confirm_passwordError,
         },
       });
       disable = false;
@@ -737,18 +738,40 @@ class Header extends React.Component {
                       error={this.state.regiterForm.phoneError}
                     />
                   </div>
-                  <div className="form-group">
+                  <div className="form-group passwordshow">
                     <Input
                       type="password"
                       name="password"
+                      id="password-input"
                       placeholder="Password"
                       value={this.state.regiterForm.password}
                       onBlur={(e) => this.handleBlur(e, 'regiterForm')}
                       onChange={(e) => this.handleChange(e, 'regiterForm')}
                       error={this.state.regiterForm.passwordError}
                     />
+                    <i
+                      className={
+                        this.state.showPassword
+                          ? 'fas fa-eye'
+                          : 'fas fa-eye-slash'
+                      }
+                      onClick={() => {
+                        var x = document.getElementById('password-input');
+                        if (x.type === 'password') {
+                          x.type = 'text';
+                          this.setState({
+                            showPassword: !this.state.showPassword,
+                          });
+                        } else {
+                          x.type = 'password';
+                          this.setState({
+                            showPassword: !this.state.showPassword,
+                          });
+                        }
+                      }}
+                    ></i>
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <Input
                       type="password"
                       name="confirm_password"
@@ -758,7 +781,7 @@ class Header extends React.Component {
                       onChange={(e) => this.handleChange(e, 'regiterForm')}
                       error={this.state.regiterForm.confirm_passwordError}
                     />
-                  </div>
+                  </div> */}
                   <div className="form-group">
                     <Input
                       type="text"

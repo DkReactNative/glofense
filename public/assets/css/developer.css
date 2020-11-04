@@ -423,6 +423,16 @@ span.sendcontent h4 {
   overflow-y: auto;
 }
 
-.form-pay{
+.form-pay {
   width: 100%;
+}
+
+.passwordshow i {
+  position: absolute;
+  right: 21px;
+  font-size: 24px;
+  top: 35%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
 }

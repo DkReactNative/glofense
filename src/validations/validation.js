@@ -29,7 +29,7 @@ const validation = {
   amount: {
     presence: {
       message: 'Please enter amount',
-    }
+    },
   },
   lastName: {
     presence: {
@@ -124,13 +124,14 @@ const validation = {
       message: 'Please enter a password',
     },
     format: {
-      pattern: /^\S*$/,
-      message: 'Spaces are not allowed',
+      pattern: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{6,}$/,
+      message:
+        'Password must be more than 6 characters, with at least one character and one numeric character',
     },
     length: {
-      minimum: 8,
-      maximum: 12,
-      message: 'Your password must be between 8 and 12 characters',
+      minimum: 6,
+      maximum: 24,
+      message: 'Your password must be between 8 and 24 characters',
     },
   },
 

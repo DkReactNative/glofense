@@ -486,7 +486,7 @@ const Withdraw = (props) => {
             <div className="editprofile">
               <div className="header_height">
                 <WebHeader
-                  title={"WITHDRAW"}
+                  title={'WITHDRAW'}
                   history={props.history}
                   arrow={true}
                 />
@@ -830,7 +830,11 @@ const Withdraw = (props) => {
                                 }
                                 dateFormat="dd-MM-yyyy"
                                 minDate={new Date('1900/01/01')}
-                                maxDate={new Date()}
+                                maxDate={
+                                  new Date(
+                                    moment(new Date()).subtract(18, 'years')
+                                  )
+                                }
                                 className={'form-control'}
                                 placeholderText="Date of birth"
                                 onChange={handleDate}

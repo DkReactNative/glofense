@@ -112,7 +112,6 @@ const EditProfile = (props) => {
     });
   };
 
-
   function responseToState(object) {
     let obj = {};
     obj.firstName = object.first_name;
@@ -337,7 +336,9 @@ const EditProfile = (props) => {
                           }
                           dateFormat="dd-MM-yyyy"
                           minDate={new Date('1900/01/01')}
-                          maxDate={new Date()}
+                          maxDate={
+                            new Date(moment(new Date()).subtract(18, 'years'))
+                          }
                           className={'form-control'}
                           placeholderText="Date of birth"
                           onChange={handleDate}
