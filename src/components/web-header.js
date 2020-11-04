@@ -8,7 +8,7 @@ export default function ({
   disableClick,
   share,
   id,
-  onShare
+  onShare,
 }) {
   return (
     <>
@@ -16,6 +16,7 @@ export default function ({
         <div className="web-header">
           <div className="barbox">
             <button
+              hidden="true"
               className="barsouter img-fluid opensidebar"
               id="opensidebar"
               onClick={() => {
@@ -37,7 +38,7 @@ export default function ({
           </div>
           <div className="notification-count">
             <Link to="/user/notification">
-              <i className="fas fa-bell" /> 
+              <i className="fas fa-bell" />
               {/* <span>5</span> */}
             </Link>
           </div>

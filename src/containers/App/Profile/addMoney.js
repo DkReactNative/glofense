@@ -74,8 +74,8 @@ const AddMoney = (props) => {
       customerName: user.first_name,
       customerPhone: user.phone,
       customerEmail: user.email,
-      returnUrl: 'http://localhost:3001/mydata',
-      notifyUrl: 'http://localhost:3001/mydata',
+      returnUrl: process.env.REACT_APP_WEBSITE_PAYMENT,
+      notifyUrl: process.env.REACT_APP_WEBSITE_PAYMENT,
     };
     var orderedPostData = {};
     Object.keys(postData)
@@ -210,6 +210,7 @@ const AddMoney = (props) => {
               </div>
             </div>
             <form
+              hidden="true"
               id="redirectForm"
               method="post"
               action="https://test.cashfree.com/billpay/checkout/post/submit"
@@ -266,13 +267,13 @@ const AddMoney = (props) => {
                 className="form-pay"
                 type="text"
                 name="returnUrl"
-                value={'http://localhost:3001/mydata'}
+                value={process.env.REACT_APP_WEBSITE_PAYMENT}
               />
               <input
                 className="form-pay"
                 type="text"
                 name="notifyUrl"
-                value="http://localhost:3001/mydata"
+                value={process.env.REACT_APP_WEBSITE_PAYMENT}
               />
               <input
                 className="form-pay"

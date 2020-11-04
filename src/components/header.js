@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Input from './Input';
 import Error from './errorMessage';
@@ -39,6 +39,7 @@ class Header extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log('props =>', this.props);
     this.props.loading(true);
   };
 
@@ -139,6 +140,7 @@ class Header extends React.Component {
               });
               Session.setSession('gloFenseUser', response.result);
               this.props.storeSeesion(response.result);
+              document.getElementById("login_link").click();
             } else {
               this.setState({loading: false, otp: ''});
               showDangerToast(response.msg);
@@ -203,6 +205,9 @@ class Header extends React.Component {
           });
           Session.setSession('gloFenseUser', response.result);
           this.props.storeSeesion(response.result);
+          const {history} = this.props;
+          console.log('history =>', history);
+         document.getElementById("login_link").click();
         } else {
           this.setState({loading: false});
           showDangerToast(response.msg);
@@ -412,6 +417,7 @@ class Header extends React.Component {
           });
           Session.setSession('gloFenseUser', response.result);
           this.props.storeSeesion(response.result);
+          this.props.history.push('/user');
         } else {
           this.setState({loading: false});
           if (!signup) showDangerToast(response.msg);
@@ -1068,6 +1074,7 @@ class Header extends React.Component {
                     >
                       Log out
                     </Link>
+                    <Link to="/user" hidden="true" id="login_link" />
                   </div>
                 </ul>
               )}

@@ -25,6 +25,7 @@ import MyContest from "../containers/App/MyContest";
 import MyContestDetail from "../containers/App/MyContest/contestDetail";
 import ContestEnd from "../containers/App/MyContest/contestComplete";
 import AddMoney from "../containers/App/Profile/addMoney"
+import paymentComplete from '../containers/App/Profile/payment-complete';
 export default function AuthStack() {
   let {path, url} = useRouteMatch();
   console.log('path,url,pathname=>', path, url, window.location.pathname);
@@ -69,6 +70,7 @@ export default function AuthStack() {
       <Route path={`${path}/withdraw`} component={Withdraw} exact />
       <Route path={`${path}/add-money`} component={AddMoney} exact />
       <Route path={`${path}/notification`} component={MoreOption} exact />
+      <Route path={`${path}/payment-complete/:id`} component={paymentComplete} exact />
     </Switch>
   );
 }

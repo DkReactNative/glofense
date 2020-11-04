@@ -33,6 +33,14 @@ const MoreOption = (props) => {
           </div>
           <ul className="moreopctionslist">
             <li>
+              <Link to="/user/my-account" className="closeMenu">
+                <i className="fas fa-wallet closeMenu" /> My balance
+                <span className="rightarrow">
+                  <i className="fas fa-chevron-right"></i>
+                </span>
+              </Link>
+            </li>
+            <li>
               <Link to="/user/referral-code">
                 <i className="fas fa-user-plus"></i> Referral Code{' '}
                 <span className="rightarrow">

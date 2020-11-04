@@ -16,7 +16,7 @@ const socket = io(process.env.REACT_APP_API_BASE_URL, {
   path: '',
 });
 
-console.log(socket,process.env);
+console.log(socket, process.env);
 class App extends Component {
   constructor(props) {
     super(props);
@@ -39,15 +39,15 @@ class App extends Component {
             {/* <Route path="/user" component={Application} /> */}
             <Route
               path="/user"
-              render={() =>
+              render={(routeProps) =>
                 this.props.user && this.props.user.id ? (
-                  <Application />
+                  <Application {...routeProps} />
                 ) : (
-                  <Redirect to="/" />
+                  <Redirect to="/" {...routeProps} />
                 )
               }
             />
-            <Route path="/" component={Auth} />
+            <Route path="/" component={(routeProps) => <Auth {...routeProps}/>} />
           </Switch>
         </BrowserRouter>
       </SocketContext.Provider>
