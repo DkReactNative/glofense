@@ -204,13 +204,16 @@
   width: 50px;
   height: 50px;
   overflow: hidden;
-  padding: 0px;
+  padding: 1px;
+  border-width: 1px;
+  border-color: #ff5f00;
 }
 
 .aw-user .profile-btn img {
   object-fit: contain;
-  height: 40px;
-  width: 40px;
+  height: 100%;
+  width: 100%;
+  border-radius: 50px;
 }
 .drop-link {
   font-size: 1.07rem;
