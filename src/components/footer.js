@@ -19,9 +19,9 @@ export default function Footer(props) {
                   <Link to={`/about`}>About us</Link>
                 </li>
                 <li>|</li>
-                <li>
+                {/* <li>
                   <Link to="#">Services</Link>
-                </li>
+                </li> */}
                 <li>|</li>
                 <li>
                   <Link to={`/how-it-works`}>How it Works</Link>
@@ -56,7 +56,7 @@ export default function Footer(props) {
               <div className="footersocila text-center text-lg-right">
                 <div className="social_icon">
                   <ul className="social_list">
-                    <li className="active">
+                    <li>
                       <a
                         href="https://www.facebook.com/octalsoftware"
                         target="_blank"

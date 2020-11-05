@@ -996,7 +996,7 @@ class Header extends React.Component {
                     About Us
                   </Link>
                 </li>
-                <li
+                {/* <li
                   className={
                     this.props.activeClass === '/services'
                       ? 'active nav-item'
@@ -1006,7 +1006,7 @@ class Header extends React.Component {
                   <Link to="#" title="Services">
                     Services
                   </Link>
-                </li>
+                </li> */}
                 <li
                   className={
                     this.props.activeClass === '/how-it-works'
@@ -1086,7 +1086,7 @@ class Header extends React.Component {
                       My Profile
                     </Link>
                     <Link className="dropdown-item drop-link" to="/user">
-                      Home
+                      Play Quiz
                     </Link>
                     <Link
                       className="dropdown-item drop-link"
