@@ -147,7 +147,7 @@ const Home = (props) => {
                           key={i}
                           className={i === 0 ? 'item active' : 'item'}
                         >
-                          <Link to="#">
+                          <Link to="#" className="banner_list">
                             <div className="carousel_img_outer">
                               <img
                                 src={ele.image}

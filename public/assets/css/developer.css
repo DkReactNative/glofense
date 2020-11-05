@@ -436,3 +436,9 @@ span.sendcontent h4 {
   cursor: pointer;
   color: #999;
 }
+.banner_list {
+  width: 100%;
+}
+.banner_list:last-child {
+  margin-bottom: 100px;
+}
